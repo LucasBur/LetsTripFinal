@@ -1,0 +1,46 @@
+.homepage {
+    background-image:linear-gradient(rgba(63, 62, 62, 0.5), rgba(63, 62, 62, 0.5)),  
+        url('../design/wallpaper/friendship.jpg');
+    background-size: cover;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.homepage header h1 {
+    color: white;
+    font-weight: 100;
+    margin-top: 60px;
+    margin-left: 200px;
+}
+
+.homepage article h3 {
+    color: white;
+    margin-left: 200px;
+    margin-top: 20px;
+}
+
+.homepage article p {
+    color: white;
+    font-size: 10px;
+    margin-left: 200px;
+}
+
+.homepage .homepage-forms {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: rgb(255, 255, 255);
+    width: 1000px;
+    height: 400px;
+    border-radius: 15px;
+    margin-left: 200px;
+    margin-top: 40px;
+}
+
+.homepage .homepage-forms Form {
+    margin-top: 50px;
+}
+
+.homepage .homepage-forms Form a{
+    font-size: 0.7rem;
+    margin-left: 80px;
+}
