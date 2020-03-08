@@ -44,3 +44,22 @@
     font-size: 0.7rem;
     margin-left: 80px;
 }
+
+@media screen and (max-width: 378px) {
+    .homepage header h1 {
+        color: white;
+        font-weight: 100;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+    .homepage article h3 {
+        color: white;
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+    .homepage article p {
+        color: white;
+        font-size: 10px;
+        margin-left: 20px;
+    }
+}

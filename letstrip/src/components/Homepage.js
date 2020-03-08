@@ -40,7 +40,7 @@ class Homepage extends React.Component {
                                 Valider
                             </Button>
                         </Form>
-
+                        
                         <Form>
                             <h3>Connectez-vous</h3>
                             <Form.Group controlId="formBasicEmail"> 
