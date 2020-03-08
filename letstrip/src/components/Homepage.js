@@ -25,12 +25,12 @@ class Homepage extends React.Component {
                         <Form>
                             <h3>Rejoindre une Roadmap</h3>
                             <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Nom de la Roadmap</Form.Label>
+                                <Form.Label className='formLabel'>Nom de la Roadmap</Form.Label>
                                 <Form.Control 
                                     style={{backgroundColor: '#ECECEC'}}
                                     type="nameRoadmap"/>
 
-                                <Form.Label>Mot de passe de la Roadmap</Form.Label>
+                                <Form.Label className='formLabel'>Mot de passe de la Roadmap</Form.Label>
                                 <Form.Control
                                     style={{backgroundColor: '#ECECEC'}}
                                     type="passwordRoadmap"/>
@@ -40,16 +40,16 @@ class Homepage extends React.Component {
                                 Valider
                             </Button>
                         </Form>
-                        
+
                         <Form>
                             <h3>Connectez-vous</h3>
                             <Form.Group controlId="formBasicEmail"> 
-                                <Form.Label>E-mail</Form.Label>
+                                <Form.Label className='formLabel'>E-mail</Form.Label>
                                 <Form.Control 
                                     style={{backgroundColor: '#ECECEC'}}
                                     type="nameRoadmap" />
 
-                                <Form.Label>Mot de passe</Form.Label>
+                                <Form.Label className='formLabel'>Mot de passe</Form.Label>
                                 <Form.Control 
                                     style={{backgroundColor: '#ECECEC'}}
                                     type="password"/>
@@ -62,7 +62,6 @@ class Homepage extends React.Component {
                         </Form>
                     </div>
                 </div>
-
             </div>
         )
     }
