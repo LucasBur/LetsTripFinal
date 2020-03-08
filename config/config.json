@@ -1,0 +1,38 @@
+{
+  "development": {
+    "username": "root",
+    "password": "root",
+    "database": "lets_trip",
+    "host": "localhost",
+    "port": "8889",
+    "dialect": "mysql",
+    "operatorsAliases": false,
+    "define": {
+      "timestamps": false
+    } 
+  },
+  "test": {
+    "username": "root",
+    "password": "root",
+    "database": "lets_trip",
+    "host": "localhost",
+    "port": "8889",
+    "dialect": "mysql",
+    "operatorsAliases": false,
+    "define": {
+      "timestamps": false
+    } 
+  },
+  "production": {
+    "username": "root",
+    "password": "root",
+    "database": "lets_trip",
+    "host": "localhost",
+    "port": "8889",
+    "dialect": "mysql",
+    "operatorsAliases": false,
+    "define": {
+      "timestamps": false
+    } 
+  }
+}
