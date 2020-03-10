@@ -28,7 +28,7 @@
 .homepage .homepage-forms {
     display: flex;
     justify-content: space-evenly;
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.5);
     width: 70%;
     height: 350px;
     border-radius: 15px;

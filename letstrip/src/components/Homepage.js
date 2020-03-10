@@ -3,7 +3,37 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
 import '../styles/Homepage_style.css'
 
+const HPForm = props => {
+    return (
+        <Form>
+            <h3>{props.titleH3}</h3>
+            <Form.Group>
+                <Form.Label className='formLabel'>{props.formLabelName}</Form.Label>
+                <Form.Control
+                    style={{ backgroundColor: '#ECECEC' }}
+                    type={props.typeForm} />
+
+                <Form.Label className='formLabel'>{props.formLabelPw}</Form.Label>
+                <Form.Control
+                    style={{ backgroundColor: '#ECECEC' }}
+                    type="passwordRoadmap" />
+            </Form.Group>
+
+            <Button variant="primary" type="submit">
+                Valider
+            </Button>
+            {props.ifRegistering ? <a href='/'>créez un compte</a> : <div></div>}
+        </Form>
+    )
+}
+
 class Homepage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            registering: Boolean
+        }
+    }
     render() {
         return (
             <div className='homepage'>
@@ -16,50 +46,29 @@ class Homepage extends React.Component {
                         <h3>Le Lorem Ipsum est simplement du faux texte <br />
                             employé dans la composition et la mise en page <br /> avant impression.</h3>
 
-                            <p>Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, 
-                                quand un imprimeur anonyme assembla <br/> ensemble des morceaux de texte pour réaliser 
+                        <p>Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500,
+                                quand un imprimeur anonyme assembla <br /> ensemble des morceaux de texte pour réaliser
                                 un livre spécimen de polices de texte.</p>
                     </article>
 
                     <div className="homepage-forms">
-                        <Form>
-                            <h3>Rejoindre une Roadmap</h3>
-                            <Form.Group controlId="formBasicEmail">
-                                <Form.Label className='formLabel'>Nom de la Roadmap</Form.Label>
-                                <Form.Control 
-                                    style={{backgroundColor: '#ECECEC'}}
-                                    type="nameRoadmap"/>
+                        <HPForm
+                            titleH3='Rejoindre une Roadmap'
+                            formLabelName="Nom de la Roadmap"
+                            formLabelPw='Mot de passe de la Roadmap'
+                            typeForm='nameRoadmap'
+                            typePassword='passwordRoadmap'
+                            ifRegistering={this.state.registering(false)}
+                        />
 
-                                <Form.Label className='formLabel'>Mot de passe de la Roadmap</Form.Label>
-                                <Form.Control
-                                    style={{backgroundColor: '#ECECEC'}}
-                                    type="passwordRoadmap"/>
-                            </Form.Group>
-
-                            <Button variant="primary" type="submit">
-                                Valider
-                            </Button>
-                        </Form>
-
-                        <Form>
-                            <h3>Connectez-vous</h3>
-                            <Form.Group controlId="formBasicEmail"> 
-                                <Form.Label className='formLabel'>E-mail</Form.Label>
-                                <Form.Control 
-                                    style={{backgroundColor: '#ECECEC'}}
-                                    type="nameRoadmap" />
-
-                                <Form.Label className='formLabel'>Mot de passe</Form.Label>
-                                <Form.Control 
-                                    style={{backgroundColor: '#ECECEC'}}
-                                    type="password"/>
-                            </Form.Group>
-
-                            <Button variant="primary" type="submit">
-                                Valider
-                            </Button>
-                            <a href='/'>créez un compte</a>
-                        </Form>
+                        <HPForm
+                            titleH3='Connectez-vous'
+                            formLabelName="E-mail"
+                            formLabelPw='Mot de passe'
+                            typeForm='email'
+                            typePassword='password'
+                            ifRegistering={this.state.registering(true)}
+                        />
                     </div>
                 </div>
             </div>
