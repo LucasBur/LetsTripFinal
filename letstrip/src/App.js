@@ -9,9 +9,9 @@ class App extends React.Component {
     return (
       <div className="App">
         <Router>
-          <Route path="/" exact component={Homepage} />
-          <Route path="/register" exact component={Register} />
+          <Homepage />
         </Router>
+        
       </div>
     );
   }

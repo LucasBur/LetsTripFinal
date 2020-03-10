@@ -1,6 +1,13 @@
 import React from 'react';
+import Register from './Inscription/Register';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    NavLink
+} from "react-router-dom";
 import '../styles/Homepage_style.css'
 
 const HPForm = props => {
@@ -22,7 +29,7 @@ const HPForm = props => {
             <Button variant="primary" type="submit">
                 Valider
             </Button>
-            {props.ifRegistering ? <a href='/'>créez un compte</a> : <div></div>}
+            {props.ifRegistering ? <NavLink to='/register'>créez un compte</NavLink> : <div></div>}
         </Form>
     )
 }
@@ -52,23 +59,31 @@ class Homepage extends React.Component {
                     </article>
 
                     <div className="homepage-forms">
-                        <HPForm
-                            titleH3='Rejoindre une Roadmap'
-                            formLabelName="Nom de la Roadmap"
-                            formLabelPw='Mot de passe de la Roadmap'
-                            typeForm='nameRoadmap'
-                            typePassword='passwordRoadmap'
-                            ifRegistering={this.state.registering(false)}
-                        />
+                        
+                            <Route exact path='/'>
+                                <HPForm
+                                    titleH3='Rejoindre une Roadmap'
+                                    formLabelName="Nom de la Roadmap"
+                                    formLabelPw='Mot de passe de la Roadmap'
+                                    typeForm='nameRoadmap'
+                                    typePassword='passwordRoadmap'
+                                    ifRegistering={this.state.registering(false)}
+                                />
 
-                        <HPForm
-                            titleH3='Connectez-vous'
-                            formLabelName="E-mail"
-                            formLabelPw='Mot de passe'
-                            typeForm='email'
-                            typePassword='password'
-                            ifRegistering={this.state.registering(true)}
-                        />
+                                <HPForm
+                                    titleH3='Connectez-vous'
+                                    formLabelName="E-mail"
+                                    formLabelPw='Mot de passe'
+                                    typeForm='email'
+                                    typePassword='password'
+                                    ifRegistering={this.state.registering(true)}
+                                />
+                            </Route>
+
+                            <Route path="/register" component={Register}>
+
+                            </Route>
+
                     </div>
                 </div>
             </div>
