@@ -1,10 +1,10 @@
 import React from 'react';
 import Register from './Inscription/Register';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import connect from '../design/icons/lock-solid.svg';
+import map from '../design/icons/map-marked-alt-solid.svg';
 import {
-    BrowserRouter as Router,
-    Switch,
     Route,
     NavLink
 } from "react-router-dom";
@@ -13,7 +13,7 @@ import '../styles/Homepage_style.css'
 const HPForm = props => {
     return (
         <Form>
-            <h3>{props.titleH3}</h3>
+            <h3>{props.titleH3} <img src={props.logo} width="30" height='30'></img> </h3>
             <Form.Group>
                 <Form.Label className='formLabel'>{props.formLabelName}</Form.Label>
                 <Form.Control
@@ -29,7 +29,7 @@ const HPForm = props => {
             <Button variant="primary" type="submit">
                 Valider
             </Button>
-            {props.ifRegistering ? <NavLink to='/register'>créez un compte</NavLink> : <div></div>}
+            {props.ifRegistering ? <NavLink to='/register'>créez un compte</NavLink> : null}
         </Form>
     )
 }
@@ -47,21 +47,22 @@ class Homepage extends React.Component {
                 <div>
                     <header>
                         <h1>Let's Trip</h1>
-                    </header>
-
                     <article>
-                        <h3>Le Lorem Ipsum est simplement du faux texte <br />
-                            employé dans la composition et la mise en page <br /> avant impression.</h3>
+                        <h3>Organiser votre voyage facilement <br />
+                            en groupe ou seul tout <br /> no stress ma gueule</h3>
 
                         <p>Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500,
                                 quand un imprimeur anonyme assembla <br /> ensemble des morceaux de texte pour réaliser
                                 un livre spécimen de polices de texte.</p>
                     </article>
+                    </header>
+
 
                     <div className="homepage-forms">
                         
                             <Route exact path='/'>
                                 <HPForm
+                                    logo={map}
                                     titleH3='Rejoindre une Roadmap'
                                     formLabelName="Nom de la Roadmap"
                                     formLabelPw='Mot de passe de la Roadmap'
@@ -71,6 +72,7 @@ class Homepage extends React.Component {
                                 />
 
                                 <HPForm
+                                    logo={connect}
                                     titleH3='Connectez-vous'
                                     formLabelName="E-mail"
                                     formLabelPw='Mot de passe'
@@ -80,9 +82,7 @@ class Homepage extends React.Component {
                                 />
                             </Route>
 
-                            <Route path="/register" component={Register}>
-
-                            </Route>
+                            <Route path="/register" component={Register} />
 
                     </div>
                 </div>
