@@ -2,7 +2,7 @@
 var bcrypt = require('bcryptjs');
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('users', {
+  const User = sequelize.define('users', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -44,14 +44,15 @@ module.exports = function(sequelize, DataTypes) {
         const salt = bcrypt.genSaltSync();
         user.password = bcrypt.hashSync(user.password, salt);
       }
-    },
-    instanceMethods: {
-      validPassword: (password) => {
-        return bcrypt.compareSync(password, this.password);
-      }
-    } 
+    }
   }, 
   {
     tableName: 'users'
   });
+
+  User.prototype.validPassword = function(password){
+    return bcrypt.compareSync(password, this.password);
+  };
+
+  return User;
 };

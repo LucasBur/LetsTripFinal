@@ -40,6 +40,7 @@ router.post('/NewUser', (req, res) => {
 });
 
 router.post('/Login', (req, res) => {
+    //console.log(db);
     db.users.findOne({ where: { email: req.body.email }}).then(user => {
         console.log(user);
         if (!user) {
@@ -48,8 +49,9 @@ router.post('/Login', (req, res) => {
         } else if (!user.validPassword(req.body.password)) {
             res.send(false);
         } else {
-            req.session.user = user.dataValues;
-            res.send(true);
+            //req.session.user = user.dataValues;
+            //res.send(true);
+            console.log('BOn log');
         }
     });
 });
