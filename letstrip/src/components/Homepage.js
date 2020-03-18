@@ -47,44 +47,44 @@ class Homepage extends React.Component {
                 <div>
                     <header>
                         <h1>Let's Trip</h1>
-                    <article>
-                        <h3>Organiser votre voyage facilement <br />
-                            en groupe ou seul tout <br /> no stress ma gueule</h3>
+                        <article>
+                            <h3>Organiser votre voyage facilement <br />
+                                en groupe ou seul tout <br /> no stress ma gueule</h3>
 
-                        <p>Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500,
+                            <p>Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500,
                                 quand un imprimeur anonyme assembla <br /> ensemble des morceaux de texte pour réaliser
                                 un livre spécimen de polices de texte.</p>
-                    </article>
+                        </article>
                     </header>
 
 
-                    <div className="homepage-forms">
-                        
-                            <Route exact path='/'>
-                                <HPForm
-                                    logo={map}
-                                    titleH3='Rejoindre une Roadmap'
-                                    formLabelName="Nom de la Roadmap"
-                                    formLabelPw='Mot de passe de la Roadmap'
-                                    typeForm='nameRoadmap'
-                                    typePassword='passwordRoadmap'
-                                    ifRegistering={this.state.registering(false)}
-                                />
+                    <Route exact path='/'>
+                        <div className="homepage-login-forms">
 
-                                <HPForm
-                                    logo={connect}
-                                    titleH3='Connectez-vous'
-                                    formLabelName="E-mail"
-                                    formLabelPw='Mot de passe'
-                                    typeForm='email'
-                                    typePassword='password'
-                                    ifRegistering={this.state.registering(true)}
-                                />
-                            </Route>
+                            <HPForm
+                                logo={map}
+                                titleH3='Rejoindre une Roadmap'
+                                formLabelName="Nom de la Roadmap"
+                                formLabelPw='Mot de passe de la Roadmap'
+                                typeForm='nameRoadmap'
+                                typePassword='passwordRoadmap'
+                                ifRegistering={this.state.registering(false)}
+                            />
 
-                            <Route path="/register" component={Register} />
+                            <HPForm
+                                logo={connect}
+                                titleH3='Connectez-vous'
+                                formLabelName="E-mail"
+                                formLabelPw='Mot de passe'
+                                typeForm='email'
+                                typePassword='password'
+                                ifRegistering={this.state.registering(true)}
+                            />
 
-                    </div>
+
+                        </div>
+                    </Route>
+                    <Route path="/register" component={Register} />
                 </div>
             </div>
         )
