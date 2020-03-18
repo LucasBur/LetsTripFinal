@@ -16,23 +16,45 @@ const db = require('./../models/index');
 router.get('/', function(req, res, next) {
     db.roadmaps.findAll().then((roadMaps) => {
         console.log(JSON.stringify(roadMaps));
-
     });
 });
 
 /* INSERTION DANS LA DB */
 
 //Ajout d'un nouvel utilisateur
-router.get('/newuser/:last_name/:first_name/:email/:password', (req, res) => {
-    // let usersMdl = new UsersMdl(connection);
-    // usersMdl.newUser(req.params.last_name, req.params.first_name, req.params.email, req.params.password)
-    //     .then(result => {
-    //         res.send(JSON.stringify(result));
-    //     }).catch((error) => {
-    //         res.send({ code: 'error', error })
-    //     });
+router.post('/NewUser', (req, res) => {
+    db.users.create({ 
+        email: req.body.email,
+        pseudo: req.body.pseudo,
+        password: req.body.password,
+        lastname: req.body.lastname,
+        firstname: req.body.firstname,
+        creation_date: new Date().toISOString().slice(0, 19).replace('T', ' '),
+        is_active: true
+    }).then(userCreated => {
+        console.log(userCreated);
+        res.send(true);
+    }).catch(error => {
+        res.send(false);
+    });    
 });
 
+router.post('/Login', (req, res) => {
+    //console.log(db);
+    db.users.findOne({ where: { email: req.body.email }}).then(user => {
+        console.log(user);
+        if (!user) {
+            //res.redirect('/login');
+            res.send(false);
+        } else if (!user.validPassword(req.body.password)) {
+            res.send(false);
+        } else {
+            //req.session.user = user.dataValues;
+            //res.send(true);
+            console.log('BOn log');
+        }
+    });
+});
 // RoadMapsList
 // Récuparation de toute les RoadMap
 // router.get('/GetAllRoadMaps', function(req, res){
