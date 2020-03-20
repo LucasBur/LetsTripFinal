@@ -1,46 +1,38 @@
 import React from 'react';
-import Register from './Inscription/Register';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import connect from '../design/icons/lock-solid.svg';
-import map from '../design/icons/map-marked-alt-solid.svg';
-import {
-    Route,
-    NavLink
-} from "react-router-dom";
+import Register from './Forms/Inscription/Register';
+import Login from './Forms/Login/Login';
+import RoadmapLogin from './Forms/RoadmapLogin/RoadmapLogin'
 import '../styles/Homepage_style.css'
-
-const HPForm = props => {
-    return (
-        <Form>
-            <h3>{props.titleH3} <img src={props.logo} width="30" height='30'></img> </h3>
-            <Form.Group>
-                <Form.Label className='formLabel'>{props.formLabelName}</Form.Label>
-                <Form.Control
-                    style={{ backgroundColor: '#ECECEC' }}
-                    type={props.typeForm} />
-
-                <Form.Label className='formLabel'>{props.formLabelPw}</Form.Label>
-                <Form.Control
-                    style={{ backgroundColor: '#ECECEC' }}
-                    type="passwordRoadmap" />
-            </Form.Group>
-
-            <Button variant="primary" type="submit">
-                Valider
-            </Button>
-            {props.ifRegistering ? <NavLink to='/register'>créez un compte</NavLink> : null}
-        </Form>
-    )
-}
 
 class Homepage extends React.Component {
     constructor(props) {
         super(props);
+        this.registerForm = this.registerForm.bind(this)
         this.state = {
-            registering: Boolean
+            showRegister: false,
         }
     }
+
+    registerForm() {
+        this.setState({
+            showRegister: !this.state.showRegister
+        })
+    }
+
+    showFormRegister() {
+        if (this.state.showRegister === false) {
+            return (
+                <div className="homepage-login-forms">
+                    <RoadmapLogin />
+                    <Login registerForm={this.registerForm}/>
+                </div>
+            )
+        }
+        else {
+            return <Register registerFormProps={this.registerForm} />
+        }
+    }
+
     render() {
         return (
             <div className='homepage'>
@@ -57,34 +49,8 @@ class Homepage extends React.Component {
                         </article>
                     </header>
 
+                    {this.showFormRegister()}
 
-                    <Route exact path='/'>
-                        <div className="homepage-login-forms">
-
-                            <HPForm
-                                logo={map}
-                                titleH3='Rejoindre une Roadmap'
-                                formLabelName="Nom de la Roadmap"
-                                formLabelPw='Mot de passe de la Roadmap'
-                                typeForm='nameRoadmap'
-                                typePassword='passwordRoadmap'
-                                ifRegistering={this.state.registering(false)}
-                            />
-
-                            <HPForm
-                                logo={connect}
-                                titleH3='Connectez-vous'
-                                formLabelName="E-mail"
-                                formLabelPw='Mot de passe'
-                                typeForm='email'
-                                typePassword='password'
-                                ifRegistering={this.state.registering(true)}
-                            />
-
-
-                        </div>
-                    </Route>
-                    <Route path="/register" component={Register} />
                 </div>
             </div>
         )

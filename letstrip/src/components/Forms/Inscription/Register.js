@@ -1,27 +1,29 @@
 import React from 'react';
-import Form from 'react-bootstrap/Form';
+import auth from '../../../auth';
 import Button from 'react-bootstrap/Button'
 import * as Yup from "yup";
 import { Formik } from "formik";
-import {
-    NavLink
-} from "react-router-dom";
-import '../../styles/Register_styles.css'
+import axios from 'axios';
+import '../../../styles/Register_styles.css'
 
 class Register extends React.Component {
-    constructor(props) {
-        super(props);
+
+    signupSubmit = async (values) => {
+        try {
+            await auth.signup(values)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
         return (
             <Formik
                 initialValues={{ pseudo: "", firstname: "", lastname: "", email: "", password: "" }}
-                onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
-                        console.log("Logging in", values);
-                        setSubmitting(false);
-                    }, 500);
+                onSubmit={(values, { setSubmitting, resetForm }) => {
+                    this.signupSubmit(values)
+                    resetForm();
+                    setSubmitting(false);
                 }}
                 validationSchema={Yup.object().shape({
                     pseudo: Yup.string().required("Pseudo requis.")
@@ -40,7 +42,10 @@ class Register extends React.Component {
                 })}>
 
                 {props => {
-                    const { values, touched, errors, isSubmitting, handleChange, handleBlur, handleSubmit } = props;
+                    const { values, touched,
+                        errors, isSubmitting,
+                        handleChange, handleBlur,
+                        handleSubmit } = props;
                     return (
                         <div className="homepage-register-form">
                             <h3 style={{ textAlign: 'center' }}>Rejoignez-nous</h3>
@@ -116,10 +121,12 @@ class Register extends React.Component {
                                 </div>
 
                                 <div className='register-form-button'>
+                                    <Button onClick={this.props.registerFormProps}
+                                        variant="secondary"
+                                        size="sm">Vous êtes déjà membre ?</Button>
                                     <Button type="submit" disabled={isSubmitting}>
                                         Login
-                                </Button>
-                                    <NavLink to='/'>Vous êtes déjà membre ?</NavLink>
+                                    </Button>
                                 </div>
                             </form>
                         </div>

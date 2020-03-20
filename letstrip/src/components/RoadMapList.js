@@ -1,5 +1,7 @@
 import React from 'react';
+import auth from '../auth';
 import Button from 'react-bootstrap/Button'
+import Navbar from 'react-bootstrap/Navbar'
 
 class RoadMapList extends React.Component {
     constructor(props) {
@@ -17,6 +19,10 @@ class RoadMapList extends React.Component {
     render() {
         return (         
             <div>
+                <Navbar>
+                    <Button>logout</Button>
+                </Navbar>
+                <h1>hello  </h1>
                 <Button variant="primary" onClick={this.createRoadMap}>
                     Créer une Road Map
                 </Button>                

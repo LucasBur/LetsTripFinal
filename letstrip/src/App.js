@@ -1,17 +1,21 @@
 import React from 'react';
 import Homepage from './components/Homepage';
-import Register from './components/Inscription/Register';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import RoadMapList from './components/RoadMapList';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './App.css';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 class App extends React.Component {
   render() {
     return (
       <div className="App">
         <Router>
-          <Homepage />
+          <Switch>
+            <Route exact path='/' component={Homepage} />
+            <ProtectedRoute exact path='/roadmap' component={RoadMapList} />
+          </Switch>
         </Router>
-        
+
       </div>
     );
   }

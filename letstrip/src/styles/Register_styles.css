@@ -20,6 +20,7 @@
 .register-form-button {
   display: flex;
   justify-content: space-between;
+  margin-top: 15px;
 }
 
 label,
@@ -64,6 +65,7 @@ input.error {
   .register-form {
     margin: 0 auto;
     width: 90%;
+    background-color: gray;
   }
 
   .register-form-global-div {

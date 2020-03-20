@@ -40,21 +40,25 @@ router.post('/NewUser', (req, res) => {
 });
 
 router.post('/Login', (req, res) => {
-    //console.log(db);
     db.users.findOne({ where: { email: req.body.email }}).then(user => {
         console.log(user);
         if (!user) {
             //res.redirect('/login');
-            res.send(false);
+            // res.send(false);
+            return res.status(401);
         } else if (!user.validPassword(req.body.password)) {
-            res.send(false);
+            // res.send(false);
+            return res.status(401);
         } else {
             //req.session.user = user.dataValues;
-            //res.send(true);
-            console.log('BOn log');
+            res.send(true);
+            console.log('Authentification réussie');
         }
     });
 });
+
+
+
 // RoadMapsList
 // Récuparation de toute les RoadMap
 // router.get('/GetAllRoadMaps', function(req, res){
