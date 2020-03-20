@@ -20,7 +20,7 @@ class RoadMapList extends React.Component {
         return (         
             <div>
                 <Navbar>
-                    <Button>logout</Button>
+                    <Button onClick={auth.logout}>logout</Button>
                 </Navbar>
                 <h1>hello  </h1>
                 <Button variant="primary" onClick={this.createRoadMap}>
