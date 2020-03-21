@@ -37,22 +37,24 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(100),
       allowNull: false
     }
-  },
+  }, 
   {
     hooks: {
       beforeCreate: (user) => {
         const salt = bcrypt.genSaltSync();
         user.password = bcrypt.hashSync(user.password, salt);
-      }
+      },
     }
   }, 
   {
     tableName: 'users'
   });
+  
 
-  User.prototype.validPassword = function(password){
-    return bcrypt.compareSync(password, this.password);
-  };
-
+  User.prototype.validPassword = 
+    function(password){
+      return bcrypt.compareSync(password, this.password);
+    }
+    
   return User;
 };

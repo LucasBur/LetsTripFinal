@@ -12,8 +12,14 @@ class Login extends React.Component {
         this.loginSubmit = this.loginSubmit.bind(this);
     }
 
-    loginSubmit = (values) => {
-        auth.login(values).then(res => console.log(res))
+    loginSubmit = async (values) => {
+        // try {
+        //     const {data} = await auth.login(values);
+        //     // console.log(data)
+        // } catch (error) {
+        //     console.log(error)
+        // }
+        await auth.login(values)
     }
 
     render() {

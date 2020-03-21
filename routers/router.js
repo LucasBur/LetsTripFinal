@@ -1,19 +1,21 @@
 /** Initialisation du routeur */
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken')
+const config = require('../config/config.js');
 
 // Lib Moment et body-parser
 const moment = require('moment');
 var bodyParser = require('body-parser');
 router.use(bodyParser.json());       // to support JSON-encoded bodies
 router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
+    extended: true
 }));
 
 const db = require('./../models/index');
 
 /** Lorsque qu'on utilise le chemin "host + / ", une instance du controller "HomePage" est créé */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
     db.roadmaps.findAll().then((roadMaps) => {
         console.log(JSON.stringify(roadMaps));
     });
@@ -23,7 +25,7 @@ router.get('/', function(req, res, next) {
 
 //Ajout d'un nouvel utilisateur
 router.post('/NewUser', (req, res) => {
-    db.users.create({ 
+    db.users.create({
         email: req.body.email,
         pseudo: req.body.pseudo,
         password: req.body.password,
@@ -36,23 +38,30 @@ router.post('/NewUser', (req, res) => {
         res.send(true);
     }).catch(error => {
         res.send(false);
-    });    
+        console.log(error)
+    });
 });
 
-router.post('/Login', (req, res) => {
-    db.users.findOne({ where: { email: req.body.email }}).then(user => {
-        console.log(user);
+router.post('/Login', async (req, res) => {
+    db.users.findOne({ where: { email: req.body.email } }).then(user => {
+        console.log(
+            'email :', user.email, 'prenom :', user.firstname, 'lastname :', user.lastname
+        );
         if (!user) {
-            //res.redirect('/login');
-            // res.send(false);
-            return res.status(401);
+            res.send(false);
+            console.log('Mauvais email')
+            return res.status(401).json({
+                text: "L'utilisateur n'existe pas"
+            });
         } else if (!user.validPassword(req.body.password)) {
-            // res.send(false);
-            return res.status(401);
+            res.send(false);
+            console.log('Mauvais mdp')
+            return res.status(401).json({
+                text: "Mot de passe incorrect"
+            });
         } else {
-            //req.session.user = user.dataValues;
-            res.send(true);
-            console.log('Authentification réussie');
+            let token = jwt.sign(user.dataValues, config.secret, { expiresIn: 1440 });
+            res.send(token)
         }
     });
 });

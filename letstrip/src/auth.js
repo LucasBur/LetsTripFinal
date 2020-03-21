@@ -7,15 +7,23 @@ const url = "http://localhost:4000";
 
 export default {
     signup: async (values) => {
-        const userData = await axios.post(`${url}/NewUser`, values, { headers: headers });
-        console.log('user created : ', userData)
+        try {
+            const userData = await axios.post(`${url}/NewUser`, values, { headers: headers });
+            console.log('user created : ', userData)
+        } catch (error) {
+            console.log(error)
+        }
     },
 
     login: async (values) => {
-        const userData = await axios.post(`${url}/Login`, values, { headers: headers });
-        localStorage.setItem("token", userData.data);
-        window.location='/roadmap'
-        console.log('log : ', userData)
+        try {
+            const userData = await axios.post(`${url}/Login`, values, { headers: headers });
+            localStorage.setItem("token", userData.data);
+            window.location = '/roadmap'
+            console.log( 'log :' , userData)
+        } catch(error) {
+            console.log(error)
+        }
     },
 
     isAuth: () => {
@@ -24,6 +32,6 @@ export default {
 
     logout: () => {
         localStorage.clear();
-        window.location='/'
+        window.location = '/'
     }
 }
