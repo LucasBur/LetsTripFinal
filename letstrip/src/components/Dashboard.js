@@ -2,7 +2,7 @@ import React from 'react';
 import jwt_decode from 'jwt-decode'
 import auth from '../auth';
 import Button from 'react-bootstrap/Button'
-import Navbar from 'react-bootstrap/Navbar'
+import Sidebar from './Sidebar';
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -31,10 +31,7 @@ class Dashboard extends React.Component {
     render() {
         return (
             <div>
-                <Navbar>
-                    <Button onClick={auth.logout}>logout</Button>
-                </Navbar>
-                <h1>hello  {this.state.first_name} '{this.state.pseudo}' {this.state.last_name} </h1>
+                <Sidebar pseudo={this.state.pseudo} />
             </div>
         );
     };
