@@ -3,6 +3,7 @@ import jwt_decode from 'jwt-decode'
 import auth from '../auth';
 import Button from 'react-bootstrap/Button'
 import Sidebar from './Sidebar';
+import RoadMapCard from './RoadMapCard';
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -31,7 +32,8 @@ class Dashboard extends React.Component {
     render() {
         return (
             <div>
-                <Sidebar pseudo={this.state.pseudo} />
+                {/* <Sidebar pseudo={this.state.pseudo} /> */}
+                <RoadMapCard />
             </div>
         );
     };
