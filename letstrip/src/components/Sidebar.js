@@ -6,7 +6,7 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import '../styles/Sidebar_styles.css'
 
-class NavBar extends React.Component {
+class SideBar extends React.Component {
     render() {
         return (
             <div className="sidebar">
@@ -16,4 +16,4 @@ class NavBar extends React.Component {
     }
 }
 
-export default NavBar;
+export default SideBar;
