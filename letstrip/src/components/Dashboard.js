@@ -14,20 +14,19 @@ class Dashboard extends React.Component {
             pseudo: '',
             errors: {}
         };
-    }
+    };
 
     componentDidMount() {
-        const token = localStorage.token
-        const decoded = jwt_decode(token)
+        const token = localStorage.token;
+        const decoded = jwt_decode(token);
         this.setState({
             first_name: decoded.firstname,
             last_name: decoded.lastname,
             pseudo: decoded.pseudo,
             email: decoded.email
-        })
-        console.log(decoded)
+        });
+        console.log(decoded);
     }
-
 
     render() {
         return (
@@ -35,10 +34,10 @@ class Dashboard extends React.Component {
                 <Navbar>
                     <Button onClick={auth.logout}>logout</Button>
                 </Navbar>
-                <h1>hello  {this.state.first_name} "{this.state.pseudo}" {this.state.last_name} </h1>
+                <h1>hello  {this.state.first_name} '{this.state.pseudo}' {this.state.last_name} </h1>
             </div>
         );
-    }
-}
+    };
+};
 
 export default Dashboard;

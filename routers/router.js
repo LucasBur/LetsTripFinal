@@ -34,8 +34,8 @@ router.post('/NewUser', (req, res) => {
         creation_date: new Date().toISOString().slice(0, 19).replace('T', ' '),
         is_active: true
     }).then(userCreated => {
-        console.log(userCreated);
-        res.send(true);
+        let token = jwt.sign(userCreated.dataValues, config.secret, { expiresIn: 1440 });
+        res.send(token)
     }).catch(error => {
         res.send(false);
         console.log(error)

@@ -9,6 +9,8 @@ export default {
     signup: async (values) => {
         try {
             const userData = await axios.post(`${url}/NewUser`, values, { headers: headers });
+            localStorage.setItem("token", userData.data);
+            window.location = '/dashboard'
             console.log('user created : ', userData)
         } catch (error) {
             console.log(error)
@@ -19,7 +21,7 @@ export default {
         try {
             const userData = await axios.post(`${url}/Login`, values, { headers: headers });
             localStorage.setItem("token", userData.data);
-            window.location = '/roadmap'
+            window.location = '/dashboard'
             console.log( 'log :' , userData)
         } catch(error) {
             console.log(error)
