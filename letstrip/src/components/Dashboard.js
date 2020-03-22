@@ -31,8 +31,6 @@ class Dashboard extends React.Component {
 
     render() {
         return (
-            <div>
-
                 <div className='dashboard'>
                     <Sidebar pseudo={this.state.pseudo} />
                     <ul style={{ marginTop: '50px', marginLeft:'50px', width:'100%' }}>
@@ -42,8 +40,6 @@ class Dashboard extends React.Component {
                         <li><RoadMapCard /></li>
                     </ul>
                 </div>
-                <RoadMapCard />
-            </div>
         );
     };
 };
