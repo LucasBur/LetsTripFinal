@@ -4,13 +4,14 @@ import auth from '../auth';
 import Button from 'react-bootstrap/Button'
 import Navbar from 'react-bootstrap/Navbar'
 
-class RoadMapList extends React.Component {
+class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             first_name: '',
             last_name: '',
             email: '',
+            pseudo: '',
             errors: {}
         };
     }
@@ -21,6 +22,7 @@ class RoadMapList extends React.Component {
         this.setState({
             first_name: decoded.firstname,
             last_name: decoded.lastname,
+            pseudo: decoded.pseudo,
             email: decoded.email
         })
         console.log(decoded)
@@ -33,10 +35,10 @@ class RoadMapList extends React.Component {
                 <Navbar>
                     <Button onClick={auth.logout}>logout</Button>
                 </Navbar>
-                <h1>hello  {this.state.first_name}</h1>
+                <h1>hello  {this.state.first_name} "{this.state.pseudo}" {this.state.last_name} </h1>
             </div>
         );
     }
 }
 
-export default RoadMapList;
+export default Dashboard;

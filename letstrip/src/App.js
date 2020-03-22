@@ -1,6 +1,6 @@
 import React from 'react';
 import Homepage from './components/Homepage';
-import RoadMapList from './components/RoadMapList';
+import Dashboard from './components/Dashboard';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './App.css';
 import { ProtectedRoute } from './components/ProtectedRoute';
@@ -12,7 +12,7 @@ class App extends React.Component {
         <Router>
           <Switch>
             <Route exact path='/' component={Homepage} />
-            <ProtectedRoute exact path='/roadmap' component={RoadMapList} />
+            <ProtectedRoute exact path='/dashboard' component={Dashboard} />
           </Switch>
         </Router>
 
