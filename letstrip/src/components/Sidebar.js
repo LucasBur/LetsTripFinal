@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import auth from '../auth';
 import map from '../design/icons/map.svg'
 import contact from '../design/icons/contact.svg'
@@ -38,3 +38,6 @@ class Sidebar extends Component {
 }
 
 export default Sidebar;
+
+
+  
