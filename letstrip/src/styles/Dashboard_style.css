@@ -1,0 +1,16 @@
+.dashboard {
+    display: flex;
+    width: 98%;
+}
+
+.dashboard ul {
+    list-style: none;
+}
+
+.dashboard ul li {
+    padding-top: 20px;
+}
+
+.dashboard .dashboard-roadmap {
+    margin-top: 40px;
+}

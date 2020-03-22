@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import auth from '../auth';
-import Button from 'react-bootstrap/Button'
 import map from '../design/icons/map.svg'
 import contact from '../design/icons/contact.svg'
 import setting from '../design/icons/setting.svg'
@@ -21,14 +20,15 @@ class Sidebar extends Component {
         return (
             <div ref={this.wrapperRef} className="wrapper" >
                 <div className="nav">
-                    <Button className="nav__icon" type="menu-fold" onClick={() => this.handleClick()}>X</Button>
+                    <button className="nav__icon" type="menu-fold" onClick={() => this.handleClick()}>></button>
                     <div className="nav__body">
                         <h1>Let's Trip</h1>
+                        <h4>{this.props.pseudo}</h4>
                         <ul>
                             <li style={{ listStyleImage:`url(${map})` }}> <a href='/dashboard'> Mes RoadMaps </a></li>
                             <li style={{listStyleImage:`url(${setting})`}}> <a href='/dashboard'>Paramétrer mon compte</a></li>
                             <li style={{listStyleImage:`url(${contact})`}}><a href='/dashboard'>Contact</a></li>
-                            <li><a href='/' onClick={auth.logout}>Disconnect</a></li>
+                            <li><a href='/' onClick={auth.logout}>Deconnexion</a></li>
                         </ul>
                     </div>
                 </div>

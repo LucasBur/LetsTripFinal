@@ -1,6 +1,8 @@
-.wrapper .nav .nav__body h1 {
+.wrapper .nav .nav__body h1,
+h4 {
   color: white;
   text-align: center;
+  padding: 20px;
 }
 
 .wrapper .nav .nav__body ul {
@@ -15,11 +17,11 @@
 }
 
 .wrapper .nav .nav__body ul li {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
 .wrapper .nav .nav__body ul li a {
-    color: white;
+  color: white;
 }
 
 .wrapper .nav .nav__body ul button {
@@ -35,10 +37,12 @@
 
 .wrapper {
   display: flex;
-  width: 100%;
+  /* width: 350px; */
+  /* width: 30%; */
   height: 100%;
   transition: margin 0.5s;
   margin: 0 0 0 -250px;
+  /* background-color: green; */
 }
 
 .wrapper.is-nav-open {
@@ -62,6 +66,12 @@
   font-size: 20px;
   cursor: pointer;
   transition: color 0.3s;
+  background: none;
+  border: none;
+}
+
+.nav__icon:focus {
+  outline: none;
 }
 
 .nav__icon:hover {

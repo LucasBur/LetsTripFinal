@@ -1,9 +1,7 @@
 import React from 'react';
-import jwt_decode from 'jwt-decode'
-import auth from '../auth';
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
-import CardColumns from 'react-bootstrap/CardColumns'
+// import CardColumns from 'react-bootstrap/CardColumns'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -24,20 +22,8 @@ class RoadMapCard extends React.Component {
         };
     };
 
-    componentDidMount() {
-        // const token = localStorage.token;
-        // const decoded = jwt_decode(token);
-        // this.setState({
-        //     first_name: decoded.firstname,
-        //     last_name: decoded.lastname,
-        //     pseudo: decoded.pseudo,
-        //     email: decoded.email
-        // });        
-    }
-
     render() {
-        return (
-            <div>                                
+        return (                   
                 <Card className="text-center">
                     <Card.Header>{this.state.name}</Card.Header>
                     <Card.Body>
@@ -54,7 +40,6 @@ class RoadMapCard extends React.Component {
                         </Container>                    
                     </Card.Body>
                 </Card>                         
-            </div>
         );
     };
 };

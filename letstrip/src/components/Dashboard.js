@@ -1,9 +1,9 @@
 import React from 'react';
 import jwt_decode from 'jwt-decode'
-import auth from '../auth';
-import Button from 'react-bootstrap/Button'
 import Sidebar from './Sidebar';
 import RoadMapCard from './RoadMapCard';
+import Button from 'react-bootstrap/Button'
+import '../styles/Dashboard_style.css'
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -32,7 +32,16 @@ class Dashboard extends React.Component {
     render() {
         return (
             <div>
-                {/* <Sidebar pseudo={this.state.pseudo} /> */}
+
+                <div className='dashboard'>
+                    <Sidebar pseudo={this.state.pseudo} />
+                    <ul style={{ marginTop: '50px', marginLeft:'50px', width:'100%' }}>
+                        <Button>Nouvelle Roadmap</Button>
+                        <li><RoadMapCard /></li>
+                        <li><RoadMapCard /></li>
+                        <li><RoadMapCard /></li>
+                    </ul>
+                </div>
                 <RoadMapCard />
             </div>
         );
