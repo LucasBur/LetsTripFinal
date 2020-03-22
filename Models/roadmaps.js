@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('roadmaps', {
+  const RoadMap = sequelize.define('roadmaps', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -44,4 +44,12 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'roadmaps',
     timestamp: false
   });
+
+  RoadMap.associate = (models) => {
+    RoadMap.belongsToMany(models.users, {
+      through: 'user_roadmap'
+    });
+  };  
+
+  return RoadMap;
 };
