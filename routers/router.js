@@ -14,8 +14,11 @@ const db = require('./../models/index');
 
 /** Lorsque qu'on utilise le chemin "host + / ", une instance du controller "HomePage" est créé */
 router.get('/', function(req, res, next) {
-    db.roadmaps.findAll().then((roadMaps) => {
-        console.log(JSON.stringify(roadMaps));
+    db.roadmaps.findAll().then((roadMaps) => {    
+        console.log("----------->");
+        roadMaps[0].getUsers().then(users => {
+            console.log(users);
+        });
     });
 });
 
@@ -55,6 +58,7 @@ router.post('/Login', (req, res) => {
         }
     });
 });
+
 // RoadMapsList
 // Récuparation de toute les RoadMap
 // router.get('/GetAllRoadMaps', function(req, res){
@@ -77,26 +81,34 @@ router.post('/Login', (req, res) => {
 //     });
 // });
 
-// // Création d'une RoadMap
-// router.post('/CreateRoadMap', function(req, res){
-//     var name = req.body.Name;
-//     var password = req.body.Password;
-//     var nbrParticipants = parseInt(req.body.NbrParticipants);
-//     var location = req.body.Location;
-//     var sqlStartDate = moment(req.body.StartDate).format("YYYY-MM-DD HH:mm:ss");
-//     var sqlEndDate = moment(req.body.EndDate).format("YYYY-MM-DD HH:mm:ss");
-//     var budget = parseInt(req.body.Budget);
-//     var leader = req.body.Leader;
+// Création d'une RoadMap
+router.post('/CreateRoadMap', function(req, res){        
+    let userConnected;
 
-
-//     let roadMapListMdl = new RoadMapListMdl(connection);
-//     roadMapListMdl.createRoadMap(name, password, nbrParticipants, location, sqlStartDate, sqlEndDate, budget, leader)
-//     .then((result) => {
-//         res.send(true);
-//     }).catch((error) => {
-//         res.send(false);
-//     });
-// });
+    db.users.findAll({
+        where: {
+            id: 6
+        }
+    }).then(user => {
+        userConnected = user[0].dataValues;        
+    });
+    
+    db.roadmaps.create({
+        name: 'Test',
+        password: 'Test',
+        nbr_participants: 1,
+        location: 'France',
+        startDate: new Date().toISOString().slice(0, 19).replace('T', ' '),
+        endDate: new Date().toISOString().slice(0, 19).replace('T', ' '),
+        budget: 1000,
+        leader: true
+    },
+    {
+        include: [db.users]
+    }).then(roadmap => {
+        roadmap.addUser(userConnected.id);
+    })
+});
 
 
 /** Obligatoire pour pouvoir utiliser le router */

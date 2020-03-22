@@ -54,5 +54,11 @@ module.exports = function(sequelize, DataTypes) {
     return bcrypt.compareSync(password, this.password);
   };
 
+  User.associate = (models) => {
+    User.belongsToMany(models.roadmaps, {
+      through: 'user_roadmap'
+    });
+  };
+
   return User;
 };
