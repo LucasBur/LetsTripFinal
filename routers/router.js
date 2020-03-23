@@ -105,10 +105,10 @@ router.post('/CreateRoadMap', function(req, res){
     let userConnected;
 
     // Pas besoin si recup ID depuis le front
-    db.users.findOne({ where: { id: req.body.userId }}).then(user => {
-        console.log(user.dataValues);
-        userConnected = user.dataValues;
-    });
+    // db.users.findOne({ where: { id: req.body.userId }}).then(user => {
+    //     console.log(user.dataValues);
+    //     userConnected = user.dataValues;
+    // });
 
     db.roadmaps.create({
         name: req.body.rmName,

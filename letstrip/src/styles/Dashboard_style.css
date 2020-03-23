@@ -14,3 +14,10 @@
 .dashboard .dashboard-roadmap {
     margin-top: 40px;
 }
+
+#button-newroadmap {
+    background-color: #6666ff;
+    border: none;
+    outline: none;
+    position: sticky;
+}

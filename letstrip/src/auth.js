@@ -6,6 +6,7 @@ const headers = {
 const url = "http://localhost:4000";
 
 export default {
+    // User
     signup: async (values) => {
         try {
             const userData = await axios.post(`${url}/NewUser`, values, { headers: headers });
@@ -22,8 +23,8 @@ export default {
             const userData = await axios.post(`${url}/Login`, values, { headers: headers });
             localStorage.setItem("token", userData.data);
             window.location = '/dashboard'
-            console.log( 'log :' , userData)
-        } catch(error) {
+            console.log('log :', userData)
+        } catch (error) {
             console.log(error)
         }
     },
@@ -35,5 +36,16 @@ export default {
     logout: () => {
         localStorage.clear();
         window.location = '/'
+    },
+
+    // Roadmap
+
+    createRoadmap: async (values) => {
+        try {
+            const roadmapData = await axios.post(`${url}//CreateRoadMap`, values, { headers: headers });
+            console.log('roadmap created : ', roadmapData)
+        } catch (error) {
+            console.log(error)
+        }
     }
 }

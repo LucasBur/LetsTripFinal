@@ -20,6 +20,7 @@ class Register extends React.Component {
                 initialValues={{ pseudo: "", firstname: "", lastname: "", email: "", password: "" }}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     this.signupSubmit(values)
+                    // console.log(values)
                     resetForm();
                     setSubmitting(false);
                 }}
