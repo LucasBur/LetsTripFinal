@@ -72,22 +72,27 @@ router.post('/Login', async (req, res) => {
 // RoadMapsList
 // Récuparation de toute les RoadMap
 router.get('/GetAllRoadMaps', function(req, res){
-    db.users.findOne({ where: { id: 6 }}).then(user => {
-        user.getRoadmaps().then(roadMaps => {
-           console.log(roadMaps); 
-        });
+    db.users.findOne({ where: { id: req.body.id }}).then(user => {
+        if(!user) {
+            res.send(false);
+        } else {
+            user.getRoadmaps().then(roadMaps => {
+                res.send(roadMaps);    
+            });
+        }        
     });
 });
 
 // // Suppréssion d'une RoadMap
-// router.delete('/DeleteRoadMap/:roadMapId', (req, res) => {
-//     let roadMapListMdl = new RoadMapListMdl(connection);
-//     roadMapListMdl.deleteRoadMaps(req.params.roadMapId).then((result) => {
-//         res.send(true);
-//     }).catch((error) => {
-//         res.send({ code: 'error', error });
-//     });
-// });
+router.delete('/DeleteRoadMap', (req, res) => {
+    db.roadmaps.findOne({ where: { id: req.body.id }}).then(roadmap => {
+        if(!roadmap) {
+            res.send(false);        
+        } else {
+            roadmap.destroy();
+        }    
+    });
+});
 
 // Création d'une RoadMap
 router.post('/CreateRoadMap', function(req, res){        
