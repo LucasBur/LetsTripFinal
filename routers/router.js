@@ -71,8 +71,7 @@ router.post('/Login', async (req, res) => {
 
 // RoadMapsList
 // Récuparation de toute les RoadMap
-router.get('/GetAllRoadMaps/:id', function(req, res){    
-    console.log(req.params);
+router.get('/GetAllRoadMaps/:id', function(req, res){        
     db.users.findOne({ where: { id: req.params.id }}).then(user => {
         if(!user) {
             res.send(false);
@@ -81,8 +80,7 @@ router.get('/GetAllRoadMaps/:id', function(req, res){
                 var rmToSend = [];
                 roadMaps.forEach(element => {
                     rmToSend.push(element.dataValues);
-                });
-                console.log(rmToSend);
+                });                
                 res.send(JSON.stringify(rmToSend));    
             });
         }        
@@ -90,12 +88,14 @@ router.get('/GetAllRoadMaps/:id', function(req, res){
 });
 
 // // Suppréssion d'une RoadMap
-router.delete('/DeleteRoadMap', (req, res) => {
-    db.roadmaps.findOne({ where: { id: req.body.id }}).then(roadmap => {
-        if(!roadmap) {
+router.delete('/DeleteRoadMap/:id', (req, res) => {
+    console.log(req.params);
+    db.roadmaps.findOne({ where: { id: req.params.id }}).then(roadmap => {               
+        if(roadmap == null) {
             res.send(false);        
-        } else {
+        } else {        
             roadmap.destroy();
+            res.send(true);
         }    
     });
 });

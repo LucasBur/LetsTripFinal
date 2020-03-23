@@ -5,35 +5,40 @@ import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import axios from 'axios';
 
 class RoadMapCard extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            id: 1,
-            name: 'Test',
-            password: 'Test',
-            nbr_participants: 2,
-            location: 'France',
-            startDate: "01/01/2000",
-            endDate: "01/01/2000",
-            budget: 1000,
-            leader: true 
+        this.state = {          
         };
+
+        this.deleteRoadMap = this.deleteRoadMap.bind(this);
     };
+
+    deleteRoadMap() {
+        axios.delete(`http://localhost:4000/DeleteRoadMap/${this.props.info.id}`, { headers: { "Content-Type": "application/json" }})
+        .then(response => {            
+            if(response.data){
+                alert('RoadMap Supprimer');
+            } else {
+                alert('Erreur lors de la suppression');
+            }
+        });      
+    }
 
     render() {
         return (                   
                 <Card className="text-center">
-                    <Card.Header>{this.state.name}</Card.Header>
+                    <Card.Header>{this.props.info.name}</Card.Header>
                     <Card.Body>
                         <Container fluid>
                             <Row>
-                                <Col>Voyage en {this.state.location}</Col>
-                                <Col>{this.state.nbr_participants} participant(s)</Col>
-                                <Col>Du {this.state.startDate} au {this.state.endDate}</Col>
+                                <Col>Voyage en {this.props.info.location}</Col>
+                                <Col>{this.props.info.nbr_participants} participant(s)</Col>
+                                <Col>Du {this.props.info.startDate} au {this.props.info.endDate}</Col>
                                 <Col>
-                                    <Button variant="danger" className="mr-2">Supprimer</Button>
+                                    <Button variant="danger" className="mr-2" onClick={this.deleteRoadMap}>Supprimer</Button>
                                     <Button variant="dark">Consulter</Button>
                                 </Col>
                             </Row>

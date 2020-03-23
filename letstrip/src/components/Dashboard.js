@@ -39,8 +39,7 @@ class Dashboard extends React.Component {
         .then(response => {
             this.setState({
                 roadMapsList: response.data
-            });
-            console.log(response.data);
+            });            
         });        
     }
 
@@ -50,9 +49,12 @@ class Dashboard extends React.Component {
                 <Sidebar pseudo={this.state.pseudo} />
 
                 <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height:'90vh', overflow:'auto' }}>
-                    <FormRoadmap />
-                    <li><RoadMapCard /></li>
-                                  
+                    <FormRoadmap />                    
+
+                    {this.state.roadMapsList.map((element, i) => {
+                        return (<li> <RoadMapCard info={element}/> </li>);
+                    })}
+
                 </ul>
             </div>
         );
