@@ -9,7 +9,7 @@ export const FormRoadmap = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     return <>
-        <Button style={{ background: '#6666ff', border:'none' }} onFocus='none' onClick={handleShow}>
+        <Button style={{ background: '#6666ff', border: 'none' }} onFocus='none' onClick={handleShow}>
             Nouvelle Roadmap
         </Button>
 
@@ -19,9 +19,15 @@ export const FormRoadmap = () => {
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                    <Form.Group controlId="formGridName1">
-                        <Form.Label>Nom</Form.Label>
-                        <Form.Control placeholder="Asia Roadtrip" />
+                    <Form.Group controlId="formGridName1" style={{ display: 'flex', justifyContent:'space-between' }}>
+                        <Form.Group>
+                            <Form.Label>Nom Roadmap</Form.Label>
+                            <Form.Control placeholder="Asia Roadtrip" />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Mot de passe</Form.Label>
+                            <Form.Control type='password' placeholder='password'/>
+                        </Form.Group>
                     </Form.Group>
 
                     <Form.Group>
@@ -45,9 +51,16 @@ export const FormRoadmap = () => {
 
                         <Form.Group as={Col} controlId="formGridBudget">
                             <Form.Label>Budget</Form.Label>
-                                <Form.Control size="sm" type='number' min='1' placeholder='1500€'/>
+                            <Form.Control size="sm" type='number' min='1' placeholder='1500€' />
                         </Form.Group>
                     </Form.Row>
+
+                    <Form.Group>
+                        <Form.Check
+                            required
+                            label="Prendre le rôle de Leader"
+                        />
+                    </Form.Group>
 
                     <Button variant="primary" type="submit" onClick={handleClose}>
                         Submit
