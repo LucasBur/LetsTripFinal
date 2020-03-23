@@ -1,8 +1,9 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import auth from '../auth';
 import map from '../design/icons/map.svg'
 import contact from '../design/icons/contact.svg'
 import setting from '../design/icons/setting.svg'
+import onizukadauphin from '../design/wallpaper/onizukadauphin.jpg'
 import '../styles/Sidebar_styles.css'
 
 class Sidebar extends Component {
@@ -23,6 +24,7 @@ class Sidebar extends Component {
                     <button className="nav__icon" type="menu-fold" onClick={() => this.handleClick()}>></button>
                     <div className="nav__body">
                         <h1>Let's Trip</h1>
+                        <img src={onizukadauphin} width='100%' alt='onizukadauphin' />
                         <h4>{this.props.pseudo}</h4>
                         <ul>
                             <li style={{ listStyleImage:`url(${map})` }}> <a href='/dashboard'> Mes RoadMaps </a></li>
@@ -30,6 +32,7 @@ class Sidebar extends Component {
                             <li style={{listStyleImage:`url(${contact})`}}><a href='/dashboard'>Contact</a></li>
                             <li><a href='/' onClick={auth.logout}>Deconnexion</a></li>
                         </ul>
+                        
                     </div>
                 </div>
             </div>

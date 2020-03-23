@@ -14,8 +14,8 @@ class Homepage extends React.Component {
     }
 
     registerForm() {
-        this.setState({
-            showRegister: !this.state.showRegister
+        this.setState((prevState, props) => {
+            return {showRegister: !prevState.showRegister}
         })
     }
 
