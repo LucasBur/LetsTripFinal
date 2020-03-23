@@ -102,8 +102,6 @@ router.delete('/DeleteRoadMap/:id', (req, res) => {
 
 // Création d'une RoadMap
 router.post('/CreateRoadMap', function(req, res){        
-    let userConnected;
-
     // Pas besoin si recup ID depuis le front
     // db.users.findOne({ where: { id: req.body.userId }}).then(user => {
     //     console.log(user.dataValues);
@@ -111,19 +109,19 @@ router.post('/CreateRoadMap', function(req, res){
     // });
 
     db.roadmaps.create({
-        name: req.body.rmName,
-        password: req.body.rmPassword,
-        nbr_participants: req.body.rmNbr,
-        location: req.body.rmLocation,
-        startDate: moment(req.body.rmStartDate).format("YYYY-MM-DD HH:mm:ss"),
-        endDate: moment(req.body.rmEndDate).format("YYYY-MM-DD HH:mm:ss"),
-        budget: req.body.rmBudget,
-        leader: req.body.rmLeader
+        name: req.body.name,
+        password: req.body.password,
+        nbr_participants: req.body.nbr_participants,
+        location: req.body.location,
+        startDate: moment(req.body.startDate).format("YYYY-MM-DD HH:mm:ss"),
+        endDate: moment(req.body.endDate).format("YYYY-MM-DD HH:mm:ss"),
+        budget: req.body.budget,
+        leader: req.body.leader
     },
     {
         include: [db.users]
     }).then(roadmap => {
-        roadmap.addUser(userConnected.id);
+        roadmap.addUser(req.body.id);
     });
 });
 

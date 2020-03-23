@@ -36,7 +36,7 @@ class Dashboard extends React.Component {
                 this.setState({
                     roadMapsList: response.data
                 });
-            });
+        });
     }
 
     render() {
