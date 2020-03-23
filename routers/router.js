@@ -71,13 +71,19 @@ router.post('/Login', async (req, res) => {
 
 // RoadMapsList
 // Récuparation de toute les RoadMap
-router.get('/GetAllRoadMaps', function(req, res){
-    db.users.findOne({ where: { id: req.body.id }}).then(user => {
+router.get('/GetAllRoadMaps/:id', function(req, res){    
+    console.log(req.params);
+    db.users.findOne({ where: { id: req.params.id }}).then(user => {
         if(!user) {
             res.send(false);
         } else {
             user.getRoadmaps().then(roadMaps => {
-                res.send(roadMaps);    
+                var rmToSend = [];
+                roadMaps.forEach(element => {
+                    rmToSend.push(element.dataValues);
+                });
+                console.log(rmToSend);
+                res.send(JSON.stringify(rmToSend));    
             });
         }        
     });
