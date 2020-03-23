@@ -42,7 +42,7 @@ export default {
 
     createRoadmap: async (values) => {
         try {
-            const roadmapData = await axios.post(`${url}//CreateRoadMap`, values, { headers: headers });
+            const roadmapData = await axios.post(`${url}/CreateRoadMap`, values, { headers: headers });
             console.log('roadmap created : ', roadmapData)
         } catch (error) {
             console.log(error)

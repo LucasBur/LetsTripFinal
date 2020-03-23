@@ -177,10 +177,11 @@ import { Formik } from "formik";
 // export default FormRoadmap;
 
 export const FormRoadmap = (props) => {
-    console.log(props)
     const [show, setShow] = useState(false);
+    const [checked, setChecked] = useState(false)
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
     const createRoadmap = async (values) => {
         try {
             await auth.createRoadmap(values)
@@ -199,10 +200,10 @@ export const FormRoadmap = (props) => {
             startDate: "",
             endDate: "",
             budget: "",
-            leader: Boolean,
+            leader: ``,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-            // createRoadmap(values)
+            createRoadmap(values)
             console.log(values)
             resetForm();
             setSubmitting(false);
@@ -220,7 +221,7 @@ export const FormRoadmap = (props) => {
             startDate: Yup.string().required("Date de départ requise"),
             endDate: Yup.string().required("Date de retour requise"),
             budget: Yup.string().required("Budget requis").min(0, "Entrer 0 si vous ne savez pas"),
-            // leader: Yup.bool()
+            leader: Yup.bool()
         })}>
 
         {props => {
@@ -282,7 +283,7 @@ export const FormRoadmap = (props) => {
 
                                 <Form.Group>
                                     <Form.Label>Date de départ</Form.Label>
-                                    <Form.Control name="startDate" type='datetime-local'
+                                    <Form.Control name="startDate" type='date'
                                         value={values.startDate}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
@@ -291,7 +292,7 @@ export const FormRoadmap = (props) => {
                                         <div className="input-feedback">{errors.startDate}</div>
                                     )}
                                     <Form.Label>Date de fin</Form.Label>
-                                    <Form.Control name="endDate" type='datetime-local'
+                                    <Form.Control name="endDate" type='date'
                                         value={values.endDate}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
@@ -329,8 +330,10 @@ export const FormRoadmap = (props) => {
 
                                 <Form.Group>
                                     <Form.Check
+                                        value={values.leader}
+                                        onChange={handleChange}
                                         label="Prendre le rôle de Leader"
-                                        name="leader"
+                                        name='leader'
                                     />
                                 </Form.Group>
 
