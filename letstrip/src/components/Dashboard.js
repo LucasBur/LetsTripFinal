@@ -29,7 +29,7 @@ class Dashboard extends React.Component {
             last_name: decoded.lastname,
             pseudo: decoded.pseudo,
             email: decoded.email,
-        })
+        });
 
         axios.get(`http://localhost:4000/GetAllRoadMaps/${decoded.id}`, { headers: { "Content-Type": "application/json" } })
             .then(response => {
@@ -47,7 +47,7 @@ class Dashboard extends React.Component {
                 <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: 'auto' }}>
                     <FormRoadmap id={this.state.id}/>
                     {this.state.roadMapsList.map((element, i) => {
-                        return (<li> <RoadMapCard key={i} info={element} /> </li>);
+                        return (<li key={i}> <RoadMapCard info={element} /> </li>);
                     })}
 
                 </ul>
