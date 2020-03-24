@@ -14,6 +14,7 @@ class RoadMapCard extends React.Component {
         };
 
         this.deleteRoadMap = this.deleteRoadMap.bind(this);
+        this.openRoadMap = this.openRoadMap.bind(this);
     };
 
     deleteRoadMap() {
@@ -25,6 +26,10 @@ class RoadMapCard extends React.Component {
                 alert('Erreur lors de la suppression');
             }
         });      
+    }
+
+    openRoadMap() {        
+        window.location = `/mainRoadMap/${this.props.info.id}`;
     }
 
     render() {
@@ -39,7 +44,7 @@ class RoadMapCard extends React.Component {
                                 <Col>Du {this.props.info.startDate} au {this.props.info.endDate}</Col>
                                 <Col>
                                     <Button variant="danger" className="mr-2" onClick={this.deleteRoadMap}>Supprimer</Button>
-                                    <Button variant="dark">Consulter</Button>
+                                    <Button variant="dark" onClick={this.openRoadMap}>Consulter</Button>
                                 </Col>
                             </Row>
                         </Container>                    

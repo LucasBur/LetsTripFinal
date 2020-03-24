@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
 
 /* INSERTION DANS LA DB */
 
-//Ajout d'un nouvel utilisateur
+//#region Authentification
 router.post('/NewUser', (req, res) => {
     db.users.create({
         email: req.body.email,
@@ -68,9 +68,20 @@ router.post('/Login', async (req, res) => {
         }
     });
 });
+//#endregion
 
-// RoadMapsList
-// Récuparation de toute les RoadMap
+//#region RoadMaps
+router.get('/GetRoadMap/:id', function(req, res){
+    db.roadmaps.findOne({ where: { id: req.params.id }}).then(roadmap => {
+        if(roadmap == null){
+            res.send(false);
+        } else {
+            res.send(roadmap.dataValues);
+        }        
+    });
+});
+
+// Récupere toute les road map lié a un utilisateur
 router.get('/GetAllRoadMaps/:id', function(req, res){        
     db.users.findOne({ where: { id: req.params.id }}).then(user => {
         if(!user) {
@@ -88,8 +99,7 @@ router.get('/GetAllRoadMaps/:id', function(req, res){
 });
 
 // // Suppréssion d'une RoadMap
-router.delete('/DeleteRoadMap/:id', (req, res) => {
-    console.log(req.params);
+router.delete('/DeleteRoadMap/:id', (req, res) => {    
     db.roadmaps.findOne({ where: { id: req.params.id }}).then(roadmap => {               
         if(roadmap == null) {
             res.send(false);        
@@ -102,12 +112,6 @@ router.delete('/DeleteRoadMap/:id', (req, res) => {
 
 // Création d'une RoadMap
 router.post('/CreateRoadMap', function(req, res){        
-    // Pas besoin si recup ID depuis le front
-    // db.users.findOne({ where: { id: req.body.userId }}).then(user => {
-    //     console.log(user.dataValues);
-    //     userConnected = user.dataValues;
-    // });
-
     db.roadmaps.create({
         name: req.body.name,
         password: req.body.password,
@@ -124,7 +128,7 @@ router.post('/CreateRoadMap', function(req, res){
         roadmap.addUser(req.body.id);
     });
 });
-
+//#endregion
 
 /** Obligatoire pour pouvoir utiliser le router */
 module.exports = router;
