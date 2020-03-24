@@ -15,8 +15,8 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 const db = require('./../models/index');
 
 /** Lorsque qu'on utilise le chemin "host + / ", une instance du controller "HomePage" est créé */
-router.get('/', function(req, res, next) {
-    db.roadmaps.findAll().then((roadMaps) => {    
+router.get('/', function (req, res, next) {
+    db.roadmaps.findAll().then((roadMaps) => {
         console.log("----------->");
         roadMaps[0].getUsers().then(users => {
             console.log(users);
@@ -37,12 +37,16 @@ router.post('/NewUser', (req, res) => {
         creation_date: new Date().toISOString().slice(0, 19).replace('T', ' '),
         is_active: true
     }).then(userCreated => {
-        let token = jwt.sign(userCreated.dataValues, config.secret, { expiresIn: 1440 });
-        res.send(token)
+        try {
+            let token = jwt.sign(userCreated.dataValues, config.secret, { expiresIn: 1440 });
+            res.send(token)
+        } catch(error) {
+            console.log(error)
+        }
     }).catch(error => {
-        res.send(false);
-        console.log(error)
-    });
+            res.send(false);
+            console.log(error)
+        });
 });
 
 router.post('/Login', async (req, res) => {
@@ -63,55 +67,56 @@ router.post('/Login', async (req, res) => {
                 text: "Mot de passe incorrect"
             });
         } else {
-            let token = jwt.sign(user.dataValues, config.secret, { expiresIn: 1440 });
-            res.send(token)
+            jwt.sign(user.dataValues, config.secret, { expiresIn: 1440 })
+                .then(token => res.send(token), console.log(token))
+                .catch(err => console.log(err))
         }
     });
 });
 //#endregion
 
 //#region RoadMaps
-router.get('/GetRoadMap/:id', function(req, res){
-    db.roadmaps.findOne({ where: { id: req.params.id }}).then(roadmap => {
-        if(roadmap == null){
+router.get('/GetRoadMap/:id', function (req, res) {
+    db.roadmaps.findOne({ where: { id: req.params.id } }).then(roadmap => {
+        if (roadmap == null) {
             res.send(false);
         } else {
             res.send(roadmap.dataValues);
-        }        
+        }
     });
 });
 
 // Récupere toute les road map lié a un utilisateur
-router.get('/GetAllRoadMaps/:id', function(req, res){        
-    db.users.findOne({ where: { id: req.params.id }}).then(user => {
-        if(!user) {
+router.get('/GetAllRoadMaps/:id', function (req, res) {
+    db.users.findOne({ where: { id: req.params.id } }).then(user => {
+        if (!user) {
             res.send(false);
         } else {
             user.getRoadmaps().then(roadMaps => {
                 var rmToSend = [];
                 roadMaps.forEach(element => {
                     rmToSend.push(element.dataValues);
-                });                
-                res.send(JSON.stringify(rmToSend));    
+                });
+                res.send(JSON.stringify(rmToSend));
             });
-        }        
+        }
     });
 });
 
 // // Suppréssion d'une RoadMap
-router.delete('/DeleteRoadMap/:id', (req, res) => {    
-    db.roadmaps.findOne({ where: { id: req.params.id }}).then(roadmap => {               
-        if(roadmap == null) {
-            res.send(false);        
-        } else {        
+router.delete('/DeleteRoadMap/:id', (req, res) => {
+    db.roadmaps.findOne({ where: { id: req.params.id } }).then(roadmap => {
+        if (roadmap == null) {
+            res.send(false);
+        } else {
             roadmap.destroy();
             res.send(true);
-        }    
+        }
     });
 });
 
 // Création d'une RoadMap
-router.post('/CreateRoadMap', function(req, res){        
+router.post('/CreateRoadMap', function (req, res) {
     console.log(req.body)
     db.roadmaps.create({
         name: req.body.name,
@@ -123,11 +128,11 @@ router.post('/CreateRoadMap', function(req, res){
         budget: req.body.budget,
         leader: req.body.leader
     },
-    {
-        include: [db.users]
-    }).then(roadmap => {
-        roadmap.addUser(req.body.id), console.log('roadmap created')
-    }).catch(err => res.status(400).json('Error: ' + err));
+        {
+            include: [db.users]
+        }).then(roadmap => {
+            roadmap.addUser(req.body.id), console.log('roadmap created')
+        }).catch(err => res.status(400).json('Error: ' + err));
 });
 //#endregion
 

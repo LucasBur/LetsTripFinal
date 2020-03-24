@@ -8,7 +8,10 @@ import '../styles/Dashboard_style.css'
 
 
 const token = localStorage.token;
-const decoded = jwt_decode(token);
+let decoded;
+if (token) {
+    decoded = jwt_decode(token);
+}
 
 class Dashboard extends React.Component {
     constructor(props) {
