@@ -2,9 +2,13 @@ import React from 'react';
 import jwt_decode from 'jwt-decode'
 import Sidebar from './Sidebar';
 import { FormRoadmap } from './Forms/Modal/FormRoadmap';
+import axios from 'axios';
 import RoadMapCard from './RoadMapCard';
 import '../styles/Dashboard_style.css'
-import axios from 'axios';
+
+
+const token = localStorage.token;
+const decoded = jwt_decode(token);
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -20,9 +24,7 @@ class Dashboard extends React.Component {
         };
     };
 
-    componentWillMount() {
-        const token = localStorage.token;
-        const decoded = jwt_decode(token);
+    componentDidMount() {
         this.setState({
             id: decoded.id,
             first_name: decoded.firstname,
@@ -30,26 +32,43 @@ class Dashboard extends React.Component {
             pseudo: decoded.pseudo,
             email: decoded.email,
         })
-
-        axios.get(`http://localhost:4000/GetAllRoadMaps/${decoded.id}`, { headers: { "Content-Type": "application/json" } })
-            .then(response => {
-                this.setState({
-                    roadMapsList: response.data
-                });
-        });
+        this.getRoadmapData(decoded)
     }
 
+    getRoadmapData(decoded) {
+        axios.get(`http://localhost:4000/GetAllRoadMaps/${decoded.id}`, { headers: { "Content-Type": "application/json" } })
+            .then(response => {
+                if (this.state.roadMapsList != response.data) {
+                    this.setState({
+                        roadMapsList: response.data
+                    });
+                }
+            });
+    }
+
+    // componentDidUpdate() {
+    //    this.getRoadmapData(decoded);
+    // }
+
     render() {
+
+        // const items = this.state.roadMapsList.map((element, i) => (
+        //     <li key={i}> <RoadMapCard info={element} /> </li>
+        // ));
+        console.log(this.state.roadMapsList)
+
         return (
             <div className='dashboard'>
                 <Sidebar pseudo={this.state.pseudo} />
 
                 <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: 'auto' }}>
-                    <FormRoadmap id={this.state.id}/>
+                    <FormRoadmap id={this.state.id} />
                     {this.state.roadMapsList.map((element, i) => {
-                        return (<li> <RoadMapCard key={i} info={element} /> </li>);
+                        console.log(element, i)
+                        return (
+                            <li key={i}> <RoadMapCard info={element} /> </li>
+                        );
                     })}
-
                 </ul>
             </div>
         );

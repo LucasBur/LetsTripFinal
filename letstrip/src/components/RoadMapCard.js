@@ -10,7 +10,7 @@ import axios from 'axios';
 class RoadMapCard extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {          
+        this.state = {
         };
 
         this.deleteRoadMap = this.deleteRoadMap.bind(this);
@@ -18,38 +18,32 @@ class RoadMapCard extends React.Component {
     };
 
     deleteRoadMap() {
-        axios.delete(`http://localhost:4000/DeleteRoadMap/${this.props.info.id}`, { headers: { "Content-Type": "application/json" }})
-        .then(response => {            
-            if(response.data){
-                alert('RoadMap Supprimer');
-            } else {
-                alert('Erreur lors de la suppression');
-            }
-        });      
+        axios.delete(`http://localhost:4000/DeleteRoadMap/${this.props.info.id}`,
+            { headers: { "Content-Type": "application/json" } })
     }
 
-    openRoadMap() {        
+    openRoadMap() {
         window.location = `/mainRoadMap/${this.props.info.id}`;
     }
 
     render() {
-        return (                   
-                <Card className="text-center">
-                    <Card.Header>{this.props.info.name}</Card.Header>
-                    <Card.Body>
-                        <Container fluid>
-                            <Row>
-                                <Col>Voyage en {this.props.info.location}</Col>
-                                <Col>{this.props.info.nbr_participants} participant(s)</Col>
-                                <Col>Du {this.props.info.startDate} au {this.props.info.endDate}</Col>
-                                <Col>
-                                    <Button variant="danger" className="mr-2" onClick={this.deleteRoadMap}>Supprimer</Button>
-                                    <Button variant="dark" onClick={this.openRoadMap}>Consulter</Button>
-                                </Col>
-                            </Row>
-                        </Container>                    
-                    </Card.Body>
-                </Card>                         
+        return (
+            <Card className="text-center">
+                <Card.Header>{this.props.info.name}</Card.Header>
+                <Card.Body>
+                    <Container fluid>
+                        <Row>
+                            <Col>Voyage en {this.props.info.location}</Col>
+                            <Col>{this.props.info.nbr_participants} participant(s)</Col>
+                            <Col>Du {this.props.info.startDate} au {this.props.info.endDate}</Col>
+                            <Col>
+                                <Button variant="danger" className="mr-2" onClick={this.deleteRoadMap}>Supprimer</Button>
+                                <Button variant="dark" onClick={this.openRoadMap}>Consulter</Button>
+                            </Col>
+                        </Row>
+                    </Container>
+                </Card.Body>
+            </Card>
         );
     };
 };
