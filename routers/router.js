@@ -173,6 +173,17 @@ router.get('/GetActivities/:id/:day', function(req, res){
     });
 });
 
+router.delete('/DeleteActivity/:id', (req, res) => {
+    db.activities.findOne({ where: { id: req.params.id } }).then(activity => {
+        if (activity == null) {
+            res.send(false);
+        } else {
+            activity.destroy();
+            res.send(true);
+        }
+    });
+});
+
 //#endregion
 
 /** Obligatoire pour pouvoir utiliser le router */
