@@ -21,7 +21,9 @@ class Dashboard extends React.Component {
         };
     };
 
-    componentDidMount() {
+
+    // utiliser componentWillMount pour l'instant
+    componentWillMount() {
         const token = localStorage.token;
         const decoded = jwt_decode(token);
         this.setState({
@@ -31,27 +33,27 @@ class Dashboard extends React.Component {
             pseudo: decoded.pseudo,
             email: decoded.email,
         });
-        this.getRoadmapData(this.state.id);
+        console.log(decoded)
+        this.getRoadmapData(decoded);
     }
 
-    getRoadmapData(id) {
-        axios.get(`http://localhost:4000/GetAllRoadMaps/${id}`)
+    getRoadmapData(decoded) {
+        axios.get(`http://localhost:4000/GetAllRoadMaps/${decoded.id}`)
             .then(response => {
-                // if (this.state.roadMapsList !== response.data) {
-                //     this.setState({
-                //         roadMapsList: response.data
-                //     });
-                // }
                 this.setState({
                     roadMapsList: response.data
                 });
             });
     }
 
-    componentDidUpdate(preProps, preState) {
-        console.log('preProps : ', preProps);
-        console.log('preState :', preState);
-        //    this.getRoadmapData(decoded);
+    componentWillUpdate(preProps, preState) {
+        const token = localStorage.token;
+        const decoded = jwt_decode(token);
+        console.log(preState);
+
+        // if (this.state.id !== preState.id) {
+        //     this.getRoadmapData(decoded);
+        // }
     }
 
     render() {

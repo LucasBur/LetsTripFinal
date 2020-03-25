@@ -37,8 +37,8 @@ class RoadMapCard extends React.Component {
                             <Col>{this.props.info.nbr_participants} participant(s)</Col>
                             <Col>Du {this.props.info.startDate} au {this.props.info.endDate}</Col>
                             <Col>
-                                <Button variant="danger" className="mr-2" onClick={this.deleteRoadMap}>Supprimer</Button>
                                 <Button variant="dark" onClick={this.openRoadMap}>Consulter</Button>
+                                <Button variant="danger" className="mr-2" onClick={this.deleteRoadMap}>Supprimer</Button>
                             </Col>
                         </Row>
                     </Container>

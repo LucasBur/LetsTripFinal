@@ -8,26 +8,28 @@ import axios from 'axios';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import DayCalendar from './DayCalendar';
+import { FormActivity } from './Forms/Modal/FormActivity';
+import '../styles/MainRoadmap_style.css'
 
 class MainRoadMap extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-           id: '',
-           name: '',
-           password: '',
-           nbr_participants: '',
-           location: '',
-           startDate: '',
-           endDate: '',
-           budget: '',
-           leader: '',
-           dayNbr: '',
-           userId: '',
-           userFirst_name: '',
-           userLast_name: '',
-           userPseudo: '',
-           userEmail: ''
+            id: '',
+            name: '',
+            password: '',
+            nbr_participants: '',
+            location: '',
+            startDate: '',
+            endDate: '',
+            budget: '',
+            leader: '',
+            dayNbr: '',
+            userId: '',
+            userFirst_name: '',
+            userLast_name: '',
+            userPseudo: '',
+            userEmail: ''
         };
     };
 
@@ -42,33 +44,34 @@ class MainRoadMap extends React.Component {
             userEmail: decoded.email,
         });
 
-        axios.get(`http://localhost:4000/GetRoadMap/${this.props.match.params.id}`, { headers: { "Content-Type": "application/json" }})
-        .then(response => {            
-            if(!response.data){
-                alert('Erreur');
-                window.location = '/dashboard';
-            } else {                            
-                var startDateArr = response.data.startDate.split('-');
-                var endDateArr = response.data.endDate.split('-');
-                var startTypeDate = new Date(startDateArr[0], startDateArr[1] - 1, startDateArr[2] );
-                var endTypeDate = new Date(endDateArr[0], endDateArr[1] - 1, endDateArr[2]);
-                var oneDay = 24 * 60 * 60 * 1000;
-                // A verif le nbr de jour
-                const dayDiff = Math.ceil(Math.abs((startTypeDate - endTypeDate) / oneDay));            
+        axios.get(`http://localhost:4000/GetRoadMap/${this.props.match.params.id}`,
+            { headers: { "Content-Type": "application/json" } })
+            .then(response => {
+                if (!response.data) {
+                    alert('Erreur');
+                    window.location = '/dashboard';
+                } else {
+                    var startDateArr = response.data.startDate.split('-');
+                    var endDateArr = response.data.endDate.split('-');
+                    var startTypeDate = new Date(startDateArr[0], startDateArr[1] - 1, startDateArr[2]);
+                    var endTypeDate = new Date(endDateArr[0], endDateArr[1] - 1, endDateArr[2]);
+                    var oneDay = 24 * 60 * 60 * 1000;
+                    // A verif le nbr de jour
+                    const dayDiff = Math.ceil(Math.abs((startTypeDate - endTypeDate) / oneDay));
 
-                this.setState({
-                    id: response.data.id,
-                    name: response.data.name,
-                    password: response.data.password,
-                    nbr_participants: response.data.nbr_participants,
-                    location: response.data.location,
-                    startDate: response.data.startDate,
-                    endDate: response.data.endDate,
-                    leader: response.data.leader,
-                    dayNbr: dayDiff
-                });
-            }
-        });              
+                    this.setState({
+                        id: response.data.id,
+                        name: response.data.name,
+                        password: response.data.password,
+                        nbr_participants: response.data.nbr_participants,
+                        location: response.data.location,
+                        startDate: response.data.startDate,
+                        endDate: response.data.endDate,
+                        leader: response.data.leader,
+                        dayNbr: dayDiff
+                    });
+                }
+            });
     }
 
     // componentDidMount(){
@@ -77,16 +80,16 @@ class MainRoadMap extends React.Component {
 
     render() {
         return (
-            <div className="dashboard">
+            <div className="mainroadmap">
                 <Sidebar pseudo={this.state.userPseudo} />
-                            
-                <ListGroup horizontal style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: "scroll" }}>
-
-                    {Array.from({ length: this.state.dayNbr }, (_, k) => (
-                        <DayCalendar day={k + 1} />   
-                    ))}                                                                                                            
-                                                   
-                </ListGroup>                            
+                <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: "scroll" }}>
+                    <li> <FormActivity dayNumber={this.state.dayNbr}/> </li>
+                    <ListGroup horizontal>
+                        {Array.from({ length: this.state.dayNbr }, (_, k) => (
+                            <li><DayCalendar day={k + 1} /></li>
+                        ))}
+                    </ListGroup>
+                </ul>
             </div>
         );
     };
