@@ -128,12 +128,49 @@ router.post('/CreateRoadMap', function (req, res) {
         budget: req.body.budget,
         leader: req.body.leader
     },
-        {
-            include: [db.users]
-        }).then(roadmap => {
-            roadmap.addUser(req.body.id), console.log('roadmap created')
-        }).catch(err => res.status(400).json('Error: ' + err));
+    {
+        include: [db.users]
+    }).then(roadmap => {
+        roadmap.addUser(req.body.id), console.log('roadmap created')
+    }).catch(err => res.status(400).json('Error: ' + err));
 });
+//#endregion
+
+//#region Activity
+router.post('/CreateActivity', function (req, res){
+    db.activities.create({
+        roadmapId: req.body.id,
+        title: req.body.title,
+        description: req.body.description,
+        day: req.body.day,
+        startHour: req.body.startHour,
+        endHour: req.body.endHour
+    }).then(activity => {
+        console.log(activity);
+        res.send(true);
+    }).catch(err => {
+        res.send(400).json('Error' + err);
+    })
+});
+
+router.get('/GetActivities/:id/:day', function(req, res){
+    db.activities.findAll({ where : {
+        roadmapId: req.params.id,
+        day: req.params.day
+    }}).then(activities => {
+        if(activities.length == 0){
+            console.log('pas dactivity');
+            res.send(false);
+        } else {            
+            var activitiesToSend = [];
+            activities.forEach(element => {
+                activitiesToSend.push(element.dataValues);
+            });
+            res.send(JSON.stringify(activitiesToSend));
+        }        
+    });
+});
+
 //#endregion
 
 /** Obligatoire pour pouvoir utiliser le router */

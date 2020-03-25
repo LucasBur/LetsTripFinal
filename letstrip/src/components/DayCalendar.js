@@ -7,28 +7,39 @@ import '../styles/Dashboard_style.css'
 import axios from 'axios';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
+import Activity from './Activity';
 
 class DayCalendar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-   
+            activities: []
         };
     };
 
-    componentWillMount() {
-     
+    componentWillMount() {        
+        axios.get(`http://localhost:4000/GetActivities/${this.props.rmId}/${this.props.day}`, { headers: { "Content-Type": "application/json" }})
+        .then(response => {            
+            if(response.data != false){
+                this.setState({
+                    activities: response.data
+                });
+            }            
+        });
     }
 
     // componentDidMount(){
     //     console.log(this.state);
     // }
 
-    render() {
+    render() {        
         return (
             <div>
                 <ListGroup.Item style={{width: "300px"}}>
-                    <h5>Jour {this.props.day}</h5>
+                    <h3>Jour {this.props.day}</h3>
+                    {this.state.activities.map((element, i) => {
+                        return (<Activity key={i} info={element}/>);
+                    })}
                 </ListGroup.Item>
             </div>
         );

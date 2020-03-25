@@ -49,6 +49,8 @@ module.exports = function(sequelize, DataTypes) {
     RoadMap.belongsToMany(models.users, {
       through: 'user_roadmap'
     });
+
+    RoadMap.hasMany(models.activities);
   };  
 
   return RoadMap;
