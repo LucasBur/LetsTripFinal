@@ -83,7 +83,7 @@ class MainRoadMap extends React.Component {
             <div className="mainroadmap">
                 <Sidebar pseudo={this.state.userPseudo} />
                 <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: "scroll" }}>
-                    <li> <FormActivity dayNumber={this.state.dayNbr}/> </li>
+                    <li> <FormActivity dayNumber={this.state.dayNbr} id={this.props.match.params.id}/> </li>
                     <ListGroup horizontal>
                         {Array.from({ length: this.state.dayNbr }, (_, k) => (
                             <li><DayCalendar day={k + 1} /></li>

@@ -23,7 +23,7 @@ export const FormActivity = (props) => {
         const num = [];
         for (let i = 1; i <= props.dayNumber; i++) {
             num.push(
-                <option key={i} value="{i}">{i}</option>
+                <option key={i} value={i}>{i}</option>
             )
         }
         return num;
@@ -34,7 +34,7 @@ export const FormActivity = (props) => {
             id: `${props.id}`,
             title: "",
             description: "",
-            days: "",
+            day: "",
             startHour: "",
             endHour:""
         }}
@@ -48,7 +48,7 @@ export const FormActivity = (props) => {
         validationSchema={Yup.object().shape({
             title: Yup.string().required("Titre requis.").min(1, "1 caractères minimum"),
             description: Yup.string(),
-            days: Yup.string().required('Veuillez choisir le jour'),
+            day: Yup.string().required('Veuillez choisir le jour'),
             startHour: Yup.string().required("Choissiez une heure de départ")
                 .min(2, "2 caractères minimum."),
             endHour: Yup.string().required("Choisissez une heure de fin"),
@@ -107,15 +107,15 @@ export const FormActivity = (props) => {
                                     <Form.Label>Jours</Form.Label>
                                     <Form.Control
                                         as="select"
-                                        name="days"
-                                        value={values.days}
+                                        name="day"
+                                        value={values.day}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        className={errors.days && touched.days && "error"} >
+                                        className={errors.day && touched.day && "error"} >
                                         {option()}
                                     </Form.Control>
-                                    {errors.days && touched.days && (
-                                        <div className="input-feedback">{errors.days}</div>
+                                    {errors.day && touched.day && (
+                                        <div className="input-feedback">{errors.day}</div>
                                     )}
                                 </Form.Group>
 

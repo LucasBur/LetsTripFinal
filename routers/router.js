@@ -138,6 +138,7 @@ router.post('/CreateRoadMap', function (req, res) {
 
 //#region Activity
 router.post('/CreateActivity', function (req, res){
+    console.log(req.body);
     db.activities.create({
         roadmapId: req.body.id,
         title: req.body.title,
@@ -149,8 +150,9 @@ router.post('/CreateActivity', function (req, res){
         console.log(activity);
         res.send(true);
     }).catch(err => {
-        res.send(400).json('Error' + err);
-    })
+        console.log(err);
+        res.status(400).json('Error' + err);
+    });
 });
 
 router.get('/GetActivities/:id/:day', function(req, res){

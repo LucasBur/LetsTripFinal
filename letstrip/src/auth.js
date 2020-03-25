@@ -51,7 +51,7 @@ export default {
 
     // Activity
 
-    createActivity: async (values) => {
+    createActivity: async (values) => {    
         try {
             const activityData = await axios.post(`${url}/CreateActivity`, values, {headers: headers});
             console.log('activity created : ', activityData);
