@@ -79,11 +79,11 @@ class MainRoadMap extends React.Component {
         return (
             <div className="dashboard">
                 <Sidebar pseudo={this.state.userPseudo} />
-                            
+                
                 <ListGroup horizontal style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: "scroll" }}>
 
                     {Array.from({ length: this.state.dayNbr }, (_, k) => (
-                        <DayCalendar day={k + 1} />   
+                        <DayCalendar key={k} day={k + 1} rmId={this.props.match.params.id} />   
                     ))}                                                                                                            
                                                    
                 </ListGroup>                            
