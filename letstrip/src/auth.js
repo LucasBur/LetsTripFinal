@@ -47,5 +47,17 @@ export default {
         } catch (error) {
             console.log(error)
         }
+    },
+
+    // Activity
+
+    createActivity: async (values) => {
+        try {
+            const activityData = await axios.post(`${url}/CreateActivity`, values, {headers: headers});
+            console.log('activity created : ', activityData);
+        }
+        catch (error) {
+            console.log(error)
+        }
     }
 }

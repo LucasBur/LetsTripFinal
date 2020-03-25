@@ -3,7 +3,6 @@ import auth from '../../../auth';
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col'
 import * as Yup from "yup";
 import { Formik } from "formik";
 
@@ -12,13 +11,13 @@ export const FormActivity = (props) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    // const createActivity = async (values) => {
-    //     try {
-    //         await auth.createRoadmap(values);
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
+    const createActivity = async (values) => {
+        try {
+            await auth.createActivity(values);
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const option = () => {
         const num = [];
@@ -33,35 +32,26 @@ export const FormActivity = (props) => {
     return <Formik
         initialValues={{
             id: `${props.id}`,
-            name: "",
-            password: "",
-            nbr_participants: "",
-            location: "",
-            startDate: "",
-            endDate: "",
-            budget: "",
-            leader: ``,
+            title: "",
+            description: "",
+            days: "",
+            startHour: "",
+            endHour:""
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
             console.log(values)
+            createActivity(values)
             handleClose()
             resetForm();
             setSubmitting(false);
         }}
         validationSchema={Yup.object().shape({
-            name: Yup.string().required("nom requis.")
-                .min(2, "2 caractères minimum"),
-            password: Yup.string()
-                .required("No password provided.")
-                .min(3, "Password is too short - should be 3 chars minimum."),
-            nbr_participants: Yup.string().required("Nombre de participant requis.")
-                .min(1, "1 personne minimum."),
-            location: Yup.string().required("Destination requise.")
+            title: Yup.string().required("Titre requis.").min(1, "1 caractères minimum"),
+            description: Yup.string(),
+            days: Yup.string().required('Veuillez choisir le jour'),
+            startHour: Yup.string().required("Choissiez une heure de départ")
                 .min(2, "2 caractères minimum."),
-            startDate: Yup.string().required("Date de départ requise"),
-            endDate: Yup.string().required("Date de retour requise"),
-            budget: Yup.string().required("Budget requis").min(0, "Entrer 0 si vous ne savez pas"),
-            leader: Yup.bool()
+            endHour: Yup.string().required("Choisissez une heure de fin"),
         })}>
 
         {props => {
@@ -81,55 +71,73 @@ export const FormActivity = (props) => {
                             <Modal.Title>Créer votre Activité</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
+
                             <Form onSubmit={handleSubmit}>
+
                                 <Form.Group controlId="formGridName1">
                                     <Form.Label>Titre de l'Activité</Form.Label>
-                                    <Form.Control placeholder="Aller au marché de Barbès"
-                                        name="name"
-                                        value={values.name}
+                                    <Form.Control 
+                                        placeholder="Aller au marché de Barbès"
+                                        name="title"
+                                        value={values.title}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        className={errors.name && touched.name && "error"} />
+                                        className={errors.title && touched.title && "error"} />
                                     {errors.name && touched.name && (
-                                        <div className="input-feedback">{errors.name}</div>
+                                        <div className="input-feedback">{errors.title}</div>
                                     )}
                                 </Form.Group>
 
                                 <Form.Group>
                                     <Form.Label>Description</Form.Label>
-                                    {/* <input type='number' min='1'/> */}
-                                    <Form.Control as="textarea" rows="3" 
-                                        placeholder="- Acheter couscous merguez, -Frapper un arabe, -Aller au grec"/>
-                                    {errors.nbr_participants && touched.nbr_participants && (
-                                        <div className="input-feedback">{errors.nbr_participants}</div>
+                                    <Form.Control
+                                        name="description"
+                                        value={values.description}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        as="textarea" rows="3"
+                                        placeholder="- Acheter couscous merguez, -Frapper un arabe, -Aller au grec"
+                                        className={errors.description && touched.description && "error"} />
+                                    {errors.description && touched.description && (
+                                        <div className="input-feedback">{errors.description}</div>
                                     )}
                                 </Form.Group>
 
                                 <Form.Group controlId="exampleForm.ControlSelect1">
                                     <Form.Label>Jours</Form.Label>
-                                    <Form.Control as="select">
+                                    <Form.Control
+                                        as="select"
+                                        name="days"
+                                        value={values.days}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        className={errors.days && touched.days && "error"} >
                                         {option()}
                                     </Form.Control>
+                                    {errors.days && touched.days && (
+                                        <div className="input-feedback">{errors.days}</div>
+                                    )}
                                 </Form.Group>
 
                                 <Form.Group>
                                     <Form.Label>Heure de départ</Form.Label>
-                                    <Form.Control name="startHour" type='time'
-                                        value={values.startDate}
+                                    <Form.Control 
+                                        name="startHour" type='time'
+                                        value={values.startHour}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        className={errors.startDate && touched.startDate && "error"} />
-                                    {errors.startDate && touched.startDate && (
-                                        <div className="input-feedback">{errors.startDate}</div>
+                                        className={errors.startHour && touched.startHour && "error"} />
+                                    {errors.startHour && touched.startHour && (
+                                        <div className="input-feedback">{errors.startHour}</div>
                                     )}
                                     <Form.Label>Heure de fin</Form.Label>
                                     <Form.Control name="endHour" type='time'
-                                        value={values.endDate}
+                                        value={values.endHour}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        className={errors.endDate && touched.endDate && "error"}/>
-                                    {errors.endDate && touched.endDate && (
-                                        <div className="input-feedback">{errors.endDate}</div>
+                                        className={errors.endHour && touched.endHour && "error"} />
+                                    {errors.endHour && touched.endHour && (
+                                        <div className="input-feedback">{errors.endHour}</div>
                                     )}
                                 </Form.Group>
 
