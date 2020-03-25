@@ -28,7 +28,6 @@ export const FormActivity = (props) => {
         }
         return num;
     }
-
     return <Formik
         initialValues={{
             id: `${props.id}`,
@@ -130,6 +129,8 @@ export const FormActivity = (props) => {
                                     {errors.startHour && touched.startHour && (
                                         <div className="input-feedback">{errors.startHour}</div>
                                     )}
+
+                                    
                                     <Form.Label>Heure de fin</Form.Label>
                                     <Form.Control name="endHour" type='time'
                                         value={values.endHour}

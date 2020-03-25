@@ -1,0 +1,15 @@
+.profile {
+  display: flex;
+  width: 98%;
+}
+
+.profile ul img {
+  border-radius: 50%;
+}
+
+#button-formupdateuser-submit {
+  background-color: #6666ff;
+  border: none;
+  outline: none;
+  float: right;
+}

@@ -46,30 +46,24 @@ class Dashboard extends React.Component {
             });
     }
 
-    componentWillUpdate(preProps, preState) {
-        const token = localStorage.token;
-        const decoded = jwt_decode(token);
-        console.log(preState);
+    // componentWillUpdate(preProps, preState) {
+    //     const token = localStorage.token;
+    //     const decoded = jwt_decode(token);
 
-        // if (this.state.id !== preState.id) {
-        //     this.getRoadmapData(decoded);
-        // }
-    }
+    // }
 
     render() {
-        // const items = this.state.roadMapsList.map((element, i) => (
-        //     <li key={i}> <RoadMapCard info={element} /> </li>
-        // ));
+        const items = this.state.roadMapsList.map((element, i) => (
+            <li key={i}> <RoadMapCard info={element} /> </li>
+        ));
 
         return (
             <div className='dashboard'>
-                <Sidebar pseudo={this.state.pseudo} />
+                <Sidebar/>
 
                 <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: 'auto' }}>
                     <FormRoadmap id={this.state.id}/>
-                    {this.state.roadMapsList.map((element, i) => {
-                        return (<li key={i}> <RoadMapCard info={element} /> </li>);
-                    })}
+                    {items}
 
                 </ul>
             </div>

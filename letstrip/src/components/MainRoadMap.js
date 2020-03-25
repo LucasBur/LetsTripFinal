@@ -1,12 +1,8 @@
 import React from 'react';
+import axios from 'axios';
 import jwt_decode from 'jwt-decode'
 import Sidebar from './Sidebar';
-import { FormRoadmap } from './Forms/Modal/FormRoadmap';
-import RoadMapCard from './RoadMapCard';
-import '../styles/Dashboard_style.css'
-import axios from 'axios';
 import ListGroup from 'react-bootstrap/ListGroup';
-import Card from 'react-bootstrap/Card';
 import DayCalendar from './DayCalendar';
 import { FormActivity } from './Forms/Modal/FormActivity';
 import '../styles/MainRoadmap_style.css'
@@ -58,7 +54,6 @@ class MainRoadMap extends React.Component {
                     var oneDay = 24 * 60 * 60 * 1000;
                     // A verif le nbr de jour
                     const dayDiff = Math.ceil(Math.abs((startTypeDate - endTypeDate) / oneDay));
-
                     this.setState({
                         id: response.data.id,
                         name: response.data.name,
@@ -74,14 +69,10 @@ class MainRoadMap extends React.Component {
             });
     }
 
-    // componentDidMount(){
-    //     console.log(this.state);
-    // }
-
     render() {
         return (
             <div className="mainroadmap">
-                <Sidebar pseudo={this.state.userPseudo} />
+                <Sidebar />
                 <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: "scroll" }}>
                     <li> <FormActivity dayNumber={this.state.dayNbr} id={this.props.match.params.id}/> </li>
                     <ListGroup horizontal>

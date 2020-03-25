@@ -1,10 +1,11 @@
 import React from 'react';
 import Homepage from './components/Homepage';
 import Dashboard from './components/Dashboard';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import './App.css';
-import { ProtectedRoute } from './components/ProtectedRoute';
+import Profile from './components/Profile';
 import MainRoadMap from './components/MainRoadMap';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { ProtectedRoute } from './components/ProtectedRoute';
+import './App.css';
 
 class App extends React.Component {
   render() {
@@ -15,6 +16,7 @@ class App extends React.Component {
             <Route exact path='/' component={Homepage} />
             <ProtectedRoute exact path='/dashboard' component={Dashboard} />
             <ProtectedRoute exact path='/mainRoadMap/:id' component={MainRoadMap} />
+            <ProtectedRoute exact path='/profile' component={Profile} />
           </Switch>
         </Router>
 

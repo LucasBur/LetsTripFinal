@@ -103,18 +103,6 @@ router.get('/GetAllRoadMaps/:id', function (req, res) {
     });
 });
 
-// // Suppréssion d'une RoadMap
-router.delete('/DeleteRoadMap/:id', (req, res) => {
-    db.roadmaps.findOne({ where: { id: req.params.id } }).then(roadmap => {
-        if (roadmap == null) {
-            res.send(false);
-        } else {
-            roadmap.destroy();
-            res.send(true);
-        }
-    });
-});
-
 // Création d'une RoadMap
 router.post('/CreateRoadMap', function (req, res) {
     console.log(req.body)
@@ -134,7 +122,18 @@ router.post('/CreateRoadMap', function (req, res) {
         roadmap.addUser(req.body.id), console.log('roadmap created')
     }).catch(err => res.status(400).json('Error: ' + err));
 });
-//#endregion
+
+// Suppréssion d'une RoadMap
+router.delete('/DeleteRoadMap/:id', (req, res) => {
+    db.roadmaps.findOne({ where: { id: req.params.id } }).then(roadmap => {
+        if (roadmap == null) {
+            res.send(false);
+        } else {
+            roadmap.destroy();
+            res.send(true);
+        }
+    });
+});
 
 //#region Activity
 router.post('/CreateActivity', function (req, res){

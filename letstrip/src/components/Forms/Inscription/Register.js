@@ -3,7 +3,7 @@ import auth from '../../../auth';
 import Button from 'react-bootstrap/Button'
 import * as Yup from "yup";
 import { Formik } from "formik";
-import '../../../styles/Register_styles.css'
+import '../../../styles/Register_style.css'
 
 class Register extends React.Component {
     signupSubmit = async (values) => {

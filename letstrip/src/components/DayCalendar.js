@@ -17,29 +17,25 @@ class DayCalendar extends React.Component {
         };
     };
 
-    componentWillMount() {        
-        axios.get(`http://localhost:4000/GetActivities/${this.props.rmId}/${this.props.day}`, { headers: { "Content-Type": "application/json" }})
-        .then(response => {            
-            if(response.data != false){
-                console.log(response.data);
-                this.setState({
-                    activities: response.data
-                });
-            }            
-        });
+    componentWillMount() {
+        axios.get(`http://localhost:4000/GetActivities/${this.props.rmId}/${this.props.day}`,
+            { headers: { "Content-Type": "application/json" } }).then(response => {
+                if (response.data != false) {
+                    console.log(response.data);
+                    this.setState({
+                        activities: response.data
+                    });
+                }
+            });
     }
 
-    // componentDidMount(){
-    //     console.log(this.state);
-    // }
-
-    render() {        
+    render() {
         return (
             <div>
-                <ListGroup.Item style={{width: "300px"}}>
+                <ListGroup.Item style={{ width: "300px" }}>
                     <h3>Jour {this.props.day}</h3>
                     {this.state.activities.map((element, i) => {
-                        return (<Activity key={i} info={element}/>);
+                        return (<Activity key={i} info={element} />);
                     })}
                 </ListGroup.Item>
             </div>
