@@ -30,9 +30,7 @@ class Dashboard extends React.Component {
             last_name: decoded.lastname,
             pseudo: decoded.pseudo,
             email: decoded.email,
-        })
-        this.getRoadmapData(decoded.id)
-    }
+        });
 
     getRoadmapData(id) {
         axios.get(`http://localhost:4000/GetAllRoadMaps/${id}`)
@@ -64,8 +62,11 @@ class Dashboard extends React.Component {
                 <Sidebar pseudo={this.state.pseudo} />
 
                 <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: 'auto' }}>
-                    <FormRoadmap id={this.state.id} />
-                    {items}
+                    <FormRoadmap id={this.state.id}/>
+                    {this.state.roadMapsList.map((element, i) => {
+                        return (<li key={i}> <RoadMapCard info={element} /> </li>);
+                    })}
+
                 </ul>
             </div>
         );
