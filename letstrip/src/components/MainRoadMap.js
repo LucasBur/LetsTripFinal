@@ -86,7 +86,7 @@ class MainRoadMap extends React.Component {
                     <li> <FormActivity dayNumber={this.state.dayNbr} id={this.props.match.params.id}/> </li>
                     <ListGroup horizontal>
                         {Array.from({ length: this.state.dayNbr }, (_, k) => (
-                            <li><DayCalendar day={k + 1} /></li>
+                            <li key={k}><DayCalendar day={k + 1} rmId={this.state.id} /></li>
                         ))}
                     </ListGroup>
                 </ul>

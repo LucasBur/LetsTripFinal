@@ -163,7 +163,7 @@ router.get('/GetActivities/:id/:day', function(req, res){
         if(activities.length == 0){
             console.log('pas dactivity');
             res.send(false);
-        } else {            
+        } else {                        
             var activitiesToSend = [];
             activities.forEach(element => {
                 activitiesToSend.push(element.dataValues);

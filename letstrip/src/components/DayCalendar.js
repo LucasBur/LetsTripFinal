@@ -21,6 +21,7 @@ class DayCalendar extends React.Component {
         axios.get(`http://localhost:4000/GetActivities/${this.props.rmId}/${this.props.day}`, { headers: { "Content-Type": "application/json" }})
         .then(response => {            
             if(response.data != false){
+                console.log(response.data);
                 this.setState({
                     activities: response.data
                 });
