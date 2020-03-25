@@ -34,6 +34,7 @@ export const FormRoadmap = (props) => {
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
             createRoadmap(values);
+            console.log(values)
             handleClose()
             resetForm();
             setSubmitting(false);

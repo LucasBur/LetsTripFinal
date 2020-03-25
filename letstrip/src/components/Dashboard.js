@@ -4,14 +4,8 @@ import Sidebar from './Sidebar';
 import { FormRoadmap } from './Forms/Modal/FormRoadmap';
 import axios from 'axios';
 import RoadMapCard from './RoadMapCard';
+import auth from '../auth';
 import '../styles/Dashboard_style.css'
-
-
-const token = localStorage.token;
-let decoded;
-if (token) {
-    decoded = jwt_decode(token);
-}
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -28,6 +22,8 @@ class Dashboard extends React.Component {
     };
 
     componentDidMount() {
+        const token = localStorage.token;
+        const decoded = jwt_decode(token);
         this.setState({
             id: decoded.id,
             first_name: decoded.firstname,
@@ -35,30 +31,33 @@ class Dashboard extends React.Component {
             pseudo: decoded.pseudo,
             email: decoded.email,
         })
-        this.getRoadmapData(decoded)
+        this.getRoadmapData(decoded.id)
     }
 
-    getRoadmapData(decoded) {
-        axios.get(`http://localhost:4000/GetAllRoadMaps/${decoded.id}`, { headers: { "Content-Type": "application/json" } })
+    getRoadmapData(id) {
+        axios.get(`http://localhost:4000/GetAllRoadMaps/${id}`)
             .then(response => {
-                if (this.state.roadMapsList != response.data) {
-                    this.setState({
-                        roadMapsList: response.data
-                    });
-                }
+                // if (this.state.roadMapsList !== response.data) {
+                //     this.setState({
+                //         roadMapsList: response.data
+                //     });
+                // }
+                this.setState({
+                    roadMapsList: response.data
+                });
             });
     }
 
-    // componentDidUpdate() {
-    //    this.getRoadmapData(decoded);
-    // }
+    componentDidUpdate(preProps, preState) {
+        console.log('preProps : ', preProps)
+        console.log('preState :', preState)
+        //    this.getRoadmapData(decoded);
+    }
 
     render() {
-
-        // const items = this.state.roadMapsList.map((element, i) => (
-        //     <li key={i}> <RoadMapCard info={element} /> </li>
-        // ));
-        console.log(this.state.roadMapsList)
+        const items = this.state.roadMapsList.map((element, i) => (
+            <li key={i}> <RoadMapCard info={element} /> </li>
+        ));
 
         return (
             <div className='dashboard'>
@@ -66,12 +65,7 @@ class Dashboard extends React.Component {
 
                 <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: 'auto' }}>
                     <FormRoadmap id={this.state.id} />
-                    {this.state.roadMapsList.map((element, i) => {
-                        console.log(element, i)
-                        return (
-                            <li key={i}> <RoadMapCard info={element} /> </li>
-                        );
-                    })}
+                    {items}
                 </ul>
             </div>
         );

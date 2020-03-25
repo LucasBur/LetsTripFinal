@@ -40,13 +40,13 @@ router.post('/NewUser', (req, res) => {
         try {
             let token = jwt.sign(userCreated.dataValues, config.secret, { expiresIn: 1440 });
             res.send(token)
-        } catch(error) {
+        } catch (error) {
             console.log(error)
         }
     }).catch(error => {
-            res.send(false);
-            console.log(error)
-        });
+        res.send(false);
+        console.log(error)
+    });
 });
 
 router.post('/Login', async (req, res) => {
@@ -67,9 +67,8 @@ router.post('/Login', async (req, res) => {
                 text: "Mot de passe incorrect"
             });
         } else {
-            jwt.sign(user.dataValues, config.secret, { expiresIn: 1440 })
-                .then(token => res.send(token), console.log(token))
-                .catch(err => console.log(err))
+            let token = jwt.sign(user.dataValues, config.secret, { expiresIn: 1440 });
+            res.send(token)
         }
     });
 });
@@ -93,6 +92,7 @@ router.get('/GetAllRoadMaps/:id', function (req, res) {
             res.send(false);
         } else {
             user.getRoadmaps().then(roadMaps => {
+                console.log(roadMaps)
                 var rmToSend = [];
                 roadMaps.forEach(element => {
                     rmToSend.push(element.dataValues);
