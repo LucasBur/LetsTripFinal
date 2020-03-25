@@ -31,6 +31,8 @@ class Dashboard extends React.Component {
             pseudo: decoded.pseudo,
             email: decoded.email,
         });
+        this.getRoadmapData(this.state.id);
+    }
 
     getRoadmapData(id) {
         axios.get(`http://localhost:4000/GetAllRoadMaps/${id}`)
@@ -47,15 +49,15 @@ class Dashboard extends React.Component {
     }
 
     componentDidUpdate(preProps, preState) {
-        console.log('preProps : ', preProps)
-        console.log('preState :', preState)
+        console.log('preProps : ', preProps);
+        console.log('preState :', preState);
         //    this.getRoadmapData(decoded);
     }
 
     render() {
-        const items = this.state.roadMapsList.map((element, i) => (
-            <li key={i}> <RoadMapCard info={element} /> </li>
-        ));
+        // const items = this.state.roadMapsList.map((element, i) => (
+        //     <li key={i}> <RoadMapCard info={element} /> </li>
+        // ));
 
         return (
             <div className='dashboard'>
