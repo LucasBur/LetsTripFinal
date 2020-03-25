@@ -36,18 +36,14 @@ class Profile extends React.Component {
             <div className="profile">
                 <Sidebar />
                 <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: 'auto' }}>
-                    {/* <div style={{display: 'flex', justifyContent:'space-between', alignItems:'center'}}>
-                        <h1>Mon Compte</h1>
-                        <img src={onizukadauphin} width='10%' alt='onizukadauphin' />
-                    </div> */}
-                    <Col as={Row}>
+                    <Col as={Row} style={{alignItems:'center'}}>
                         <Col sm={5}>
-                            <img src={onizukadauphin} width='70%' alt='onizukadauphin' />
+                            <img src={onizukadauphin} width='50%' alt='onizukadauphin' />
                         </Col>
                         <Col sm={7}>
                             <h1> {this.state.userFirst_name} {this.state.userLast_name} </h1>
                             <span>
-                                <a href="#" alt='email'> {this.state.userEmail} </a> - Utilisateur
+                                <a href="#" alt='email'> {this.state.userEmail} </a> - Admin
                             </span>
 
                         </Col>

@@ -15,6 +15,7 @@ export const FormUpdateUser = (props) => {
 
     return <Formik
         initialValues={{
+            pseudo: "", firstName: "", lastName: "", email: ""
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
             console.log(values)
@@ -22,19 +23,15 @@ export const FormUpdateUser = (props) => {
             setSubmitting(false);
         }}
         validationSchema={Yup.object().shape({
-            name: Yup.string().required("nom requis.")
+            pseudo: Yup.string().required("pseudo requis.")
                 .min(2, "2 caractères minimum"),
-            password: Yup.string()
-                .required("No password provided.")
-                .min(3, "Password is too short - should be 3 chars minimum."),
-            nbr_participants: Yup.string().required("Nombre de participant requis.")
-                .min(1, "1 personne minimum."),
-            location: Yup.string().required("Destination requise.")
-                .min(2, "2 caractères minimum."),
-            startDate: Yup.string().required("Date de départ requise"),
-            endDate: Yup.string().required("Date de retour requise"),
-            budget: Yup.string().required("Budget requis").min(0, "Entrer 0 si vous ne savez pas"),
-            leader: Yup.bool()
+            email: Yup.string()
+                .email('Email non valide')
+                .required("Email requis"),
+            firstName: Yup.string().required("Prénom requis.")
+                .min(2, "2 caractères minimum"),
+            lastName: Yup.string().required("Nom de famille requis.")
+                .min(2, "2 caractères minimum"),
         })}>
 
         {props => {
@@ -43,13 +40,22 @@ export const FormUpdateUser = (props) => {
                 handleChange, handleBlur,
                 handleSubmit } = props;
             return (
-                <Form style={{}}>
+                <Form onSubmit={handleSubmit}>
                     <Form.Group as={Row}>
                         <Form.Label column sm="5">
                             Pseudo
                         </Form.Label>
                         <Col sm="7">
-                            <Form.Control defaultValue={pseudo} />
+                            <Form.Control
+                                placeholder={pseudo}
+                                name="pseudo"
+                                value={values.pseudo}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                className={errors.pseudo && touched.pseudo && "error"} />
+                            {errors.pseudo && touched.pseudo && (
+                                <div className="input-feedback">{errors.pseudo}</div>
+                            )}
                         </Col>
                     </Form.Group>
 
@@ -58,7 +64,16 @@ export const FormUpdateUser = (props) => {
                             Email
                         </Form.Label>
                         <Col sm="7">
-                            <Form.Control defaultValue={email} />
+                            <Form.Control
+                                placeholder={email}
+                                name="email"
+                                value={values.email}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                className={errors.email && touched.email && "error"} />
+                            {errors.email && touched.email && (
+                                <div className="input-feedback">{errors.email}</div>
+                            )}
                         </Col>
                     </Form.Group>
 
@@ -76,7 +91,17 @@ export const FormUpdateUser = (props) => {
                             Prénom
                         </Form.Label>
                         <Col sm="7">
-                            <Form.Control defaultValue={firstName} />
+                            <Form.Control
+                                placeholder={firstName}
+                                name="firstName"
+                                value={values.firstName}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                className={errors.firstName && touched.firstName && "error"}
+                            />
+                            {errors.firstName && touched.firstName && (
+                                <div className="input-feedback">{errors.firstName}</div>
+                            )}
                         </Col>
                     </Form.Group>
 
@@ -85,11 +110,20 @@ export const FormUpdateUser = (props) => {
                             Nom de famille
                         </Form.Label>
                         <Col sm="7">
-                            <Form.Control defaultValue={lastName} />
+                            <Form.Control
+                                placeholder={lastName}
+                                name="lastName"
+                                value={values.lastName}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                className={errors.lastName && touched.lastName && "error"} />
+                            {errors.lastName && touched.lastName && (
+                                <div className="input-feedback">{errors.lastName}</div>
+                            )}
                         </Col>
                     </Form.Group>
 
-                    <Button id="button-formupdateuser-submit" type="submit">
+                    <Button id="button-formupdateuser-submit" type="submit" disabled={isSubmitting}>
                         Submit
                     </Button>
 
