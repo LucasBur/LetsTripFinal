@@ -16,7 +16,7 @@ class RoadMapCard extends React.Component {
         this.deleteRoadMap = this.deleteRoadMap.bind(this);
         this.openRoadMap = this.openRoadMap.bind(this);
     };
-
+    
     deleteRoadMap() {
         axios.delete(`http://localhost:4000/DeleteRoadMap/${this.props.info.id}`,
             { headers: { "Content-Type": "application/json" } })

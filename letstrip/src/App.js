@@ -16,7 +16,7 @@ class App extends React.Component {
             <Route exact path='/' component={Homepage} />
             <ProtectedRoute exact path='/dashboard' component={Dashboard} />
             <ProtectedRoute exact path='/mainRoadMap/:id' component={MainRoadMap} />
-            <ProtectedRoute exact path='/profile' component={Profile} />
+            <ProtectedRoute exact path='/profile/:id' component={Profile} />
           </Switch>
         </Router>
 

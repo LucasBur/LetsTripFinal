@@ -4,7 +4,6 @@ import Sidebar from './Sidebar';
 import { FormRoadmap } from './Forms/Modal/FormRoadmap';
 import axios from 'axios';
 import RoadMapCard from './RoadMapCard';
-import auth from '../auth';
 import '../styles/Dashboard_style.css'
 
 class Dashboard extends React.Component {
@@ -53,6 +52,7 @@ class Dashboard extends React.Component {
     // }
 
     render() {
+        
         const items = this.state.roadMapsList.map((element, i) => (
             <li key={i}> <RoadMapCard info={element} /> </li>
         ));

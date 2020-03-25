@@ -72,6 +72,23 @@ router.post('/Login', async (req, res) => {
         }
     });
 });
+
+router.put('/UpdateUser/:id', function(req, res) {
+    db.users.findOne({ where: { id: req.params.id }}).then(user => {
+        if(user == null){
+            res.send(false);
+        } else {
+            user.email = req.body.email;
+            user.pseudo = req.body.pseudo;
+            user.firstname = req.body.firstname;
+            user.lastname = req.body.lastname;
+            // user.password = req.body.password;
+            user.save();
+            let token = jwt.sign(user.dataValues, config.secret, { expiresIn: 1440 });
+            res.send(token)
+        }
+    });
+});
 //#endregion
 
 //#region RoadMaps

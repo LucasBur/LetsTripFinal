@@ -32,6 +32,7 @@ class Profile extends React.Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <div className="profile">
                 <Sidebar />
@@ -43,7 +44,7 @@ class Profile extends React.Component {
                         <Col sm={7}>
                             <h1> {this.state.userFirst_name} {this.state.userLast_name} </h1>
                             <span>
-                                <a href="#" alt='email'> {this.state.userEmail} </a> - Admin
+                                <a href="/profile/:id" alt='email'> {this.state.userEmail} </a> - Admin
                             </span>
 
                         </Col>
@@ -54,6 +55,7 @@ class Profile extends React.Component {
                     <hr></hr>
                     <li>
                         <FormUpdateUser
+                            userId={this.props.match.params.id}
                             userPseudo={this.state.userPseudo}
                             userEmail={this.state.userEmail}
                             userFirstName={this.state.userFirst_name}

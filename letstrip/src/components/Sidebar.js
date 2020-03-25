@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import jwt_decode from 'jwt-decode'
+import jwt_decode from 'jwt-decode';
 import auth from '../auth';
 import map from '../design/icons/map.svg'
 import contact from '../design/icons/contact.svg'
@@ -11,6 +11,7 @@ class Sidebar extends Component {
     constructor(props) {
         super(props);
         this.wrapperRef = React.createRef()
+        this.openProfileSetting = this.openProfileSetting.bind(this);
         this.state = {
             userId: '',
             userFirst_name: '',
@@ -37,6 +38,10 @@ class Sidebar extends Component {
         });
     }
 
+    openProfileSetting() {
+        window.location=`/profile/${this.state.userId}`
+    }
+
     render() {
         return (
             <div ref={this.wrapperRef} className="wrapper" >
@@ -47,9 +52,12 @@ class Sidebar extends Component {
                         <img src={onizukadauphin} width='100%' alt='onizukadauphin' />
                         <h4>{this.state.userPseudo}</h4>
                         <ul>
-                            <li style={{ listStyleImage: `url(${map})` }}> <a href='/dashboard'> Mes RoadMaps </a></li>
-                            <li style={{ listStyleImage: `url(${setting})` }}> <a href='/profile'>Paramétrer mon compte</a></li>
-                            <li style={{ listStyleImage: `url(${contact})` }}><a href='/dashboard'>Contact</a></li>
+                            <li style={{ listStyleImage: `url(${map})` }}> 
+                                <a href='/dashboard'> Mes RoadMaps </a></li>
+                            <li style={{ listStyleImage: `url(${setting})` }}> 
+                                <a onClick={this.openProfileSetting}>Paramétrer mon compte</a></li>
+                            <li style={{ listStyleImage: `url(${contact})` }}><
+                                    a href='/dashboard'>Contact</a></li>
                             <li><a href='/' onClick={auth.logout}>Deconnexion</a></li>
                         </ul>
 

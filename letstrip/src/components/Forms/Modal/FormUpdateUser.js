@@ -1,5 +1,5 @@
 import React from 'react';
-// import auth from '../../../auth';
+import axios from 'axios'
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
@@ -13,11 +13,23 @@ export const FormUpdateUser = (props) => {
     const firstName = props.userFirstName;
     const lastName = props.userLastName;
 
+    console.log(props)
+
+    const updateUserSetting = async (values) => {
+        try {
+            const updateUser = await axios.put(`http://localhost:4000/UpdateUser/${props.userId}`, values);
+            console.log('user info : ', updateUser)
+        } catch(error) {
+            console.log(error)
+        }
+    };
+
     return <Formik
         initialValues={{
             pseudo: "", firstName: "", lastName: "", email: ""
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
+            updateUserSetting(values);
             console.log(values)
             resetForm();
             setSubmitting(false);
