@@ -35,7 +35,7 @@ class Activity extends React.Component {
     render() {
         return (
             <div>
-                <Card className="text-center">
+                <Card className="text-center mt-1">
                     <Card.Header>{this.props.info.title}</Card.Header>
                     <Card.Body>
                         <Container fluid>

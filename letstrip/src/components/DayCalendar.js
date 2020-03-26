@@ -36,11 +36,13 @@ class DayCalendar extends React.Component {
     render() {        
         return (
             <div>
-                <ListGroup.Item style={{width: "300px"}}>
+                <ListGroup.Item>
                     <h3>Jour {this.props.day}</h3>
+                </ListGroup.Item>
+                <ListGroup.Item style={{width: "300px", height: "600px", overflow:"scroll"}}>                    
                     {this.state.activities.map((element, i) => {
                         return (<Activity key={i} info={element}/>);
-                    })}
+                    })}                    
                 </ListGroup.Item>
             </div>
         );
