@@ -95,7 +95,7 @@ export const FormActivity = (props) => {
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         as="textarea" rows="3"
-                                        placeholder="- Acheter couscous merguez, -Frapper un arabe, -Aller au grec"
+                                        placeholder="- Acheter couscous merguez, -Aller au grec"
                                         className={errors.description && touched.description && "error"} />
                                     {errors.description && touched.description && (
                                         <div className="input-feedback">{errors.description}</div>
