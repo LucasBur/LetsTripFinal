@@ -57,15 +57,15 @@ router.post('/Login', async (req, res) => {
         if (!user) {
             res.send(false);
             console.log('Mauvais email')
-            return res.status(401).json({
-                text: "L'utilisateur n'existe pas"
-            });
+            // return res.status(401).json({
+            //     text: "L'utilisateur n'existe pas"
+            // });
         } else if (!user.validPassword(req.body.password)) {
             res.send(false);
             console.log('Mauvais mdp')
-            return res.status(401).json({
-                text: "Mot de passe incorrect"
-            });
+            // return res.status(401).json({
+            //     text: "Mot de passe incorrect"
+            // });
         } else {
             let token = jwt.sign(user.dataValues, config.secret, { expiresIn: 1440 });
             res.send(token)
@@ -82,10 +82,9 @@ router.put('/UpdateUser/:id', function(req, res) {
             user.pseudo = req.body.pseudo;
             user.firstname = req.body.firstname;
             user.lastname = req.body.lastname;
-            // user.password = req.body.password;
+            user.password = req.body.password;
             user.save();
-            let token = jwt.sign(user.dataValues, config.secret, { expiresIn: 1440 });
-            res.send(token)
+            res.send(true);
         }
     });
 });
@@ -172,10 +171,15 @@ router.post('/CreateActivity', function (req, res){
 });
 
 router.get('/GetActivities/:id/:day', function(req, res){
-    db.activities.findAll({ where : {
-        roadmapId: req.params.id,
-        day: req.params.day
-    }}).then(activities => {
+    db.activities.findAll({ 
+        where : {
+            roadmapId: req.params.id,
+            day: req.params.day
+        },
+        order:[
+            ['startHour', 'ASC']
+        ]
+    }).then(activities => {
         if(activities.length == 0){
             console.log('pas dactivity');
             res.send(false);

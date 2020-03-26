@@ -21,9 +21,13 @@ export default {
     login: async (values) => {
         try {
             const userData = await axios.post(`${url}/Login`, values, { headers: headers });
-            localStorage.setItem("token", userData.data);
-            window.location = '/dashboard'
-            console.log('log :', userData)
+            if(userData.data == false) {
+                alert('Mail ou mot de passe incorect');
+            } else {
+                localStorage.setItem("token", userData.data);
+                window.location = '/dashboard'
+                console.log('log :', userData)
+            }            
         } catch (error) {
             console.log(error)
         }
