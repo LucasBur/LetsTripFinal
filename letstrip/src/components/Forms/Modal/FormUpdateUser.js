@@ -17,10 +17,10 @@ export const FormUpdateUser = (props) => {
 
     const updateUserSetting = async (values) => {
         try {
-            const updateUser = await axios.put(`http://localhost:4000/UpdateUser/${props.userId}`, values);
-            console.log('user info : ', updateUser)
+            const updateUser = await axios.patch(`http://localhost:4000/UpdateUser/${props.userId}`, values);
+            console.log('user info : ', updateUser);
         } catch(error) {
-            console.log(error)
+            console.log(`😱 Axios request failed: ${error}`)
         }
     };
 

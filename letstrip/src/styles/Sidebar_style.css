@@ -37,12 +37,9 @@ h4 {
 
 .wrapper {
   display: flex;
-  /* width: 350px; */
-  /* width: 30%; */
   height: 100%;
   transition: margin 0.5s;
   margin: 0 0 0 -250px;
-  /* background-color: green; */
 }
 
 .wrapper.is-nav-open {

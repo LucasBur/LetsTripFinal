@@ -55,9 +55,9 @@ class Sidebar extends Component {
                             <li style={{ listStyleImage: `url(${map})` }}> 
                                 <a href='/dashboard'> Mes RoadMaps </a></li>
                             <li style={{ listStyleImage: `url(${setting})` }}> 
-                                <a onClick={this.openProfileSetting}>Paramétrer mon compte</a></li>
-                            <li style={{ listStyleImage: `url(${contact})` }}><
-                                    a href='/dashboard'>Contact</a></li>
+                                <button onClick={this.openProfileSetting}>Paramétrer mon compte</button></li>
+                            <li style={{ listStyleImage: `url(${contact})` }}>
+                                <a href='/dashboard'>Contact</a> </li>
                             <li><a href='/' onClick={auth.logout}>Deconnexion</a></li>
                         </ul>
 
