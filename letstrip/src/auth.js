@@ -21,13 +21,13 @@ export default {
     login: async (values) => {
         try {
             const userData = await axios.post(`${url}/Login`, values, { headers: headers });
-            if(userData.data == false) {
+            if (userData.data == false) {
                 alert('Mail ou mot de passe incorect');
             } else {
                 localStorage.setItem("token", userData.data);
                 window.location = '/dashboard'
                 console.log('log :', userData)
-            }            
+            }
         } catch (error) {
             console.log(error)
         }
@@ -40,6 +40,16 @@ export default {
     logout: () => {
         localStorage.clear();
         window.location = '/'
+    },
+
+    updateUserProfile: async (values) => {
+        try {
+            const updateUser = await axios.put(`http://localhost:4000/UpdateUser/${values.id}`, values, { headers: headers });
+            localStorage.setItem("token", updateUser.data);
+            console.log('user info : ', updateUser);
+        } catch (error) {
+            console.log(`😱 Axios request failed: ${error}`)
+        }
     },
 
     // Roadmap
@@ -55,9 +65,9 @@ export default {
 
     // Activity
 
-    createActivity: async (values) => {    
+    createActivity: async (values) => {
         try {
-            const activityData = await axios.post(`${url}/CreateActivity`, values, {headers: headers});
+            const activityData = await axios.post(`${url}/CreateActivity`, values, { headers: headers });
             console.log('activity created : ', activityData);
         }
         catch (error) {

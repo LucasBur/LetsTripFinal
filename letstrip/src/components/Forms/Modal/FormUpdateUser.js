@@ -6,32 +6,28 @@ import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
 import * as Yup from "yup";
 import { Formik } from "formik";
+import auth from '../../../auth';
 
 export const FormUpdateUser = (props) => {
     const email = props.userEmail;
     const pseudo = props.userPseudo;
     const firstName = props.userFirstName;
     const lastName = props.userLastName;
-
-    console.log(props)
-
+    
     const updateUserSetting = async (values) => {
-        console.log(values);
         try {
-            const updateUser = await axios.put(`http://localhost:4000/UpdateUser/${props.userId}`, values);
-            console.log('user info : ', updateUser);
-        } catch(error) {
-            console.log(`😱 Axios request failed: ${error}`)
+            const updateUser = await auth.updateUserProfile(values);
+        } catch (error) {
+            console.log(error)
         }
     };
 
     return <Formik
         initialValues={{
-            pseudo: "", firstName: "", lastName: "", email: ""
+            id: `${props.userId}`, pseudo: "", firstName: "", lastName: "", email: ""
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
             updateUserSetting(values);
-            console.log(values)
             resetForm();
             setSubmitting(false);
         }}

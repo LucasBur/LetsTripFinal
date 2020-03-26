@@ -84,7 +84,8 @@ router.put('/UpdateUser/:id', function(req, res) {
             user.lastname = req.body.lastName;
             //user.password = req.body.password;
             user.save();
-            res.send(true);
+            let token = jwt.sign(user.dataValues, config.secret, { expiresIn: 1440 });
+            res.send(token);
         }
     });
 });
