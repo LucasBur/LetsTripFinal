@@ -63,5 +63,16 @@ export default {
         catch (error) {
             console.log(error)
         }
+    },
+
+    updateActivity: async (values) => {
+        console.log(values);
+        try {
+            const activityData = await axios.put(`${url}/UpdateActivity/${values.id}`, values, { headers: headers });
+            console.log('activity modified: ', activityData);
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
 }

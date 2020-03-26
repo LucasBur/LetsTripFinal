@@ -32,7 +32,7 @@ class DayCalendar extends React.Component {
                 </ListGroup.Item>
                 <ListGroup.Item style={{width: "300px", height: "600px", overflow:"scroll"}}>                    
                     {this.state.activities.map((element, i) => {
-                        return (<Activity key={i} info={element}/>);
+                        return (<Activity key={i} info={element} dayNbr={this.props.dayNbr}/>);
                     })}                    
                 </ListGroup.Item>
             </div>

@@ -204,6 +204,23 @@ router.delete('/DeleteActivity/:id', (req, res) => {
     });
 });
 
+router.put('/UpdateActivity/:id', (req, res) => {
+    db.activities.findOne({ where: { id: req.params.id }}).then(activity => {        
+        if(activity == null){
+            res.send(false);
+        } else {
+            activity.title = req.body.title;
+            activity.description = req.body.description;
+            activity.day = req.body.day;
+            activity.startHour = req.body.startHour;
+            activity.endHour = req.body.endHour;
+
+            activity.save();
+            res.send(true);
+        }
+    });
+});
+
 //#endregion
 
 /** Obligatoire pour pouvoir utiliser le router */
