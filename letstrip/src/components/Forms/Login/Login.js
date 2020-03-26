@@ -71,13 +71,14 @@ class Login extends React.Component {
                                 )}
                             </Form.Group>
 
-                            <Button variant="primary" type="submit" disabled={isSubmitting}>
+                            <Button variant="light" type="submit" disabled={isSubmitting}>
                                 Valider
                             </Button>
                             <Button
+                                style={{float: 'right', background:'none', border:'none'}}
                                 onClick={this.props.registerForm}
                                 variant="secondary"
-                                size="sm">créez un compte
+                                size="sm">Pas encore de compte ?
                             </Button>
                         </Form>
                     )}

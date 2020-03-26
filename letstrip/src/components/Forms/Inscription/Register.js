@@ -1,6 +1,7 @@
 import React from 'react';
 import auth from '../../../auth';
 import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
 import * as Yup from "yup";
 import { Formik } from "formik";
 import '../../../styles/Register_style.css'
@@ -46,13 +47,13 @@ class Register extends React.Component {
                         handleChange, handleBlur,
                         handleSubmit } = props;
                     return (
-                        <div className="homepage-register-form">
+                        <div>
                             <h3 style={{ textAlign: 'center' }}>Rejoignez-nous</h3>
-                            <form onSubmit={handleSubmit} className="register-form">
-                                <div className='register-form-global-div'>
+                            <Form onSubmit={handleSubmit}>
+                                <Form.Group>
                                     <div>
-                                        <label htmlFor="pseudo">Pseudo</label>
-                                        <input
+                                        <Form.Label>Pseudo</Form.Label>
+                                        <Form.Control
                                             name="pseudo"
                                             type="text"
                                             value={values.pseudo}
@@ -64,8 +65,8 @@ class Register extends React.Component {
                                         )}
 
 
-                                        <label htmlFor="lastname">Nom de Famille</label>
-                                        <input
+                                        <Form.Label>Nom de Famille</Form.Label>
+                                        <Form.Control
                                             name="lastname"
                                             type="text"
                                             value={values.lastname}
@@ -77,8 +78,8 @@ class Register extends React.Component {
                                         )}
 
 
-                                        <label htmlFor="firstname">Prénom</label>
-                                        <input
+                                        <Form.Label htmlFor="firstname">Prénom</Form.Label>
+                                        <Form.Control
                                             name="firstname"
                                             type="text"
                                             value={values.firstname}
@@ -90,10 +91,9 @@ class Register extends React.Component {
                                         )}
                                     </div>
 
-                                    <div className='register-form-emailpw'>
-
-                                        <label htmlFor="email">Email</label>
-                                        <input
+                                    <Form.Group>
+                                        <Form.Label>Email</Form.Label>
+                                        <Form.Control
                                             name="email"
                                             type="text"
                                             value={values.email}
@@ -105,8 +105,8 @@ class Register extends React.Component {
                                         )}
 
 
-                                        <label htmlFor="email">Password</label>
-                                        <input
+                                        <Form.Label>Password</Form.Label>
+                                        <Form.Control
                                             name="password"
                                             type="password"
                                             value={values.password}
@@ -116,18 +116,18 @@ class Register extends React.Component {
                                         {errors.password && touched.password && (
                                             <div className="input-feedback">{errors.password}</div>
                                         )}
-                                    </div>
-                                </div>
+                                    </Form.Group>
+                                </Form.Group>
 
-                                <div className='register-form-button'>
+                                <Form.Group>
                                     <Button onClick={this.props.registerFormProps}
                                         variant="secondary"
-                                        size="sm">Vous êtes déjà membre ?</Button>
-                                    <Button type="submit" disabled={isSubmitting}>
+                                        style={{background:'none', border:'none'}}>Vous êtes déjà membre ?</Button>
+                                    <Button style={{float:'right'}} variant="light" type="submit" disabled={isSubmitting}>
                                         Login
                                     </Button>
-                                </div>
-                            </form>
+                                </Form.Group>
+                            </Form>
                         </div>
                     );
                 }}

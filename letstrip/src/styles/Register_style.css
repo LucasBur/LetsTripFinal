@@ -1,4 +1,4 @@
-.homepage .homepage-register-form {
+/* .homepage .homepage-register-form {
   background-color: rgba(255, 255, 255, 0.8);
   width: 70%;
   height: 450px;
@@ -21,18 +21,13 @@
   display: flex;
   justify-content: space-between;
   margin-top: 15px;
-}
+} */
 
 label,
 input {
   display: block;
   width: 100%;
 }
-
-/* label {
-    margin-bottom: 5px;
-    height: 22px;
-  } */
 
 input {
   margin-bottom: 20px;
@@ -50,7 +45,7 @@ input.error {
   font-size: 14px;
   margin-bottom: 20px;
 }
-
+/* 
 @media screen and (max-width: 500px) {
   .homepage .homepage-register-form {
     display: flex;
@@ -84,11 +79,6 @@ input.error {
     width: 100%;
   }
 
-  /* label {
-          margin-bottom: 5px;
-          height: 22px;
-        } */
-
   input {
     margin-bottom: 20px;
     padding: 10px;
@@ -105,4 +95,4 @@ input.error {
     font-size: 14px;
     margin-bottom: 20px;
   }
-}
+} */

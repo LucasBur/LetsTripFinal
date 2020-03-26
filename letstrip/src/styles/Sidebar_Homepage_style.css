@@ -1,0 +1,80 @@
+.right-wrapper .right-nav .right-nav__body h1,
+h4 {
+  color: white;
+  text-align: center;
+  /* padding: 20px; */
+}
+
+/* .right-wrapper .right-nav .right-nav__body ul {
+  margin-top: 50px;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  color: white;
+  font-weight: 700;
+}
+
+.right-wrapper .right-nav .right-nav__body ul li {
+  font-size: 1.2rem;
+}
+
+.right-wrapper .right-nav .right-nav__body ul li a {
+  color: white;
+}
+
+.right-wrapper .right-nav .right-nav__body ul button {
+  background: none;
+  border: none;
+  color: white;
+  font-weight: 700;
+} */
+
+/* .right-nav__body {
+  margin-left: 30px;
+} */
+
+.right-wrapper {
+  display: flex;
+  /* width: 350px; */
+  /* width: 30%; */
+  height: 100%;
+  transition: margin 0.5s;
+  margin: 0 0 0 -450px;
+  /* background-color: green; */
+}
+
+.right-wrapper.right-is-nav-open {
+  margin-left: 0;
+}
+
+.right-nav {
+  position: relative;
+  width: 450px;
+  height: 100vh;
+  padding: 20px;
+  border-right: 1px solid #ccc;
+  background-color: rgba(102, 102, 255, 0.95);
+}
+
+.right-nav__icon {
+  position: absolute;
+  top: 0;
+  right: -60px;
+  padding: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+  background: none;
+  border: none;
+  color: white;
+}
+
+.right-nav__icon:focus {
+  outline: none;
+}
+
+.right-nav__icon:hover {
+  color: #8484e4;
+}
