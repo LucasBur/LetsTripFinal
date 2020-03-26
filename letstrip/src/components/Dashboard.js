@@ -9,6 +9,7 @@ import '../styles/Dashboard_style.css'
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
+        this.onDelete = this.onDelete.bind(this);
         this.state = {
             id: '',
             first_name: '',
@@ -19,7 +20,6 @@ class Dashboard extends React.Component {
             errors: {},
         };
     };
-
 
     // utiliser componentWillMount pour l'instant
     componentWillMount() {
@@ -32,7 +32,6 @@ class Dashboard extends React.Component {
             pseudo: decoded.pseudo,
             email: decoded.email,
         });
-        console.log(decoded)
         this.getRoadmapData(decoded);
     }
 
@@ -45,24 +44,24 @@ class Dashboard extends React.Component {
             });
     }
 
-    // componentWillUpdate(preProps, preState) {
-    //     const token = localStorage.token;
-    //     const decoded = jwt_decode(token);
-
-    // }
+    onDelete(id) {
+        axios.delete(`http://localhost:4000/DeleteRoadMap/${id}`,
+            { headers: { "Content-Type": "application/json" } });
+        this.setState({
+            roadMapsList: this.state.roadMapsList.filter(element => element.id !== id)
+        })
+    }
 
     render() {
-        
         const items = this.state.roadMapsList.map((element, i) => (
-            <li key={i}> <RoadMapCard info={element} /> </li>
+            <li key={i}> <RoadMapCard onDelete={this.onDelete} info={element} /> </li>
         ));
-
         return (
             <div className='dashboard'>
-                <Sidebar/>
+                <Sidebar />
 
                 <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: 'auto' }}>
-                    <FormRoadmap id={this.state.id}/>
+                    <FormRoadmap id={this.state.id} />
                     {items}
 
                 </ul>

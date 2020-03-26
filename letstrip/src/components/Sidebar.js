@@ -44,7 +44,7 @@ class Sidebar extends Component {
 
     render() {
         return (
-            <div ref={this.wrapperRef} className="wrapper" >
+            <div ref={this.wrapperRef} className="wrapper is-nav-open" >
                 <div className="nav">
                     <button className="nav__icon" type="menu-fold" onClick={() => this.handleClick()}> ></button>
                     <div className="nav__body">

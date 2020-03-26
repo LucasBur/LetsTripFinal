@@ -12,18 +12,17 @@ class RoadMapCard extends React.Component {
         super(props);
         this.state = {
         };
-
         this.deleteRoadMap = this.deleteRoadMap.bind(this);
         this.openRoadMap = this.openRoadMap.bind(this);
     };
-    
-    deleteRoadMap() {
-        axios.delete(`http://localhost:4000/DeleteRoadMap/${this.props.info.id}`,
-            { headers: { "Content-Type": "application/json" } })
-    }
 
     openRoadMap() {
         window.location = `/mainRoadMap/${this.props.info.id}`;
+    }
+
+    deleteRoadMap() {
+        axios.delete(`http://localhost:4000/DeleteRoadMap/${this.props.info.id}`,
+            { headers: { "Content-Type": "application/json" } })
     }
 
     render() {
@@ -38,7 +37,9 @@ class RoadMapCard extends React.Component {
                             <Col>Du {this.props.info.startDate} au {this.props.info.endDate}</Col>
                             <Col>
                                 <Button variant="dark" onClick={this.openRoadMap}>Consulter</Button>
-                                <Button variant="danger" className="mr-2" onClick={this.deleteRoadMap}>Supprimer</Button>
+                                <Button variant="danger" className="mr-2" onClick={() => {
+                                    this.props.onDelete(this.props.info.id)
+                                }}>Supprimer</Button>
                             </Col>
                         </Row>
                     </Container>

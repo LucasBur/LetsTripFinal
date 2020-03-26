@@ -19,10 +19,6 @@ class Activity extends React.Component {
         console.log(this.props.info);
     }
 
-    // componentDidMount(){
-    //     console.log(this.state);
-    // }
-
     deleteActivity(){
         axios.delete(`http://localhost:4000/DeleteActivity/${this.props.info.id}`, { headers: { "Content-Type": "application/json"}});        
     }

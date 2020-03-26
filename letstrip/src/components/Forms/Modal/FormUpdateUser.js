@@ -13,10 +13,11 @@ export const FormUpdateUser = (props) => {
     const pseudo = props.userPseudo;
     const firstName = props.userFirstName;
     const lastName = props.userLastName;
-    
+
     const updateUserSetting = async (values) => {
         try {
             const updateUser = await auth.updateUserProfile(values);
+            window.location = '/profile/'+props.id
         } catch (error) {
             console.log(error)
         }

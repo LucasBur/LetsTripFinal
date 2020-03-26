@@ -21,7 +21,7 @@ export default {
     login: async (values) => {
         try {
             const userData = await axios.post(`${url}/Login`, values, { headers: headers });
-            if (userData.data == false) {
+            if (userData.data === false) {
                 alert('Mail ou mot de passe incorect');
             } else {
                 localStorage.setItem("token", userData.data);
