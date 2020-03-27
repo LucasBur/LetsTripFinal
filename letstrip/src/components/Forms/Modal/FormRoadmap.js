@@ -13,8 +13,10 @@ export const FormRoadmap = (props) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const createRoadmap = async (values) => {        
-        axios.post(`http://localhost:4000/CreateRoadMap`, values, { headers: { "Content-Type": "application/json" }}).then(result => {
+    // Fonction qui permet d'ajouter automatiquement le nv composant sans besoin de refresh manuellement
+    const createRoadmap = (values) => {        
+        axios.post(`http://localhost:4000/CreateRoadMap`, values, { headers: { "Content-Type": "application/json" }})
+            .then(result => {
             if(result){
                 props.getRoadmapData(props.id);
             }            

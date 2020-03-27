@@ -122,7 +122,7 @@ class Register extends React.Component {
                                 <Form.Group>
                                     <Button onClick={this.props.registerFormProps}
                                         variant="secondary"
-                                        style={{background:'none', border:'none'}}>Vous êtes déjà membre ?</Button>
+                                        style={{background:'none', border:'none', color:'black'}}>Vous êtes déjà membre ?</Button>
                                     <Button style={{float:'right'}} variant="light" type="submit" disabled={isSubmitting}>
                                         Login
                                     </Button>

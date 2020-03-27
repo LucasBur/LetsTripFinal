@@ -50,7 +50,7 @@ class Sidebar_Homepage extends Component {
                 <div className="right-nav">
                     <button className="right-nav__icon" type="menu-fold" onClick={() => this.handleClick()}> ></button>
                     <div className="right-nav__body">
-                        <h1 className="mb-5">Let's Trip</h1>
+                        <h1 className="mb-5" style={{color:'black'}}>Let's Trip</h1>
                         {/* <img src={onizukadauphin} width='100%' alt='onizukadauphin' /> */}                        
                         {this.showFormRegister()}
                     </div>

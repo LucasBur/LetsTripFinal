@@ -20,6 +20,15 @@ h4 {
   font-size: 1.2rem;
 }
 
+.wrapper .nav .nav__body ul li button {
+  text-align: left;
+}
+
+.wrapper .nav .nav__body ul li button:hover {
+  text-decoration: underline;
+}
+
+
 .wrapper .nav .nav__body ul li a {
   color: white;
 }

@@ -43,10 +43,16 @@ class Login extends React.Component {
                 }) => (
                         <Form onSubmit={handleSubmit}>
                             <h3>Connectez-vous <img src={connect} alt='connect' width="30" height='30'></img> </h3>
-                            <Form.Group>
-                                <Form.Label className='formLabel'>E-mail</Form.Label>
+                            <Form.Group style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent:'space-between',
+                                height:'100px'
+                            }}>
+                                {/* <Form.Label className='formLabel'>E-mail</Form.Label> */}
                                 <Form.Control
                                     style={{ backgroundColor: '#ECECEC' }}
+                                    placeholder='E-mail'
                                     type='text'
                                     name="email"
                                     value={values.email}
@@ -57,9 +63,10 @@ class Login extends React.Component {
                                     <div className="input-feedback">{errors.email}</div>
                                 )}
 
-                                <Form.Label className='formLabel'>Mot de passe</Form.Label>
+                                {/* <Form.Label className='formLabel'>Mot de passe</Form.Label> */}
                                 <Form.Control
                                     style={{ backgroundColor: '#ECECEC' }}
+                                    placeholder='Mot de passe'
                                     type="password"
                                     name="password"
                                     value={values.password}
@@ -75,7 +82,7 @@ class Login extends React.Component {
                                 Valider
                             </Button>
                             <Button
-                                style={{float: 'right', background:'none', border:'none'}}
+                                style={{float: 'right', background:'none', border:'none', color:'black'}}
                                 onClick={this.props.registerForm}
                                 variant="secondary"
                                 size="sm">Pas encore de compte ?

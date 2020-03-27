@@ -9,14 +9,22 @@ class RoadmapLogin extends React.Component {
         return (
             <Form>
                 <h3>Rejoindre une Roadmap <img src={map} alt='roadmap' width="30" height='30'></img> </h3>
-                <Form.Group>
-                    <Form.Label className='formLabel'>Nom de la Roadmap</Form.Label>
+                <Form.Group style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    height: '100px',
+                    marginTop: "10px"
+                }}>
+                    {/* <Form.Label className='formLabel'>Nom de la Roadmap</Form.Label> */}
                     <Form.Control
+                        placeholder='Nom Roadmap'
                         style={{ backgroundColor: '#ECECEC' }}
                         type="name" />
 
-                    <Form.Label className='formLabel'>Mot de passe de la Roadmap</Form.Label>
+                    {/* <Form.Label className='formLabel'>Mot de passe de la Roadmap</Form.Label> */}
                     <Form.Control
+                        placeholder='Mot de passe Roadmap'
                         style={{ backgroundColor: '#ECECEC' }}
                         type="password" />
                 </Form.Group>
