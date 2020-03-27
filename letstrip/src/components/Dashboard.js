@@ -10,6 +10,7 @@ class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.onDelete = this.onDelete.bind(this);
+        this.getRoadmapData = this.getRoadmapData.bind(this);
         this.state = {
             id: '',
             first_name: '',
@@ -32,11 +33,11 @@ class Dashboard extends React.Component {
             pseudo: decoded.pseudo,
             email: decoded.email,
         });
-        this.getRoadmapData(decoded);
+        this.getRoadmapData(decoded.id);
     }
 
-    getRoadmapData(decoded) {
-        axios.get(`http://localhost:4000/GetAllRoadMaps/${decoded.id}`)
+    getRoadmapData(id) {
+        axios.get(`http://localhost:4000/GetAllRoadMaps/${id}`)
             .then(response => {
                 this.setState({
                     roadMapsList: response.data
@@ -61,7 +62,7 @@ class Dashboard extends React.Component {
                 <Sidebar />
 
                 <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: 'auto' }}>
-                    <FormRoadmap id={this.state.id} />
+                    <FormRoadmap id={this.state.id} getRoadmapData={this.getRoadmapData}/>
                     {items}
 
                 </ul>

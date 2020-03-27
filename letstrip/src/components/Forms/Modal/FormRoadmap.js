@@ -6,18 +6,19 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col'
 import * as Yup from "yup";
 import { Formik } from "formik";
+import axios from 'axios';
 
 export const FormRoadmap = (props) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const createRoadmap = async (values) => {
-        try {
-            await auth.createRoadmap(values);
-        } catch (error) {
-            console.log(error)
-        }
+    const createRoadmap = async (values) => {        
+        axios.post(`http://localhost:4000/CreateRoadMap`, values, { headers: { "Content-Type": "application/json" }}).then(result => {
+            if(result){
+                props.getRoadmapData(props.id);
+            }            
+        });
     }
 
     return <Formik
@@ -34,10 +35,10 @@ export const FormRoadmap = (props) => {
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
             createRoadmap(values);
-            console.log(values)
-            handleClose()
+            console.log(values);
+            handleClose();
             resetForm();
-            setSubmitting(false);
+            setSubmitting(false);                
         }}
         validationSchema={Yup.object().shape({
             name: Yup.string().required("nom requis.")
