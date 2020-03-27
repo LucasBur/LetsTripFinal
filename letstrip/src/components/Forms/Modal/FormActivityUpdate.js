@@ -62,7 +62,7 @@ export const FormActivityUpdate = (props) => {
             return (
                 <>
                     <Button variant="dark" size="sm" className="mr-1" onClick={handleShow}>
-                        Mofifier
+                        Modifier
                     </Button>
 
                     <Modal show={show} onHide={handleClose}>

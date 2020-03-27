@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
-import auth from '../../../auth';
+import axios from 'axios'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import * as Yup from "yup";
 import { Formik } from "formik";
 
-export const FormActivity = (props) => {
+export const FormNewActivity = (props) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     const createActivity = async (values) => {
         try {
-            await auth.createActivity(values);
+            const result = await axios.post(`http://localhost:4000/CreateActivity`, 
+                values, { headers: {"Content-Type": "application/json"} });
+            if (result) {
+                props.getActivities()
+            }
         } catch (error) {
             console.log(error)
         }
@@ -35,7 +39,7 @@ export const FormActivity = (props) => {
             description: "",
             day: "",
             startHour: "",
-            endHour:""
+            endHour: ""
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
             console.log(values)
@@ -75,7 +79,7 @@ export const FormActivity = (props) => {
 
                                 <Form.Group controlId="formGridName1">
                                     <Form.Label>Titre de l'Activité</Form.Label>
-                                    <Form.Control 
+                                    <Form.Control
                                         placeholder="Aller au marché de Barbès"
                                         name="title"
                                         value={values.title}
@@ -120,7 +124,7 @@ export const FormActivity = (props) => {
 
                                 <Form.Group>
                                     <Form.Label>Heure de départ</Form.Label>
-                                    <Form.Control 
+                                    <Form.Control
                                         name="startHour" type='time'
                                         value={values.startHour}
                                         onChange={handleChange}
@@ -130,7 +134,7 @@ export const FormActivity = (props) => {
                                         <div className="input-feedback">{errors.startHour}</div>
                                     )}
 
-                                    
+
                                     <Form.Label>Heure de fin</Form.Label>
                                     <Form.Control name="endHour" type='time'
                                         value={values.endHour}

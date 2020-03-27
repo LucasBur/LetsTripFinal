@@ -4,7 +4,7 @@ import jwt_decode from 'jwt-decode'
 import Sidebar from './Sidebar';
 import ListGroup from 'react-bootstrap/ListGroup';
 import DayCalendar from './DayCalendar';
-import { FormActivity } from './Forms/Modal/FormActivity';
+import { FormNewActivity } from './Forms/Modal/FormNewActivity';
 import '../styles/MainRoadmap_style.css'
 
 class MainRoadMap extends React.Component {
@@ -43,16 +43,16 @@ class MainRoadMap extends React.Component {
         axios.get(`http://localhost:4000/GetRoadMap/${this.props.match.params.id}`,
             { headers: { "Content-Type": "application/json" } })
             .then(response => {
+                console.log(response)
                 if (!response.data) {
                     alert('Erreur');
                     window.location = '/dashboard';
                 } else {
-                    var startDateArr = response.data.startDate.split('-');
-                    var endDateArr = response.data.endDate.split('-');
-                    var startTypeDate = new Date(startDateArr[0], startDateArr[1] - 1, startDateArr[2]);
-                    var endTypeDate = new Date(endDateArr[0], endDateArr[1] - 1, endDateArr[2]);
-                    var oneDay = 24 * 60 * 60 * 1000;
-                    // A verif le nbr de jour
+                    const startDateArr = response.data.startDate.split('-');
+                    const endDateArr = response.data.endDate.split('-');
+                    const startTypeDate = new Date(startDateArr[0], startDateArr[1] - 1, startDateArr[2]);
+                    const endTypeDate = new Date(endDateArr[0], endDateArr[1] - 1, endDateArr[2]);
+                    const oneDay = 24 * 60 * 60 * 1000;
                     const dayDiff = Math.ceil(Math.abs((startTypeDate - endTypeDate) / oneDay));
                     this.setState({
                         id: response.data.id,
@@ -74,10 +74,15 @@ class MainRoadMap extends React.Component {
             <div className="mainroadmap">
                 <Sidebar />
                 <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: "scroll" }}>
-                    <li> <FormActivity dayNumber={this.state.dayNbr} id={this.props.match.params.id}/> </li>
+                    <li> <FormNewActivity dayNumber={this.state.dayNbr} id={this.props.match.params.id} /> </li>
                     <ListGroup horizontal>
                         {Array.from({ length: this.state.dayNbr }, (_, k) => (
-                            <li key={k}><DayCalendar day={k + 1} rmId={this.state.id} dayNbr={this.state.dayNbr} /></li>
+                            <li key={k}>
+                                <DayCalendar
+                                    rmId={this.state.id}
+                                    dayNbr={this.state.dayNbr}
+                                    day={k + 1} />
+                            </li>
                         ))}
                     </ListGroup>
                 </ul>
