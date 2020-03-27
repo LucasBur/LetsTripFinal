@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
+import { FormActivityUpdate } from './Forms/Modal/FormActivityUpdate';
 
 class Activity extends React.Component {
     constructor(props) {
@@ -16,7 +17,11 @@ class Activity extends React.Component {
     };
 
     componentWillMount() {
-        console.log(this.props.info);
+        console.log(this.props);
+    }
+
+    componentDidMount(){
+        console.log(this.state);
     }
 
     deleteActivity(){
@@ -37,7 +42,9 @@ class Activity extends React.Component {
                     <Card.Footer>
                         <Container fluid>
                             <Row>
-                                <Button className="mr-1" variant="dark" size="sm">Modifier</Button>
+                                {/* <Button className="mr-1" variant="dark" size="sm">Modifier</Button> */}
+                                <FormActivityUpdate title={this.props.info.title} description={this.props.info.description} dayNumber={this.props.dayNbr}
+                                                    day={this.props.info.day} startHour={this.props.info.startHour} endHour={this.props.info.endHour} id={this.props.info.id}/>
                                 <Button variant="outline-danger" size="sm" onClick={this.deleteActivity}>Supprimer</Button>
                             </Row>
                         </Container>                        
