@@ -4,7 +4,6 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import connect from '../../../design/icons/lock-solid.svg';
 
 class Login extends React.Component {
     constructor(props) {
@@ -42,16 +41,15 @@ class Login extends React.Component {
                     values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting
                 }) => (
                         <Form onSubmit={handleSubmit}>
-                            <h3>Connectez-vous <img src={connect} alt='connect' width="30" height='30'></img> </h3>
+                            <h6>Connectez-vous</h6>
                             <Form.Group style={{
                                 display: 'flex',
                                 flexDirection: 'column',
-                                justifyContent:'space-between',
-                                height:'100px'
+                                justifyContent: 'space-between',
+                                height: '110px',
                             }}>
                                 {/* <Form.Label className='formLabel'>E-mail</Form.Label> */}
                                 <Form.Control
-                                    style={{ backgroundColor: '#ECECEC' }}
                                     placeholder='E-mail'
                                     type='text'
                                     name="email"
@@ -65,7 +63,6 @@ class Login extends React.Component {
 
                                 {/* <Form.Label className='formLabel'>Mot de passe</Form.Label> */}
                                 <Form.Control
-                                    style={{ backgroundColor: '#ECECEC' }}
                                     placeholder='Mot de passe'
                                     type="password"
                                     name="password"
@@ -78,15 +75,17 @@ class Login extends React.Component {
                                 )}
                             </Form.Group>
 
-                            <Button variant="light" type="submit" disabled={isSubmitting}>
-                                Valider
+                            <Form.Group>
+                                <Button 
+                                    style={{backgroundColor:"#6666ff"}} 
+                                    variant="primary" 
+                                    size="md" 
+                                    block 
+                                    type="submit" 
+                                    disabled={isSubmitting}>
+                                    Valider
                             </Button>
-                            <Button
-                                style={{float: 'right', background:'none', border:'none', color:'black'}}
-                                onClick={this.props.registerForm}
-                                variant="secondary"
-                                size="sm">Pas encore de compte ?
-                            </Button>
+                            </Form.Group>
                         </Form>
                     )}
             </Formik>

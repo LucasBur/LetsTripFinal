@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios'
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
@@ -16,7 +15,7 @@ export const FormUpdateUser = (props) => {
 
     const updateUserSetting = async (values) => {
         try {
-            const updateUser = await auth.updateUserProfile(values);
+            await auth.updateUserProfile(values);
             window.location = '/profile/'+props.id
         } catch (error) {
             console.log(error)

@@ -42,8 +42,6 @@ h4 {
   margin: 0 0 0 -390px;
 }
 
-
-
 .right-wrapper.right-is-nav-open {
   margin-left: 0;
 }
@@ -54,7 +52,7 @@ h4 {
   height: 100vh;
   padding: 20px;
   border-right: 1px solid #ccc;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.96);
 }
 
 .right-nav__icon {

@@ -28,6 +28,7 @@ export const FormActivityUpdate = (props) => {
         }
         return num;
     }
+    
     return <Formik
         initialValues={{
             id: `${props.id}`,
@@ -75,7 +76,7 @@ export const FormActivityUpdate = (props) => {
 
                                 <Form.Group controlId="formGridName1">
                                     <Form.Label>Titre de l'Activité</Form.Label>
-                                    <Form.Control 
+                                    <Form.Control
                                         placeholder="Aller au marché de Barbès"
                                         name="title"
                                         value={values.title}
@@ -120,7 +121,7 @@ export const FormActivityUpdate = (props) => {
 
                                 <Form.Group>
                                     <Form.Label>Heure de départ</Form.Label>
-                                    <Form.Control 
+                                    <Form.Control
                                         name="startHour" type='time'
                                         value={values.startHour}
                                         onChange={handleChange}
@@ -130,7 +131,7 @@ export const FormActivityUpdate = (props) => {
                                         <div className="input-feedback">{errors.startHour}</div>
                                     )}
 
-                                    
+
                                     <Form.Label>Heure de fin</Form.Label>
                                     <Form.Control name="endHour" type='time'
                                         value={values.endHour}

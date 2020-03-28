@@ -15,8 +15,9 @@ class DayCalendar extends React.Component {
     componentWillMount() {
         axios.get(`http://localhost:4000/GetActivities/${this.props.rmId}/${this.props.day}`,
             { headers: { "Content-Type": "application/json" } }).then(response => {
+                console.log('day :', this.props.day)
+                console.log('response : ', response.data)
                 if (response.data !== false) {
-                    console.log(response.data);
                     this.setState({
                         activities: response.data
                     });
@@ -30,10 +31,10 @@ class DayCalendar extends React.Component {
                 <ListGroup.Item>
                     <h3>Jour {this.props.day}</h3>
                 </ListGroup.Item>
-                <ListGroup.Item style={{width: "300px", height: "600px", overflow:"scroll"}}>                    
+                <ListGroup.Item style={{ width: "300px", height: "600px", overflow: "scroll" }}>
                     {this.state.activities.map((element, i) => {
-                        return (<Activity key={i} info={element} dayNbr={this.props.dayNbr}/>);
-                    })}                    
+                        return (<Activity key={i} info={element} dayNbr={this.props.dayNbr} />);
+                    })}
                 </ListGroup.Item>
             </div>
         );

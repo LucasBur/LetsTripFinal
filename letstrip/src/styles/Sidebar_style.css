@@ -1,11 +1,11 @@
-.wrapper .nav .nav__body h1,
+.wrapper .nav-dashboard .nav__body h1,
 h4 {
   color: white;
   text-align: center;
   padding: 20px;
 }
 
-.wrapper .nav .nav__body ul {
+.wrapper .nav-dashboard .nav__body ul {
   margin-top: 50px;
   border-bottom: 1px solid white;
   border-top: 1px solid white;
@@ -16,33 +16,33 @@ h4 {
   font-weight: 700;
 }
 
-.wrapper .nav .nav__body ul li {
+.wrapper .nav-dashboard .nav__body ul li {
   font-size: 1.2rem;
 }
 
-.wrapper .nav .nav__body ul li button {
+.wrapper .nav-dashboard .nav__body ul li button {
   text-align: left;
 }
 
-.wrapper .nav .nav__body ul li button:hover {
+.wrapper .nav-dashboard .nav__body ul li button:hover {
   text-decoration: underline;
 }
 
 
-.wrapper .nav .nav__body ul li a {
+.wrapper .nav-dashboard .nav__body ul li a {
   color: white;
 }
 
-.wrapper .nav .nav__body ul button {
+.wrapper .nav-dashboard .nav__body ul button {
   background: none;
   border: none;
   color: white;
   font-weight: 700;
 }
 
-.nav__body {
+/* .nav__body {
   margin-left: 30px;
-}
+} */
 
 .wrapper {
   display: flex;
@@ -55,7 +55,7 @@ h4 {
   margin-left: 0;
 }
 
-.nav {
+.nav-dashboard {
   position: relative;
   width: 250px;
   height: 100vh;

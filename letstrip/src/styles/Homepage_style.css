@@ -1,33 +1,17 @@
-.homepage header h1 {
-    color: white;
-    font-weight: 100;
-    margin-top: 60px;
-    margin-left: 200px;
-}
-
-.homepage article h3 {
-    color: white;
-    margin-left: 200px;
-    margin-top: 20px;
-}
-
-.homepage article p {
-    color: white;
-    font-size: 10px;
-    margin-left: 200px;
-}
-
 /* Login & Roadmap form */
 
- .homepage .homepage-login-forms {
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.homepage .homepage-login-forms {
+  margin-top: 60px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-
-.homepage .homepage-login-forms Form {
-    overflow: auto;
+.homepage .homepage-register-form {
+  margin-top: 60px;
 }
 
+.homepage .homepage-login-forms form {
+  overflow: auto;
+}

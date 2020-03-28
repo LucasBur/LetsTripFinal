@@ -10,6 +10,7 @@ import '../styles/MainRoadmap_style.css'
 class MainRoadMap extends React.Component {
     constructor(props) {
         super(props);
+        this.getActivities=this.getActivities.bind(this)
         this.state = {
             id: '',
             name: '',
@@ -25,7 +26,8 @@ class MainRoadMap extends React.Component {
             userFirst_name: '',
             userLast_name: '',
             userPseudo: '',
-            userEmail: ''
+            userEmail: '',
+            activities: []
         };
     };
 
@@ -69,16 +71,32 @@ class MainRoadMap extends React.Component {
             });
     }
 
+    getActivities(day) {
+        axios.get(`http://localhost:4000/GetActivities/${this.state.id}/${day}`,
+            { headers: { "Content-Type": "application/json" } })
+            .then(response => {
+                console.log('day :' , day)
+                console.log('response : ', response)
+                if (response.data !== false) {
+                    this.setState({
+                        activities: response.data
+                    });
+                }
+            });
+    }
+
     render() {
         return (
             <div className="mainroadmap">
                 <Sidebar />
                 <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: "scroll" }}>
-                    <li> <FormNewActivity dayNumber={this.state.dayNbr} id={this.props.match.params.id} /> </li>
+                    <li> <FormNewActivity rmId={this.state.id} dayNumber={this.state.dayNbr} id={this.props.match.params.id} /> </li>
                     <ListGroup horizontal>
                         {Array.from({ length: this.state.dayNbr }, (_, k) => (
                             <li key={k}>
                                 <DayCalendar
+                                    getActivities={this.getActivities}
+                                    activities={this.state.activities}
                                     rmId={this.state.id}
                                     dayNbr={this.state.dayNbr}
                                     day={k + 1} />

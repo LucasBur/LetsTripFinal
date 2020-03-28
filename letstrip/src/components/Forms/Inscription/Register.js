@@ -47,86 +47,96 @@ class Register extends React.Component {
                         handleChange, handleBlur,
                         handleSubmit } = props;
                     return (
-                        <div>
+                        <div className="homepage-register-form">
                             <h3 style={{ textAlign: 'center' }}>Rejoignez-nous</h3>
                             <Form onSubmit={handleSubmit}>
-                                <Form.Group>
-                                    <div>
-                                        <Form.Label>Pseudo</Form.Label>
-                                        <Form.Control
-                                            name="pseudo"
-                                            type="text"
-                                            value={values.pseudo}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            className={errors.pseudo && touched.pseudo && "error"} />
-                                        {errors.pseudo && touched.pseudo && (
-                                            <div className="input-feedback">{errors.pseudo}</div>
-                                        )}
+                                <Form.Group style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    height: '320px',
+                                    justifyContent: 'space-between'
+                                }}>
+                                    {/* <Form.Label>Nom de Famille</Form.Label> */}
+                                    <Form.Control
+                                        placeholder="Nom de Famille"
+                                        name="lastname"
+                                        type="text"
+                                        value={values.lastname}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        className={errors.lastname && touched.lastname && "error"} />
+                                    {errors.lastname && touched.lastname && (
+                                        <div className="input-feedback">{errors.lastname}</div>
+                                    )}
 
 
-                                        <Form.Label>Nom de Famille</Form.Label>
-                                        <Form.Control
-                                            name="lastname"
-                                            type="text"
-                                            value={values.lastname}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            className={errors.lastname && touched.lastname && "error"} />
-                                        {errors.lastname && touched.lastname && (
-                                            <div className="input-feedback">{errors.lastname}</div>
-                                        )}
+                                    {/* <Form.Label htmlFor="firstname">Prénom</Form.Label> */}
+                                    <Form.Control
+                                        placeholder="Prénom"
+                                        name="firstname"
+                                        type="text"
+                                        value={values.firstname}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        className={errors.firstname && touched.firstname && "error"} />
+                                    {errors.firstname && touched.firstname && (
+                                        <div className="input-feedback">{errors.firstname}</div>
+                                    )}
+
+                                    {/* <Form.Label>Pseudo</Form.Label> */}
+                                    <Form.Control
+                                        placeholder="Nom d'utilisateur / Pseudo"
+                                        name="pseudo"
+                                        type="text"
+                                        value={values.pseudo}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        className={errors.pseudo && touched.pseudo && "error"} />
+                                    {errors.pseudo && touched.pseudo && (
+                                        <div className="input-feedback">{errors.pseudo}</div>
+                                    )}
+
+                                    {/* <Form.Label>Email</Form.Label> */}
+                                    <Form.Control
+                                        placeholder="E-mail"
+                                        name="email"
+                                        type="text"
+                                        value={values.email}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        className={errors.email && touched.email && "error"} />
+                                    {errors.email && touched.email && (
+                                        <div className="input-feedback">{errors.email}</div>
+                                    )}
 
 
-                                        <Form.Label htmlFor="firstname">Prénom</Form.Label>
-                                        <Form.Control
-                                            name="firstname"
-                                            type="text"
-                                            value={values.firstname}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            className={errors.firstname && touched.firstname && "error"} />
-                                        {errors.firstname && touched.firstname && (
-                                            <div className="input-feedback">{errors.firstname}</div>
-                                        )}
-                                    </div>
+                                    {/* <Form.Label>Password</Form.Label> */}
+                                    <Form.Control
+                                        placeholder="Mot de passe"
+                                        name="password"
+                                        type="password"
+                                        value={values.password}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        className={errors.password && touched.password && "error"} />
+                                    {errors.password && touched.password && (
+                                        <div className="input-feedback">{errors.password}</div>
+                                    )}
 
                                     <Form.Group>
-                                        <Form.Label>Email</Form.Label>
-                                        <Form.Control
-                                            name="email"
-                                            type="text"
-                                            value={values.email}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            className={errors.email && touched.email && "error"} />
-                                        {errors.email && touched.email && (
-                                            <div className="input-feedback">{errors.email}</div>
-                                        )}
-
-
-                                        <Form.Label>Password</Form.Label>
-                                        <Form.Control
-                                            name="password"
-                                            type="password"
-                                            value={values.password}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            className={errors.password && touched.password && "error"} />
-                                        {errors.password && touched.password && (
-                                            <div className="input-feedback">{errors.password}</div>
-                                        )}
-                                    </Form.Group>
-                                </Form.Group>
-
-                                <Form.Group>
-                                    <Button onClick={this.props.registerFormProps}
-                                        variant="secondary"
-                                        style={{background:'none', border:'none', color:'black'}}>Vous êtes déjà membre ?</Button>
-                                    <Button style={{float:'right'}} variant="light" type="submit" disabled={isSubmitting}>
-                                        Login
+                                        <Button
+                                            style={{ backgroundColor: "#6666ff" }}
+                                            variant="primary"
+                                            size="md" block
+                                            type="submit"
+                                            disabled={isSubmitting}>
+                                            Login
                                     </Button>
+                                    </Form.Group>
+
                                 </Form.Group>
+
+
                             </Form>
                         </div>
                     );
