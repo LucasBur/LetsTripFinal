@@ -54,7 +54,7 @@ class Sidebar extends Component {
                         <h4>{this.state.userPseudo}</h4>
                         <ul>
                             <li style={{ listStyleImage: `url(${map})` }}> 
-                                <a href='/dashboard'> Mes RoadMaps </a></li>
+                                <a href='/dashboard'> Mes Roadmaps </a></li>
                             <li style={{ listStyleImage: `url(${setting})` }}> 
                                 <button onClick={this.openProfileSetting}>Paramétrer mon compte</button></li>
                             <li style={{ listStyleImage: `url(${contact})` }}>

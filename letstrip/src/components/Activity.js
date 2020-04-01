@@ -33,7 +33,7 @@ class Activity extends React.Component {
                     </Card.Body>
                     <Card.Footer>
                         <Container fluid>
-                            <Row>
+                            <Row style={{display: 'flex', justifyContent:'space-between'}}>
                                 <FormActivityUpdate 
                                     title={this.props.info.title} 
                                     description={this.props.info.description} 
@@ -42,8 +42,9 @@ class Activity extends React.Component {
                                     startHour={this.props.info.startHour} 
                                     endHour={this.props.info.endHour} 
                                     id={this.props.info.id} />
-                                <Button variant="outline-danger" size="sm" onClick={this.deleteActivity}>Supprimer</Button>
-                                {/* <Button className="mr-1" variant="dark" size="sm">Modifier</Button> */}
+                                <Button variant="outline-danger" 
+                                        size="sm" 
+                                        onClick={() => this.props.deleteActivity(this.props.info.id)}>Supprimer</Button>
                             </Row>
                         </Container>
                     </Card.Footer>
