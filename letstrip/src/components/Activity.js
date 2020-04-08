@@ -9,16 +9,10 @@ import { FormActivityUpdate } from './Forms/Modal/FormActivityUpdate';
 
 class Activity extends React.Component {
     constructor(props) {
-        super(props);
-        this.deleteActivity = this.deleteActivity.bind(this);
+        super(props);        
         this.state = {
         };
     };
-
-    deleteActivity() {
-        axios.delete(`http://localhost:4000/DeleteActivity/${this.props.info.id}`, 
-            { headers: { "Content-Type": "application/json" } });
-    }
 
     render() {
         return (

@@ -3,6 +3,7 @@ import axios from 'axios';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Activity from './Activity';
 import '../styles/Dashboard_style.css'
+import FormNewActivity from './Forms/Modal/FormNewActivity'
 
 class DayCalendar extends React.Component {
     constructor(props) {
@@ -14,18 +15,24 @@ class DayCalendar extends React.Component {
         };
     };
 
+    componentWillReceiveProps(props) {                
+        this.getActivities(this.props.rmId, this.props.day)        
+    }
+
     componentWillMount() {
         this.getActivities(this.props.rmId, this.props.day)
     }
 
     getActivities(id, day) {
         axios.get(`http://localhost:4000/GetActivities/${id}/${day}`,
-            { headers: { "Content-Type": "application/json" } }).then(response => {
-                console.log('day :', day)
-                console.log('response : ', response.data)
+            { headers: { "Content-Type": "application/json" } }).then(response => {                                
                 if (response.data !== false) {
                     this.setState({
                         activities: response.data
+                    });
+                } else {
+                    this.setState({
+                        activities: []
                     });
                 }
             });
@@ -33,10 +40,9 @@ class DayCalendar extends React.Component {
 
     deleteActivity(id) {
         axios.delete(`http://localhost:4000/DeleteActivity/${id}`,
-            { headers: { "Content-Type": "application/json" } })
-        this.setState({
-            activities: this.state.activities.filter(element => element.id !== id)
-        })
+            { headers: { "Content-Type": "application/json" } }).then(() => {                
+                this.getActivities(this.props.rmId, this.props.day)
+            })        
     }
 
     render() {

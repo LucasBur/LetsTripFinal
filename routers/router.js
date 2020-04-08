@@ -182,8 +182,7 @@ router.get('/GetActivities/:id/:day', function(req, res){
             ['startHour', 'ASC']
         ]
     }).then(activities => {
-        if(activities.length == 0){
-            console.log('pas dactivity');
+        if(activities.length == 0){            
             res.send(false);
         } else {                        
             var activitiesToSend = [];

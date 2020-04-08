@@ -14,7 +14,9 @@ export const FormNewActivity = (props) => {
     const createActivity = (values) => {
         try {
             axios.post(`http://localhost:4000/CreateActivity`,
-                values, { headers: { "Content-Type": "application/json" } })
+                values, { headers: { "Content-Type": "application/json" } }).then(() => {
+                    props.refreshActivity()                    
+                })
         } catch (error) {
             console.log(error)
         }
@@ -44,7 +46,7 @@ export const FormNewActivity = (props) => {
             createActivity(values)
             handleClose()
             resetForm();
-            setSubmitting(false);
+            setSubmitting(false);            
         }}
         validationSchema={Yup.object().shape({
             title: Yup.string().required("Titre requis.").min(1, "1 caractères minimum"),
