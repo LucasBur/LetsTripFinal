@@ -3,7 +3,6 @@ import axios from 'axios';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Activity from './Activity';
 import '../styles/Dashboard_style.css'
-import FormNewActivity from './Forms/Modal/FormNewActivity'
 
 class DayCalendar extends React.Component {
     constructor(props) {

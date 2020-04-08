@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import Register from './Forms/Inscription/Register';
 import RoadmapLogin from './Forms/RoadmapLogin/RoadmapLogin'
 import Login from './Forms/Login/Login';
-import locksolid from '../design/icons/lock-solid.svg';
 import Nav from 'react-bootstrap/Nav'
-import connect from '../design/icons/lock-solid.svg';
-import map from '../design/icons/map-marked-alt-solid.svg';
 import '../styles/Sidebar_Homepage_style.css'
 
 class SidebarHomepage extends Component {

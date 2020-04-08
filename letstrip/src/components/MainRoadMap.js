@@ -1,12 +1,8 @@
 import React from 'react';
-import axios from 'axios';
 import jwt_decode from 'jwt-decode'
 import Sidebar from './Sidebar';
-import ListGroup from 'react-bootstrap/ListGroup';
-import DayCalendar from './DayCalendar';
-import { FormNewActivity } from './Forms/Modal/FormNewActivity';
-import '../styles/MainRoadmap_style.css'
 import Calendar from './Calendar'
+import '../styles/MainRoadmap_style.css'
 
 class MainRoadMap extends React.Component {
     constructor(props) {

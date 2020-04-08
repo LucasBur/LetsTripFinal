@@ -64,8 +64,8 @@ class Dashboard extends React.Component {
 
                 <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: 'auto' }}>
                     <FormRoadmap id={this.state.id} getRoadmapData={this.getRoadmapData}/>
-                    {items}
 
+                    {items}
                 </ul>
             </div>
         );

@@ -1,6 +1,5 @@
 import React from 'react';
 import '../styles/Dashboard_style.css';
-import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
