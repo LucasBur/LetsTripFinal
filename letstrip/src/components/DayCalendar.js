@@ -55,8 +55,10 @@ class DayCalendar extends React.Component {
                     {this.state.activities.map((element, i) => {
                         return (<Activity
                             deleteActivity={this.deleteActivity}
+                            getActivities={this.getActivities}
                             key={i} info={element}
-                            dayNbr={this.props.dayNbr} />);
+                            dayNbr={this.props.dayNbr}
+                            rmId={this.props.rmId} />);
                     })}
                 </ListGroup.Item>
             </div>

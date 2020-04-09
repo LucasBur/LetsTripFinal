@@ -34,7 +34,6 @@ class Calendar extends React.Component {
         axios.get(`http://localhost:4000/GetRoadMap/${id}`,
             { headers: { "Content-Type": "application/json" } })
             .then(response => {
-                console.log(response)
                 if (!response.data) {
                     alert('Erreur');
                     window.location = '/dashboard';

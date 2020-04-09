@@ -222,6 +222,20 @@ router.put('/UpdateActivity/:id', (req, res) => {
     });
 });
 
+router.put('/SetLocationActivity/:id', (req, res) => {
+    db.activities.findOne({ where: { id: req.params.id }}).then(activity => {        
+        if(activity == null){
+            res.send(false);
+        } else {
+            activity.latitude = req.body.lat;
+            activity.longitude = req.body.lng;
+
+            activity.save();
+            res.send(true);
+        }
+    });
+});
+
 //#endregion
 
 /** Obligatoire pour pouvoir utiliser le router */

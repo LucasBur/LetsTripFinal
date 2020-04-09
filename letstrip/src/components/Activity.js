@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
 import { FormActivityUpdate } from './Forms/Modal/FormActivityUpdate';
+import { FormActivityLocalisation } from './Forms/Modal/FormActivityLocalisation'
 
 class Activity extends React.Component {
     constructor(props) {
@@ -14,7 +15,7 @@ class Activity extends React.Component {
         };
     };
 
-    render() {
+    render() {     
         return (
             <div>
                 <Card className="text-center mt-1">
@@ -36,6 +37,13 @@ class Activity extends React.Component {
                                     startHour={this.props.info.startHour} 
                                     endHour={this.props.info.endHour} 
                                     id={this.props.info.id} />
+                                <FormActivityLocalisation 
+                                    id={this.props.info.id}
+                                    lat={this.props.info.latitude}
+                                    lng={this.props.info.longitude}
+                                    rmId={this.props.rmId}
+                                    day={this.props.info.day}
+                                    getActivities={this.props.getActivities} />
                                 <Button variant="outline-danger" 
                                         size="sm" 
                                         onClick={() => this.props.deleteActivity(this.props.info.id)}>Supprimer</Button>

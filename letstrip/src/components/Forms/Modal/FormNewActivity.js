@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import * as Yup from "yup";
 import { Formik } from "formik";
+import MapContainer from '../../MapContainer'
 
 export const FormNewActivity = (props) => {
     const [show, setShow] = useState(false);
@@ -144,7 +145,7 @@ export const FormNewActivity = (props) => {
                                     {errors.endHour && touched.endHour && (
                                         <div className="input-feedback">{errors.endHour}</div>
                                     )}
-                                </Form.Group>
+                                </Form.Group>                                                                                            
 
                                 <Button variant="primary" type="submit" disabled={isSubmitting}>
                                     Submit
