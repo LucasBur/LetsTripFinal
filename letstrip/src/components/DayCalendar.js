@@ -14,8 +14,8 @@ class DayCalendar extends React.Component {
         };
     };
 
-    componentWillReceiveProps(props) {                
-        this.getActivities(this.props.rmId, this.props.day)        
+    componentWillReceiveProps(props) {
+        this.getActivities(this.props.rmId, this.props.day)
     }
 
     componentWillMount() {
@@ -24,7 +24,7 @@ class DayCalendar extends React.Component {
 
     getActivities(id, day) {
         axios.get(`http://localhost:4000/GetActivities/${id}/${day}`,
-            { headers: { "Content-Type": "application/json" } }).then(response => {                                
+            { headers: { "Content-Type": "application/json" } }).then(response => {
                 if (response.data !== false) {
                     this.setState({
                         activities: response.data
@@ -39,9 +39,9 @@ class DayCalendar extends React.Component {
 
     deleteActivity(id) {
         axios.delete(`http://localhost:4000/DeleteActivity/${id}`,
-            { headers: { "Content-Type": "application/json" } }).then(() => {                
+            { headers: { "Content-Type": "application/json" } }).then(() => {
                 this.getActivities(this.props.rmId, this.props.day)
-            })        
+            })
     }
 
     render() {
@@ -52,10 +52,13 @@ class DayCalendar extends React.Component {
                 </ListGroup.Item>
                 <ListGroup.Item style={{ width: "300px", height: "600px", overflow: "scroll" }}>
                     {this.state.activities.map((element, i) => {
-                        return (<Activity
-                            deleteActivity={this.deleteActivity}
-                            key={i} info={element}
-                            dayNbr={this.props.dayNbr} />);
+                        return (
+                            <Activity
+                                deleteActivity={this.deleteActivity}
+                                key={i}
+                                info={element}
+                                dayNbr={this.props.dayNbr} />
+                        );
                     })}
                 </ListGroup.Item>
             </div>

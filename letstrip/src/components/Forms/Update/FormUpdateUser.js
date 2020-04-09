@@ -16,15 +16,20 @@ export const FormUpdateUser = (props) => {
     const updateUserSetting = async (values) => {
         try {
             await auth.updateUserProfile(values);
-            window.location = '/profile/'+props.id
+            window.location = '/profile/' + props.id
         } catch (error) {
             console.log(error)
         }
     };
 
+    console.log(props)
+
     return <Formik
         initialValues={{
-            id: `${props.userId}`, pseudo: "", firstName: "", lastName: "", email: ""
+            id: `${props.userId}`,
+            pseudo: `${props.userPseudo}`,
+            firstName: `${props.userFirstName}`,
+            lastName: `${props.userLastName}`,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
             updateUserSetting(values);

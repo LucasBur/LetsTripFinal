@@ -7,6 +7,7 @@ import '../styles/MainRoadmap_style.css'
 class MainRoadMap extends React.Component {
     constructor(props) {
         super(props);
+        this.sidebarSettings = this.sidebarSettings.bind(this)
         this.state = {
             userId: '',
             userFirst_name: '',
@@ -30,11 +31,25 @@ class MainRoadMap extends React.Component {
         });    
     }
 
+    sidebarSettings = () => {
+        return (
+            <ul>
+                <li> <a href='#'>Paramétrer la Roadmap</a></li>
+                <li><a href='#'>Calendrier</a></li>
+            </ul>
+        )
+    }
+
     render() {
         return (
             <div className="mainroadmap">
-                <Sidebar />
-                <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: "scroll" }}>
+                <Sidebar sidebarSettings={this.sidebarSettings()}/>
+                <ul style={{ 
+                        marginTop: '50px', 
+                        marginLeft: '50px', 
+                        width: '100%', 
+                        height: '90vh', 
+                        overflow: "scroll" }}>
                     <Calendar roadMapId={this.state.roadMapId}/>
                 </ul>
             </div>

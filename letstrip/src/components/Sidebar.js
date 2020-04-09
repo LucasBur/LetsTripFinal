@@ -63,6 +63,7 @@ class Sidebar extends Component {
                                 <a href='/' onClick={auth.logout}>Deconnexion</a></li>
                         </ul>
 
+                        {this.props.sidebarSettings}
                     </div>
                 </div>
             </div>

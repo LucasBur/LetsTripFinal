@@ -141,6 +141,25 @@ router.post('/CreateRoadMap', function (req, res) {
     }).catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.put('/updateRoadmap/:id', (req, res) => {     
+    db.roadmaps.findOne({ where: { id: req.params.id }}).then(roadmap => {
+        if(roadmap == null){
+            res.send(false);
+        } else {
+            roadmap.name = req.body.name;
+            roadmap.password = req.body.password;
+            roadmap.nbr_participants = req.body.nbr_participants;
+            roadmap.location = req.body.location;
+            roadmap.startDate = req.body.startDate;
+            roadmap.endDate = req.body.endDate;
+            roadmap.budget = req.body.budget;
+            roadmap.leader = req.body.leader;
+            roadmap.save();
+            res.send(true)
+        }
+    });
+});
+
 // Suppréssion d'une RoadMap
 router.delete('/DeleteRoadMap/:id', (req, res) => {
     db.roadmaps.findOne({ where: { id: req.params.id } }).then(roadmap => {

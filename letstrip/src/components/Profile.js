@@ -3,7 +3,7 @@ import jwt_decode from 'jwt-decode'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row';
 import Sidebar from './Sidebar';
-import { FormUpdateUser } from './Forms/Modal/FormUpdateUser';
+import { FormUpdateUser } from './Forms/Update/FormUpdateUser';
 import onizukadauphin from '../design/wallpaper/onizukadauphin.jpg'
 import '../styles/Profile_style.css'
 
@@ -48,7 +48,6 @@ class Profile extends React.Component {
 
                         </Col>
                     </Col>
-
 
                     <h1>Mon Compte</h1>
                     <hr></hr>

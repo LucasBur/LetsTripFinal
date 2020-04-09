@@ -7,7 +7,7 @@ h4 {
 
 .wrapper .nav-dashboard .nav__body ul {
   margin-top: 50px;
-  border-bottom: 1px solid white;
+  /* border-bottom: 1px solid white; */
   border-top: 1px solid white;
   display: flex;
   flex-direction: column;
@@ -39,10 +39,6 @@ h4 {
   color: white;
   font-weight: 700;
 }
-
-/* .nav__body {
-  margin-left: 30px;
-} */
 
 .wrapper {
   display: flex;

@@ -5,6 +5,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Accordion from 'react-bootstrap/Accordion'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+import { FormUpdateRoadmap } from './Forms/Update/FormUpdateRoadmap';
 import DayCalendar from './DayCalendar';
 import { FormNewActivity } from './Forms/Modal/FormNewActivity';
 import '../styles/MainRoadmap_style.css'
@@ -25,12 +26,28 @@ class Calendar extends React.Component {
             location: '',
             startDate: '',
             endDate: '',
+            budget: '',
             leader: '',
             dayNbr: '',
-            refreshActivity: true
+            refreshActivity: true,
+            showRodmapDetails: true,
+            showFormUpdateRoadmap: false,
         };
         this.getRoadmap = this.getRoadmap.bind(this)
     };
+
+    componentDidMount() {
+        const token = localStorage.token;
+        const decoded = jwt_decode(token);
+        this.setState({
+            userId: decoded.id,
+            userFirst_name: decoded.firstname,
+            userLast_name: decoded.lastname,
+            userPseudo: decoded.pseudo,
+            userEmail: decoded.email,
+        });
+        this.getRoadmap(this.props.roadMapId)
+    }
 
     getRoadmap(id) {
         axios.get(`http://localhost:4000/GetRoadMap/${id}`,
@@ -55,23 +72,11 @@ class Calendar extends React.Component {
                         startDate: response.data.startDate,
                         endDate: response.data.endDate,
                         leader: response.data.leader,
+                        budget: response.data.budget,
                         dayNbr: dayDiff
                     });
                 }
             });
-    }
-
-    componentWillMount() {
-        const token = localStorage.token;
-        const decoded = jwt_decode(token);
-        this.setState({
-            userId: decoded.id,
-            userFirst_name: decoded.firstname,
-            userLast_name: decoded.lastname,
-            userPseudo: decoded.pseudo,
-            userEmail: decoded.email,
-        });
-        this.getRoadmap(this.props.roadMapId)
     }
 
     refreshActivity = () => {
@@ -80,16 +85,71 @@ class Calendar extends React.Component {
         })
     }
 
-    render() {
-        console.log(this.state)
+    switchRender = () => {
+        this.setState({
+            showRodmapDetails: !this.state.showRodmapDetails,
+            showFormUpdateRoadmap: !this.state.showFormUpdateRoadmap
+        })
+    }
+
+    roadmapDetails_FormUpdate = () => {
         const isLeader = (lead) => {
-            if (lead === 1) {
-                return (
-                    <li> Vous êtes le <strong>chef</strong> du groupe </li>
-                )
-            }
-            else { return null }
+            return (
+                <div>
+                    {lead ? <li> <strong>Chef</strong> : {this.state.userPseudo} </li> : null}
+                </div>
+            )
         }
+        return (
+            this.state.showRodmapDetails ? <Accordion defaultActiveKey="1">
+                <Card>
+                    <Card.Header>
+                        <Accordion.Toggle as={Button} variant="link" eventKey="1">
+                            {this.state.name} - {this.state.location}
+                        </Accordion.Toggle>
+                    </Card.Header>
+                    <Accordion.Collapse eventKey="1">
+                        <Card.Body>
+                            <Card.Title>
+                                <Button onClick={this.switchRender.bind(this)}>Modifier la Roadmap</Button>
+                            </Card.Title>
+                            <ul style={{ listStyle: 'none' }}>
+                                <li> <strong>Début</strong> : {this.state.startDate} </li>
+                                <li> <strong>Fin</strong> : {this.state.endDate} ({this.state.dayNbr} jours) </li>
+                                <li> <strong>Nombre de participants</strong> : {this.state.nbr_participants} </li>
+                                {isLeader(this.state.leader)}
+                            </ul>
+                        </Card.Body>
+                    </Accordion.Collapse>
+                </Card>
+            </Accordion> : <Accordion defaultActiveKey="1"><Card>
+                <Card.Header>
+                    <Accordion.Toggle as={Button} variant="link" eventKey="1">
+                        Mettez à jour les détails de la Roadmap
+                                                </Accordion.Toggle>
+                </Card.Header>
+                <Accordion.Collapse eventKey='1'>
+                    <Card.Body>
+                        <FormUpdateRoadmap
+                            rmId={this.state.id}
+                            rmName={this.state.name}
+                            rmPassword={this.state.password}
+                            rmNbrParticipants={this.state.nbr_participants}
+                            rmStartDate={this.state.startDate}
+                            rmEndDate={this.state.endDate}
+                            rmLocation={this.state.location}
+                            rmBudget={this.state.budget}
+                            rmLeader={this.state.leader}
+                            getRoadmap={this.getRoadmap}
+                            switchRender={this.switchRender} />
+                    </Card.Body>
+                </Accordion.Collapse>
+            </Card></Accordion>
+        )
+    }
+
+
+    render() {
         return (
             <div>
                 <FormNewActivity
@@ -98,25 +158,7 @@ class Calendar extends React.Component {
                     id={this.props.roadMapId}
                     refreshActivity={this.refreshActivity} />
                 <li>
-                    <Accordion defaultActiveKey="1">
-                        <Card>
-                            <Card.Header>
-                                <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                                    {this.state.name} - {this.state.location}
-                                </Accordion.Toggle>
-                            </Card.Header>
-                            <Accordion.Collapse eventKey="1">
-                                <Card.Body>
-                                    <ul>
-                                        <li> <strong>Début</strong> : {this.state.startDate} </li>
-                                        <li> <strong>Fin</strong> : {this.state.endDate} ({this.state.dayNbr} jours) </li>
-                                        <li> <strong>Nombre de participants</strong> : {this.state.nbr_participants} </li>
-                                        {isLeader(this.state.leader)}
-                                    </ul>
-                                </Card.Body>
-                            </Accordion.Collapse>
-                        </Card>
-                    </Accordion>
+                    {this.roadmapDetails_FormUpdate()}
                 </li>
                 <ListGroup horizontal>
                     {Array.from({ length: this.state.dayNbr }, (_, k) => (

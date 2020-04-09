@@ -63,6 +63,16 @@ export default {
         }
     },
 
+    updateRoadmap: async (values, id) => {
+        try {
+            const updateRoadmap = await axios.put(`http://localhost:4000/updateRoadmap/${id}`,
+                values, { headers: headers });
+            console.log('user roadmap info :', updateRoadmap)
+        } catch (error) {
+            console.log(`😱 ${error}`)
+        }
+    },
+
     // Activity
 
     createActivity: async (values) => {
