@@ -7,7 +7,7 @@ import DayCalendar from './DayCalendar';
 import { FormNewActivity } from './Forms/Modal/FormNewActivity';
 import '../styles/MainRoadmap_style.css'
 import Calendar from './Calendar'
-import MapContainer from './MapContainer'
+import MainMap from './MainMap'
 
 class MainRoadMap extends React.Component {
     constructor(props) {
@@ -41,7 +41,7 @@ class MainRoadMap extends React.Component {
                 <Sidebar />
                 <ul style={{ marginTop: '50px', marginLeft: '50px', width: '60%', height: '90vh', overflow: "scroll" }}>
                     <Calendar roadMapId={this.state.roadMapId}/>
-                    {/* <MapContainer /> */}
+                    <MainMap roadMapId={this.state.roadMapId} />
                 </ul>
             </div>
         );

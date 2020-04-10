@@ -13,6 +13,8 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 
 const db = require('./../models/index');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 /** Lorsque qu'on utilise le chemin "host + / ", une instance du controller "HomePage" est créé */
 router.get('/', function (req, res, next) {
@@ -177,6 +179,33 @@ router.get('/GetActivities/:id/:day', function(req, res){
         where : {
             roadmapId: req.params.id,
             day: req.params.day
+        },
+        order:[
+            ['startHour', 'ASC']
+        ]
+    }).then(activities => {
+        if(activities.length == 0){            
+            res.send(false);
+        } else {                        
+            var activitiesToSend = [];
+            activities.forEach(element => {
+                activitiesToSend.push(element.dataValues);
+            });
+            res.send(JSON.stringify(activitiesToSend));
+        }        
+    });
+});
+
+router.get('/GetAllActivitiesForMap/:id', function(req, res){
+    db.activities.findAll({ 
+        where : {
+            roadmapId: req.params.id,
+            latitude: {
+                [Op.ne]: null
+            },
+            longitude: {
+                [Op.ne]: null
+            }
         },
         order:[
             ['startHour', 'ASC']
