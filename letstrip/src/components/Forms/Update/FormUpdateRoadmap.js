@@ -17,9 +17,6 @@ export const FormUpdateRoadmap = (props) => {
             console.log(error)
         }
     };
-    
-    console.log(rmName)
-    console.log(rmId)
 
     return <Formik
         initialValues={{
@@ -36,7 +33,7 @@ export const FormUpdateRoadmap = (props) => {
             updateRoadmap(values);
             resetForm();
             setSubmitting(false);
-            props.switchRender();
+            props.switchContent();
         }}
         validationSchema={Yup.object().shape({
             name: Yup.string().required("nom requis.")
@@ -160,7 +157,7 @@ export const FormUpdateRoadmap = (props) => {
                         </Form.Group>
 
                         <Button variant="primary" type="submit" disabled={isSubmitting}>
-                            Submit
+                            Valider
                         </Button>
                     </Form>
                 </>

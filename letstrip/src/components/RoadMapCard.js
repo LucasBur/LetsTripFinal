@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
-// import CardColumns from 'react-bootstrap/CardColumns'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -35,7 +34,7 @@ class RoadMapCard extends React.Component {
                             <Col>Voyage en {this.props.info.location}</Col>
                             <Col>{this.props.info.nbr_participants} participant(s)</Col>
                             <Col>Du {this.props.info.startDate} au {this.props.info.endDate}</Col>
-                            <Col style={{display:'flex',justifyContent:'space-between'}}>
+                            <Col>
                                 <Button variant="dark" onClick={this.openRoadMap}>Consulter</Button>
                                 <Button variant="danger" className="mr-2" onClick={() => {
                                     this.props.onDelete(this.props.info.id)

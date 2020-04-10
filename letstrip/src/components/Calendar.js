@@ -30,7 +30,7 @@ class Calendar extends React.Component {
             leader: '',
             dayNbr: '',
             refreshActivity: true,
-            showRodmapDetails: true,
+            showCalendar: true,
             showFormUpdateRoadmap: false,
         };
         this.getRoadmap = this.getRoadmap.bind(this)
@@ -85,14 +85,7 @@ class Calendar extends React.Component {
         })
     }
 
-    switchRender = () => {
-        this.setState({
-            showRodmapDetails: !this.state.showRodmapDetails,
-            showFormUpdateRoadmap: !this.state.showFormUpdateRoadmap
-        })
-    }
-
-    roadmapDetails_FormUpdate = () => {
+    showContent = () => {
         const isLeader = (lead) => {
             return (
                 <div>
@@ -100,29 +93,50 @@ class Calendar extends React.Component {
                 </div>
             )
         }
+
         return (
-            this.state.showRodmapDetails ? <Accordion defaultActiveKey="1">
-                <Card>
-                    <Card.Header>
-                        <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                            {this.state.name} - {this.state.location}
-                        </Accordion.Toggle>
-                    </Card.Header>
-                    <Accordion.Collapse eventKey="1">
-                        <Card.Body>
-                            <Card.Title>
-                                <Button onClick={this.switchRender.bind(this)}>Modifier la Roadmap</Button>
-                            </Card.Title>
-                            <ul style={{ listStyle: 'none' }}>
-                                <li> <strong>Début</strong> : {this.state.startDate} </li>
-                                <li> <strong>Fin</strong> : {this.state.endDate} ({this.state.dayNbr} jours) </li>
-                                <li> <strong>Nombre de participants</strong> : {this.state.nbr_participants} </li>
-                                {isLeader(this.state.leader)}
-                            </ul>
-                        </Card.Body>
-                    </Accordion.Collapse>
-                </Card>
-            </Accordion> : <Accordion defaultActiveKey="1"><Card>
+            this.props.showCalendar ? <div>
+                <FormNewActivity
+                    rmId={this.props.roadMapId}
+                    dayNumber={this.state.dayNbr}
+                    id={this.props.roadMapId}
+                    refreshActivity={this.refreshActivity} />
+                <li>
+                    <Accordion defaultActiveKey="1">
+                        <Card>
+                            <Card.Header>
+                                <Accordion.Toggle as={Button} variant="link" eventKey="1">
+                                    {this.state.name} - {this.state.location}
+                                </Accordion.Toggle>
+                            </Card.Header>
+                            <Accordion.Collapse eventKey="1">
+                                <Card.Body>
+                                    <Card.Title>
+                                        <Button variant="outline-secondary" onClick={this.props.toFormUpdateRoadmap}>Modifier la Roadmap</Button>
+                                    </Card.Title>
+                                    <ul style={{ listStyle: 'none' }}>
+                                        <li> <strong>Début</strong> : {this.state.startDate} </li>
+                                        <li> <strong>Fin</strong> : {this.state.endDate} ({this.state.dayNbr} jours) </li>
+                                        <li> <strong>Nombre de participants</strong> : {this.state.nbr_participants} </li>
+                                        {isLeader(this.state.leader)}
+                                    </ul>
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                    </Accordion>
+                </li>
+                <ListGroup horizontal>
+                    {Array.from({ length: this.state.dayNbr }, (_, k) => (
+                        <li key={k}>
+                            <DayCalendar
+                                rmId={this.props.roadMapId}
+                                dayNbr={this.state.dayNbr}
+                                day={k + 1}
+                                refresh={this.refreshActivity} />
+                        </li>
+                    ))}
+                </ListGroup>
+            </div> : <Accordion defaultActiveKey="1"><Card>
                 <Card.Header>
                     <Accordion.Toggle as={Button} variant="link" eventKey="1">
                         Mettez à jour les détails de la Roadmap
@@ -141,36 +155,17 @@ class Calendar extends React.Component {
                             rmBudget={this.state.budget}
                             rmLeader={this.state.leader}
                             getRoadmap={this.getRoadmap}
-                            switchRender={this.switchRender} />
+                            switchContent={this.props.toCalendar} />
                     </Card.Body>
                 </Accordion.Collapse>
             </Card></Accordion>
         )
     }
 
-
     render() {
         return (
             <div>
-                <FormNewActivity
-                    rmId={this.props.roadMapId}
-                    dayNumber={this.state.dayNbr}
-                    id={this.props.roadMapId}
-                    refreshActivity={this.refreshActivity} />
-                <li>
-                    {this.roadmapDetails_FormUpdate()}
-                </li>
-                <ListGroup horizontal>
-                    {Array.from({ length: this.state.dayNbr }, (_, k) => (
-                        <li key={k}>
-                            <DayCalendar
-                                rmId={this.props.roadMapId}
-                                dayNbr={this.state.dayNbr}
-                                day={k + 1}
-                                refresh={this.refreshActivity} />
-                        </li>
-                    ))}
-                </ListGroup>
+                {this.showContent()}
             </div>
         );
     };
