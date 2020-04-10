@@ -13,6 +13,8 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 
 const db = require('./../models/index');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 /** Lorsque qu'on utilise le chemin "host + / ", une instance du controller "HomePage" est créé */
 router.get('/', function (req, res, next) {
@@ -213,6 +215,33 @@ router.get('/GetActivities/:id/:day', function(req, res){
     });
 });
 
+router.get('/GetAllActivitiesForMap/:id', function(req, res){
+    db.activities.findAll({ 
+        where : {
+            roadmapId: req.params.id,
+            latitude: {
+                [Op.ne]: null
+            },
+            longitude: {
+                [Op.ne]: null
+            }
+        },
+        order:[
+            ['startHour', 'ASC']
+        ]
+    }).then(activities => {
+        if(activities.length == 0){            
+            res.send(false);
+        } else {                        
+            var activitiesToSend = [];
+            activities.forEach(element => {
+                activitiesToSend.push(element.dataValues);
+            });
+            res.send(JSON.stringify(activitiesToSend));
+        }        
+    });
+});
+
 router.delete('/DeleteActivity/:id', (req, res) => {
     db.activities.findOne({ where: { id: req.params.id } }).then(activity => {
         if (activity == null) {
@@ -234,6 +263,20 @@ router.put('/UpdateActivity/:id', (req, res) => {
             activity.day = req.body.day;
             activity.startHour = req.body.startHour;
             activity.endHour = req.body.endHour;
+
+            activity.save();
+            res.send(true);
+        }
+    });
+});
+
+router.put('/SetLocationActivity/:id', (req, res) => {
+    db.activities.findOne({ where: { id: req.params.id }}).then(activity => {        
+        if(activity == null){
+            res.send(false);
+        } else {
+            activity.latitude = req.body.lat;
+            activity.longitude = req.body.lng;
 
             activity.save();
             res.send(true);

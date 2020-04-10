@@ -27,6 +27,14 @@ module.exports = function(sequelize, DataTypes) {
       endHour: {
         type: DataTypes.TIME,
         allowNull: true
+      },
+      latitude: {
+        type: DataTypes.DECIMAL(12, 9),
+        allowNull: true
+      },
+      longitude: {
+        type: DataTypes.DECIMAL(12, 9),
+        allowNull: true
       }
     }, {
       tableName: 'activities',
