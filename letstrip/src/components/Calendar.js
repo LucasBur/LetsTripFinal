@@ -30,8 +30,6 @@ class Calendar extends React.Component {
             leader: '',
             dayNbr: '',
             refreshActivity: true,
-            showCalendar: true,
-            showFormUpdateRoadmap: false,
         };
         this.getRoadmap = this.getRoadmap.bind(this)
     };
@@ -57,26 +55,21 @@ class Calendar extends React.Component {
                     alert('Erreur');
                     window.location = '/dashboard';
                 } else {
-                    const startDateArr = response.data.startDate.split('-');
-                    const endDateArr = response.data.endDate.split('-');
-                    const startTypeDate = new Date(startDateArr[0], startDateArr[1] - 1, startDateArr[2]);
-                    const endTypeDate = new Date(endDateArr[0], endDateArr[1] - 1, endDateArr[2]);
-                    const oneDay = 24 * 60 * 60 * 1000;
-                    const dayDiff = Math.ceil(Math.abs((startTypeDate - endTypeDate) / oneDay));
                     this.setState({
-                        id: response.data.id,
-                        name: response.data.name,
-                        password: response.data.password,
-                        nbr_participants: response.data.nbr_participants,
-                        location: response.data.location,
-                        startDate: response.data.startDate,
-                        endDate: response.data.endDate,
-                        leader: response.data.leader,
-                        budget: response.data.budget,
-                        dayNbr: dayDiff
+                        dayNbr: this.convertToDay(response.data)
                     });
                 }
             });
+    }
+
+    convertToDay = (response) => {
+        const startDateArr = response.startDate.split('-');
+        const endDateArr = response.endDate.split('-');
+        const startTypeDate = new Date(startDateArr[0], startDateArr[1] - 1, startDateArr[2]);
+        const endTypeDate = new Date(endDateArr[0], endDateArr[1] - 1, endDateArr[2]);
+        const oneDay = 24 * 60 * 60 * 1000;
+        const dayDiff = Math.ceil(Math.abs((startTypeDate - endTypeDate) / oneDay));
+        return dayDiff
     }
 
     refreshActivity = () => {
@@ -85,46 +78,15 @@ class Calendar extends React.Component {
         })
     }
 
-    showContent = () => {
-        const isLeader = (lead) => {
-            return (
-                <div>
-                    {lead ? <li> <strong>Chef</strong> : {this.state.userPseudo} </li> : null}
-                </div>
-            )
-        }
-
+    render() {
         return (
-            this.props.showCalendar ? <div>
+            <div>
                 <FormNewActivity
                     rmId={this.props.roadMapId}
                     dayNumber={this.state.dayNbr}
                     id={this.props.roadMapId}
                     refreshActivity={this.refreshActivity} />
-                <li>
-                    <Accordion defaultActiveKey="1">
-                        <Card>
-                            <Card.Header>
-                                <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                                    {this.state.name} - {this.state.location}
-                                </Accordion.Toggle>
-                            </Card.Header>
-                            <Accordion.Collapse eventKey="1">
-                                <Card.Body>
-                                    <Card.Title>
-                                        <Button variant="outline-secondary" onClick={this.props.toFormUpdateRoadmap}>Modifier la Roadmap</Button>
-                                    </Card.Title>
-                                    <ul style={{ listStyle: 'none' }}>
-                                        <li> <strong>Début</strong> : {this.state.startDate} </li>
-                                        <li> <strong>Fin</strong> : {this.state.endDate} ({this.state.dayNbr} jours) </li>
-                                        <li> <strong>Nombre de participants</strong> : {this.state.nbr_participants} </li>
-                                        {isLeader(this.state.leader)}
-                                    </ul>
-                                </Card.Body>
-                            </Accordion.Collapse>
-                        </Card>
-                    </Accordion>
-                </li>
+
                 <ListGroup horizontal>
                     {Array.from({ length: this.state.dayNbr }, (_, k) => (
                         <li key={k}>
@@ -136,36 +98,6 @@ class Calendar extends React.Component {
                         </li>
                     ))}
                 </ListGroup>
-            </div> : <Accordion defaultActiveKey="1"><Card>
-                <Card.Header>
-                    <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                        Mettez à jour les détails de la Roadmap
-                                                </Accordion.Toggle>
-                </Card.Header>
-                <Accordion.Collapse eventKey='1'>
-                    <Card.Body>
-                        <FormUpdateRoadmap
-                            rmId={this.state.id}
-                            rmName={this.state.name}
-                            rmPassword={this.state.password}
-                            rmNbrParticipants={this.state.nbr_participants}
-                            rmStartDate={this.state.startDate}
-                            rmEndDate={this.state.endDate}
-                            rmLocation={this.state.location}
-                            rmBudget={this.state.budget}
-                            rmLeader={this.state.leader}
-                            getRoadmap={this.getRoadmap}
-                            switchContent={this.props.toCalendar} />
-                    </Card.Body>
-                </Accordion.Collapse>
-            </Card></Accordion>
-        )
-    }
-
-    render() {
-        return (
-            <div>
-                {this.showContent()}
             </div>
         );
     };

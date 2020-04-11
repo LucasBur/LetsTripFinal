@@ -1,4 +1,4 @@
-.wrapper .nav-dashboard .nav__body h1,
+.wrapper .nav-dashboard .nav__body h3,
 h4 {
   color: white;
   text-align: center;
@@ -17,7 +17,7 @@ h4 {
 }
 
 .wrapper .nav-dashboard .nav__body ul li {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .wrapper .nav-dashboard .nav__body ul li button {
@@ -56,7 +56,6 @@ h4 {
   width: 250px;
   height: 100vh;
   padding: 20px;
-  border-right: 1px solid #ccc;
   background-color: #6666ff;
 }
 

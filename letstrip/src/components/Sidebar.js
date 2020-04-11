@@ -47,11 +47,9 @@ class Sidebar extends Component {
         return (
             <div ref={this.wrapperRef} className="wrapper is-nav-open" >
                 <div className="nav-dashboard">
-                    <button className="nav__icon" type="menu-fold" onClick={() => this.handleClick()}> ></button>
+                    <button className="nav__icon" type="menu-fold" onClick={() => this.handleClick()}> ≡ </button>
                     <div className="nav__body">
-                        <h1>Let's Trip</h1>
-                        <img src={onizukadauphin} width='100%' alt='onizukadauphin' />
-                        <h4>{this.state.userPseudo}</h4>
+                        <h3>Let's Trip</h3>
                         <ul>
                             <li style={{ listStyleImage: `url(${map})` }}> 
                                 <a href='/dashboard'> Mes Roadmaps </a></li>
