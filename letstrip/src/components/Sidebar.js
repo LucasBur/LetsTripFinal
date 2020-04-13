@@ -10,7 +10,6 @@ class Sidebar extends Component {
     constructor(props) {
         super(props);
         this.wrapperRef = React.createRef()
-        this.openProfileSetting = this.openProfileSetting.bind(this);
         this.state = {
             userId: '',
             userFirst_name: '',
@@ -37,10 +36,6 @@ class Sidebar extends Component {
         });
     }
 
-    openProfileSetting() {
-        window.location=`/profile/${this.state.userId}`
-    }
-
     render() {
         return (
             <div ref={this.wrapperRef} className="wrapper is-nav-open" >
@@ -52,7 +47,7 @@ class Sidebar extends Component {
                             <li style={{ listStyleImage: `url(${map})` }}> 
                                 <a href='/dashboard'> Mes Roadmaps </a></li>
                             <li style={{ listStyleImage: `url(${setting})` }}> 
-                                <button onClick={this.openProfileSetting}>Paramétrer mon compte</button></li>
+                                <button onClick={() => window.location=`/profile/${this.state.userId}`}>Paramétrer mon compte</button></li>
                             <li style={{ listStyleImage: `url(${disconnect})` }} >
                                 <a href='/' onClick={auth.logout}>Deconnexion</a></li>
                         </ul>

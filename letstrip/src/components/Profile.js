@@ -20,6 +20,10 @@ class Profile extends React.Component {
     }
 
     componentWillMount() {
+        this.getUser()
+    }
+
+    getUser = () => {
         const token = localStorage.token;
         const decoded = jwt_decode(token);
         this.setState({
@@ -36,7 +40,7 @@ class Profile extends React.Component {
             <div className="profile">
                 <Sidebar />
                 <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: 'auto' }}>
-                    <Col as={Row} style={{alignItems:'center'}}>
+                    <Col as={Row} style={{ alignItems: 'center' }}>
                         <Col sm={5}>
                             <img src={onizukadauphin} width='50%' alt='onizukadauphin' />
                         </Col>
@@ -57,7 +61,8 @@ class Profile extends React.Component {
                             userPseudo={this.state.userPseudo}
                             userEmail={this.state.userEmail}
                             userFirstName={this.state.userFirst_name}
-                            userLastName={this.state.userLast_name} />
+                            userLastName={this.state.userLast_name} 
+                            getUser={this.getUser} />
                     </li>
                 </ul>
             </div>

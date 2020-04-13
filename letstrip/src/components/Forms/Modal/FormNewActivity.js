@@ -38,7 +38,7 @@ export const FormNewActivity = (props) => {
             id: `${props.id}`,
             title: "",
             description: "",
-            day: "",
+            day: "1",
             startHour: "",
             endHour: ""
         }}

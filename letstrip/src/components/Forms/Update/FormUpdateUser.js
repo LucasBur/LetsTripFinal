@@ -3,9 +3,11 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
+import auth from '../../../auth';
 import * as Yup from "yup";
 import { Formik } from "formik";
-import auth from '../../../auth';
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export const FormUpdateUser = (props) => {
     const email = props.userEmail;
@@ -13,10 +15,31 @@ export const FormUpdateUser = (props) => {
     const firstName = props.userFirstName;
     const lastName = props.userLastName;
 
+    const notify = (type, message) => {
+        switch (type) {
+            case '':
+                toast(message, { autoClose: 3000 })
+                break;
+            case 'info':
+                toast.info(message)
+                break;
+            case 'success':
+                toast.success(message)
+                break;
+            case 'error':
+                toast.error(message)
+            default:
+                break;
+        }
+
+    }
+
     const updateUserSetting = async (values) => {
         try {
-            await auth.updateUserProfile(values);
-            window.location = '/profile/' + props.id
+            const result = await auth.updateUserProfile(values);
+            props.getUser();
+            notify('success', 'Profil mis à jour ✔');
+            return result
         } catch (error) {
             console.log(error)
         }
@@ -28,6 +51,7 @@ export const FormUpdateUser = (props) => {
         initialValues={{
             id: `${props.userId}`,
             pseudo: `${props.userPseudo}`,
+            email: `${email}`,
             firstName: `${props.userFirstName}`,
             lastName: `${props.userLastName}`,
         }}
