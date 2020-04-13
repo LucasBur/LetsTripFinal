@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import jwt_decode from 'jwt-decode';
 import auth from '../auth';
 import map from '../design/icons/map.svg'
-import contact from '../design/icons/contact.svg'
 import setting from '../design/icons/setting.svg'
 import disconnect from '../design/icons/disconnect.svg'
-import onizukadauphin from '../design/wallpaper/onizukadauphin.jpg'
 import '../styles/Sidebar_style.css'
 
 class Sidebar extends Component {
@@ -55,8 +53,6 @@ class Sidebar extends Component {
                                 <a href='/dashboard'> Mes Roadmaps </a></li>
                             <li style={{ listStyleImage: `url(${setting})` }}> 
                                 <button onClick={this.openProfileSetting}>Paramétrer mon compte</button></li>
-                            <li style={{ listStyleImage: `url(${contact})` }}>
-                                <a href='/dashboard'>Contact</a> </li>
                             <li style={{ listStyleImage: `url(${disconnect})` }} >
                                 <a href='/' onClick={auth.logout}>Deconnexion</a></li>
                         </ul>

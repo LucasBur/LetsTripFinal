@@ -57,7 +57,6 @@ class Dashboard extends React.Component {
         const items = this.state.roadMapsList.map((element, i) => (
             <li key={i}> <RoadMapCard onDelete={this.onDelete} info={element} /> </li>
         ));
-        console.log(this.state.id)
         return (
             <div className='dashboard'>
                 <Sidebar />

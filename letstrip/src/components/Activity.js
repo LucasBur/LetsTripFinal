@@ -14,9 +14,14 @@ class Activity extends React.Component {
         };
     };
 
+    handleDelete = () => {
+        this.props.deleteActivity(this.props.info.id)
+        this.props.notify('', 'Activité supprimé ✔')
+    }
+
     render() {
         return (
-            <div style={{marginTop:'20px'}}>
+            <div style={{ marginTop: '20px' }}>
                 <Card className="text-center mt-1">
                     <Card.Header>{this.props.info.title}</Card.Header>
                     <Card.Body>
@@ -43,10 +48,9 @@ class Activity extends React.Component {
                                     rmId={this.props.rmId}
                                     day={this.props.info.day}
                                     getActivities={this.props.getActivities} />
-                                <Button variant="outline-danger"
-                                    size="sm"
-                                    onClick={() => this.props.deleteActivity(this.props.info.id)}>
-                                    Supprimer</Button>
+                                <button 
+                                    style={{border:'none', background:'none'}}
+                                    onClick={this.handleDelete}> ❌</button>
                             </Row>
                         </Container>
                     </Card.Footer>

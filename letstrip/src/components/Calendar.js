@@ -2,10 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode'
 import ListGroup from 'react-bootstrap/ListGroup';
-import Accordion from 'react-bootstrap/Accordion'
-import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
-import { FormUpdateRoadmap } from './Forms/Update/FormUpdateRoadmap';
 import DayCalendar from './DayCalendar';
 import { FormNewActivity } from './Forms/Modal/FormNewActivity';
 import '../styles/MainRoadmap_style.css'
@@ -85,7 +81,8 @@ class Calendar extends React.Component {
                     rmId={this.props.roadMapId}
                     dayNumber={this.state.dayNbr}
                     id={this.props.roadMapId}
-                    refreshActivity={this.refreshActivity} />
+                    refreshActivity={this.refreshActivity}
+                    notify={this.props.notify} />
 
                 <ListGroup horizontal>
                     {Array.from({ length: this.state.dayNbr }, (_, k) => (
@@ -94,7 +91,8 @@ class Calendar extends React.Component {
                                 rmId={this.props.roadMapId}
                                 dayNbr={this.state.dayNbr}
                                 day={k + 1}
-                                refresh={this.refreshActivity} />
+                                refresh={this.refreshActivity}
+                                notify={this.props.notify} />
                         </li>
                     ))}
                 </ListGroup>

@@ -5,7 +5,6 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import * as Yup from "yup";
 import { Formik } from "formik";
-import MapContainer from '../../MapContainer'
 
 export const FormNewActivity = (props) => {
     const [show, setShow] = useState(false);
@@ -16,7 +15,8 @@ export const FormNewActivity = (props) => {
         try {
             axios.post(`http://localhost:4000/CreateActivity`,
                 values, { headers: { "Content-Type": "application/json" } }).then(() => {
-                    props.refreshActivity()                    
+                    props.refreshActivity();
+                    props.notify('success', 'Activité crée 🔥')          
                 })
         } catch (error) {
             console.log(error)
@@ -43,7 +43,6 @@ export const FormNewActivity = (props) => {
             endHour: ""
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-            console.log(values)
             createActivity(values)
             handleClose()
             resetForm();

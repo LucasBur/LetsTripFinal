@@ -36,7 +36,12 @@ class RoadMapCard extends React.Component {
                             <Col>Du {this.props.info.startDate} au {this.props.info.endDate}</Col>
                             <Col>
                                 <Button variant="dark" onClick={this.openRoadMap}>Consulter</Button>
-                                <Button variant="danger" className="mr-2" onClick={() => {
+                                <Button 
+                                    variant="danger" 
+                                    className="mr-2" 
+                                    style={{marginLeft:'15px'}} 
+                                    onClick={() => {
+                                    window.confirm('Êtes-vous sûr de supprimer votre Roadmap ?') && 
                                     this.props.onDelete(this.props.info.id)
                                 }}>Supprimer</Button>
                             </Col>

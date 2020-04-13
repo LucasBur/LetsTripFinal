@@ -4,17 +4,23 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col'
 import * as Yup from "yup";
 import { Formik } from "formik";
-import auth from '../../../auth';
+import axios from 'axios'
 
 export const FormUpdateRoadmap = (props) => {
     const rmName = props.rmName;
     const rmId = props.rmId;
 
-    const updateRoadmap = async (values) => {
+    const updateRoadmap = async (values, id) => {
         try {
-            await auth.updateRoadmap(values, rmId);
+            const result = await axios.put(`http://localhost:4000/updateRoadmap/${id}`,
+                values, { headers: { "Content-Type": "application/json" } })
+            if (result.data === true) {
+                props.getRoadmap(rmId);
+                props.notify('success', 'Roadmap mis à jour ✔')
+            }
         } catch (error) {
             console.log(error)
+            props.notify('error', '✘ Une erreur est survenue, veuillez recommencer ')
         }
     };
 
@@ -30,7 +36,7 @@ export const FormUpdateRoadmap = (props) => {
             leader: `${props.rmLeader}`,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-            updateRoadmap(values);
+            updateRoadmap(values, rmId);
             resetForm();
             setSubmitting(false);
             props.switchContent();
@@ -146,7 +152,7 @@ export const FormUpdateRoadmap = (props) => {
                                 )}
                             </Form.Group>
                         </Form.Row>
-                        
+
                         <Form.Group>
                             <Form.Check
                                 value={values.leader}

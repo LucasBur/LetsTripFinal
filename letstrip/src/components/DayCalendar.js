@@ -64,7 +64,8 @@ class DayCalendar extends React.Component {
                                 getActivities={this.getActivities}
                                 key={i} info={element}
                                 dayNbr={this.props.dayNbr}
-                                rmId={this.props.rmId} />
+                                rmId={this.props.rmId}
+                                notify={this.props.notify} />
                         );
                     })}
                 </ListGroup.Item>

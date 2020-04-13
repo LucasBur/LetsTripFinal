@@ -96,6 +96,7 @@ router.put('/UpdateUser/:id', function(req, res) {
 //#region RoadMaps
 router.get('/GetRoadMap/:id', function (req, res) {
     db.roadmaps.findOne({ where: { id: req.params.id } }).then(roadmap => {
+        console.log(roadmap)
         if (roadmap == null) {
             res.send(false);
         } else {

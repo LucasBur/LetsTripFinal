@@ -43,7 +43,7 @@ export const FormActivityLocalisation = (props) => {
 
     return (
         <>
-            <Button variant="success" size="sm" onClick={handleShow}>Localiser</Button>
+            <Button variant="outline-success" size="sm" onClick={handleShow}>Localiser 📍</Button>
 
             <Modal show={show} onHide={handleClose} animation={false} size="lg" dialogClassName={modalStyle}>
                 <Modal.Header closeButton>
