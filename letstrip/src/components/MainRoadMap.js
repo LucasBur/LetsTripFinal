@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode'
 import { FormUpdateRoadmap } from './Forms/Update/FormUpdateRoadmap';
+import MainChat from './Chat/MainChat';
 import Sidebar from './Sidebar';
 import Calendar from './Calendar'
 import Button from 'react-bootstrap/Button'
@@ -35,6 +36,7 @@ class MainRoadMap extends React.Component {
             leader: '',
             showCalendar: true,
             showFormUpdateRoadmap: false,
+            showGroupChat: false,
         };
     };
 
@@ -78,42 +80,97 @@ class MainRoadMap extends React.Component {
     toCalendar = () => {
         this.setState({
             showCalendar: true,
-            showFormUpdateRoadmap: false
+            showFormUpdateRoadmap: false,
+            showGroupChat: false,
         })
     }
 
     toFormUpdateRoadmap = () => {
         this.setState({
+            showGroupChat: false,
             showCalendar: false,
             showFormUpdateRoadmap: true
         })
     }
 
-    sidebarSettings = () => {
-        switch (this.state.showCalendar) {
-            case true:
-                return (
-                    <ul>
-                        <li><Button onClick={this.toFormUpdateRoadmap}>Paramétrer la Roadmap</Button></li>
-                    </ul>
+    toGroupChat = () => {
+        this.setState({
+            showCalendar: false,
+            showFormUpdateRoadmap: false,
+            showGroupChat: true
+        })
+    }
 
-                )
-                break;
-            case false:
-                return (
-                    <ul>
-                        <li><Button onClick={this.toCalendar}>Calendrier</Button></li>
-                    </ul>
-                )
-            default:
-                break;
+    sidebarSettings = () => {
+        if (this.state.showCalendar === true) {
+            return (
+                <ul>
+                    <li><Button onClick={this.toFormUpdateRoadmap}>Paramétrer la Roadmap</Button></li>
+                    <li><Button onClick={this.toGroupChat}>Rejoindre le chat</Button></li>
+                </ul>
+            )
+        }
+        else if (this.state.showFormUpdateRoadmap === true) {
+            return (
+                <ul>
+                    <li><Button onClick={this.toCalendar}>Calendrier</Button></li>
+                    <li><Button onClick={this.toGroupChat}>Rejoindre le chat</Button></li>
+                </ul>
+            )
+        }
+        else if (this.state.showGroupChat === true) {
+            return (
+                <ul>
+                    <li><Button onClick={this.toCalendar}>Calendrier</Button></li>
+                    <li><Button onClick={this.toFormUpdateRoadmap}>Paramétrer la Roadmap</Button></li>
+                </ul>
+            )
+        }
+    }
+
+    renderContent = () => {
+        if (this.state.showCalendar === true) {
+            return (
+                <Calendar
+                    roadMapId={this.state.roadMapId}
+                    notify={this.notify} />
+            )
+        }
+        else if (this.state.showFormUpdateRoadmap === true) {
+            return (
+                <Card>
+                    <Card.Header>
+                        Mettez à jour les informations de la Roadmap
+                            </Card.Header>
+                    <Card.Body>
+                        <FormUpdateRoadmap
+                            rmId={this.state.id}
+                            rmName={this.state.name}
+                            rmPassword={this.state.password}
+                            rmNbrParticipants={this.state.nbr_participants}
+                            rmStartDate={this.state.startDate}
+                            rmEndDate={this.state.endDate}
+                            rmLocation={this.state.location}
+                            rmBudget={this.state.budget}
+                            rmLeader={this.state.leader}
+                            notify={this.notify}
+                            getRoadmap={this.getRoadmap}
+                            switchContent={this.toCalendar} />
+                    </Card.Body>
+                </Card>
+            )
+        }
+        else if (this.state.showGroupChat === true) {
+            return (
+                <MainChat userEmail={this.state.userEmail} />
+            )
         }
     }
 
     notify = (type, message) => {
         switch (type) {
             case '':
-                toast(message, {autoClose: 3000})
+                toast(message, { autoClose: 3000 })
                 break;
             case 'info':
                 toast.info(message)
@@ -129,40 +186,6 @@ class MainRoadMap extends React.Component {
 
     }
 
-    renderContent = () => {
-        return (
-            <div>
-                {
-                    this.state.showCalendar ?
-                        <Calendar
-                            roadMapId={this.state.roadMapId}
-                            notify={this.notify} />
-                        :
-                        <Card>
-                            <Card.Header>
-                                Mettez à jour les informations de la Roadmap
-                            </Card.Header>
-                            <Card.Body>
-                                <FormUpdateRoadmap
-                                    rmId={this.state.id}
-                                    rmName={this.state.name}
-                                    rmPassword={this.state.password}
-                                    rmNbrParticipants={this.state.nbr_participants}
-                                    rmStartDate={this.state.startDate}
-                                    rmEndDate={this.state.endDate}
-                                    rmLocation={this.state.location}
-                                    rmBudget={this.state.budget}
-                                    rmLeader={this.state.leader}
-                                    notify={this.notify}
-                                    getRoadmap={this.getRoadmap}
-                                    switchContent={this.toCalendar} />
-                            </Card.Body>
-                        </Card>
-                }
-            </div>
-        )
-    }
-
     render() {
         return (
             <div className="mainroadmap">
@@ -174,7 +197,8 @@ class MainRoadMap extends React.Component {
                     height: '90vh',
                     overflow: "scroll"
                 }}>
-                    {this.renderContent()}
+                
+                {this.renderContent()}
                 </ul>
             </div>
         );

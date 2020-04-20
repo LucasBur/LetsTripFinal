@@ -1,0 +1,3 @@
+-   Dans le consulter de la roadmap card (main roadmap)
+        Créer un composant qui permet d'afficher les règles, 
+        penses-bêtes, mission à faire etc...

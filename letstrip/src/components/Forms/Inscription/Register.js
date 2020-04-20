@@ -1,9 +1,9 @@
 import React from 'react';
 import auth from '../../../auth';
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
 import * as Yup from "yup";
 import { Formik } from "formik";
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
 import '../../../styles/Register_style.css'
 
 class Register extends React.Component {

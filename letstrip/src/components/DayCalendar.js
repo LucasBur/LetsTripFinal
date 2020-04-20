@@ -55,8 +55,7 @@ class DayCalendar extends React.Component {
                         height: "600px", 
                         overflow: "scroll", 
                         display:'flex', 
-                        flexDirection:'column',
-                        justifyContent:'space-between' }}>
+                        flexDirection:'column' }}>
                     {this.state.activities.map((element, i) => {
                         return (
                             <Activity
