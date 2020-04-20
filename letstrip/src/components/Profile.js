@@ -47,7 +47,7 @@ class Profile extends React.Component {
                         <Col sm={7}>
                             <h1> {this.state.userFirst_name} {this.state.userLast_name} </h1>
                             <span>
-                                <a href="/profile/:id" alt='email'> {this.state.userEmail} </a> - Admin
+                                <a href="/profile/:id" alt='email'> {this.state.userEmail} </a>
                             </span>
 
                         </Col>

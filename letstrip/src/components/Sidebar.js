@@ -5,6 +5,8 @@ import map from '../design/icons/map.svg'
 import setting from '../design/icons/setting.svg'
 import disconnect from '../design/icons/disconnect.svg'
 import '../styles/Sidebar_style.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRoute, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 
 class Sidebar extends Component {
     constructor(props) {
@@ -44,12 +46,18 @@ class Sidebar extends Component {
                     <div className="nav__body">
                         <h3>Let's Trip</h3>
                         <ul>
-                            <li style={{ listStyleImage: `url(${map})` }}> 
-                                <a href='/dashboard'> Mes Roadmaps </a></li>
-                            <li style={{ listStyleImage: `url(${setting})` }}> 
-                                <button onClick={() => window.location=`/profile/${this.state.userId}`}>Paramétrer mon compte</button></li>
-                            <li style={{ listStyleImage: `url(${disconnect})` }} >
-                                <a href='/' onClick={auth.logout}>Deconnexion</a></li>
+                            <li>                                
+                                <FontAwesomeIcon icon={faRoute} size="lg" className="mr-2" />
+                                <a href='/dashboard'>Mes Roadmaps </a>                                
+                            </li>
+                            <li> 
+                                <FontAwesomeIcon icon={faUser} size="lg" className="mr-2" />
+                                <button onClick={() => window.location=`/profile/${this.state.userId}`}>Mon Compte</button>
+                            </li>                            
+                            <li>
+                                <FontAwesomeIcon icon={faSignOutAlt} size="lg" className="mr-2" />
+                                <a href='/' onClick={auth.logout}>Deconnexion</a>
+                            </li>
                         </ul>
 
                         {this.props.sidebarSettings}

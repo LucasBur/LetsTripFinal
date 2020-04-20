@@ -9,6 +9,10 @@ import Card from 'react-bootstrap/Card'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import '../styles/MainRoadmap_style.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCogs, faCalendarAlt, faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons'
+import MainMap from './MainMap'
+
 toast.configure();
 
 
@@ -35,6 +39,7 @@ class MainRoadMap extends React.Component {
             leader: '',
             showCalendar: true,
             showFormUpdateRoadmap: false,
+            showMainMap: false
         };
     };
 
@@ -78,36 +83,44 @@ class MainRoadMap extends React.Component {
     toCalendar = () => {
         this.setState({
             showCalendar: true,
-            showFormUpdateRoadmap: false
+            showFormUpdateRoadmap: false,
+            showMainMap: false
         })
     }
 
     toFormUpdateRoadmap = () => {
         this.setState({
             showCalendar: false,
-            showFormUpdateRoadmap: true
+            showFormUpdateRoadmap: true,
+            showMainMap: false
         })
     }
 
-    sidebarSettings = () => {
-        switch (this.state.showCalendar) {
-            case true:
-                return (
-                    <ul>
-                        <li><Button onClick={this.toFormUpdateRoadmap}>Paramétrer la Roadmap</Button></li>
-                    </ul>
+    toMainMap = () => {
+        this.setState({
+            showCalendar: false,
+            showFormUpdateRoadmap: false,
+            showMainMap: true
+        })
+    }
 
-                )
-                break;
-            case false:
-                return (
-                    <ul>
-                        <li><Button onClick={this.toCalendar}>Calendrier</Button></li>
-                    </ul>
-                )
-            default:
-                break;
-        }
+    sidebarSettings = () => {        
+        return (            
+            <ul>
+                <li>
+                    <FontAwesomeIcon icon={faCogs} size="lg" className="mr-2" />                    
+                    <button onClick={this.toFormUpdateRoadmap}>Ma Roadmap</button>
+                </li>
+                <li>
+                    <FontAwesomeIcon icon={faCalendarAlt} size="lg" className="mr-2" />
+                    <button onClick={this.toCalendar}>Calendrier</button>
+                </li>
+                <li>
+                    <FontAwesomeIcon icon={faMapMarkedAlt} size="lg" className="mr-2" />
+                    <button onClick={this.toMainMap}>Map</button>
+                </li>
+            </ul>                                                                    
+        )
     }
 
     notify = (type, message) => {
@@ -130,36 +143,46 @@ class MainRoadMap extends React.Component {
     }
 
     renderContent = () => {
+        var content;
+        if(this.state.showCalendar){
+            content = (
+                <Calendar
+                    roadMapId={this.state.roadMapId}
+                    notify={this.notify} />
+            )
+        } else if (this.state.showFormUpdateRoadmap){
+            content = (
+                <Card>
+                    <Card.Header>
+                        Mettez à jour les informations de la Roadmap
+                    </Card.Header>
+                    <Card.Body>
+                        <FormUpdateRoadmap
+                            rmId={this.state.id}
+                            rmName={this.state.name}
+                            rmPassword={this.state.password}
+                            rmNbrParticipants={this.state.nbr_participants}
+                            rmStartDate={this.state.startDate}
+                            rmEndDate={this.state.endDate}
+                            rmLocation={this.state.location}
+                            rmBudget={this.state.budget}
+                            rmLeader={this.state.leader}
+                            notify={this.notify}
+                            getRoadmap={this.getRoadmap}
+                            switchContent={this.toCalendar} />
+                    </Card.Body>
+                </Card>
+            )
+        } else if (this.state.showMainMap){
+            content = (
+                <MainMap roadMapId={this.state.roadMapId} />
+            )
+        }
+
         return (
             <div>
-                {
-                    this.state.showCalendar ?
-                        <Calendar
-                            roadMapId={this.state.roadMapId}
-                            notify={this.notify} />
-                        :
-                        <Card>
-                            <Card.Header>
-                                Mettez à jour les informations de la Roadmap
-                            </Card.Header>
-                            <Card.Body>
-                                <FormUpdateRoadmap
-                                    rmId={this.state.id}
-                                    rmName={this.state.name}
-                                    rmPassword={this.state.password}
-                                    rmNbrParticipants={this.state.nbr_participants}
-                                    rmStartDate={this.state.startDate}
-                                    rmEndDate={this.state.endDate}
-                                    rmLocation={this.state.location}
-                                    rmBudget={this.state.budget}
-                                    rmLeader={this.state.leader}
-                                    notify={this.notify}
-                                    getRoadmap={this.getRoadmap}
-                                    switchContent={this.toCalendar} />
-                            </Card.Body>
-                        </Card>
-                }
-            </div>
+                {content}
+            </div>         
         )
     }
 
