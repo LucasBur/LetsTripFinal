@@ -7,23 +7,24 @@ class MainChat extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            chats: null,
+            email : null,
+            chats: [],
         }
     }
 
-    componentDidMount() {
+    componentWillMount = () => {
         firebase.auth().onAuthStateChanged(async _usr => {
-            console.log(_usr)
             if (!_usr)
                 console.log('n est pas user')
             else {
                 await firebase
                     .firestore()
-                    .collection('chats')
+                    .collection('groupchats')
                     .where('users', 'array-contains', _usr.email)
                     .onSnapshot(async res => {
                         const chats = res.docs.map(_doc => _doc.data());
                         await this.setState({
+                            user: _usr.email,
                             chats: chats
                         })
                     })
@@ -39,7 +40,7 @@ class MainChat extends React.Component {
                 flexDirection: 'column',
                 height: '70vh'
             }}>
-                <Messages />
+                <Messages chats={this.state.chats[0]} />
                 <Input />
             </div>
         )
