@@ -40,7 +40,8 @@ class MainRoadMap extends React.Component {
             leader: '',
             showCalendar: true,
             showFormUpdateRoadmap: false,
-            showMainMap: false
+            showMainMap: false,
+            showMainChat: false
         };
     };
 
@@ -85,16 +86,17 @@ class MainRoadMap extends React.Component {
         this.setState({
             showCalendar: true,
             showFormUpdateRoadmap: false,
-            showMainMap: false
+            showMainMap: false,
+            showMainChat: false
         })
     }
 
     toFormUpdateRoadmap = () => {
-        this.setState({
-            showGroupChat: false,
+        this.setState({            
             showCalendar: false,
             showFormUpdateRoadmap: true,
-            showMainMap: false
+            showMainMap: false,
+            showMainChat: false
         })
     }
 
@@ -102,7 +104,17 @@ class MainRoadMap extends React.Component {
         this.setState({
             showCalendar: false,
             showFormUpdateRoadmap: false,
-            showMainMap: true
+            showMainMap: true,
+            showMainChat: false
+        })
+    }
+
+    toMainChat = () => {
+        this.setState({
+            showCalendar: false,
+            showFormUpdateRoadmap: false,
+            showMainMap: false,
+            showMainChat: true
         })
     }
 
@@ -120,6 +132,9 @@ class MainRoadMap extends React.Component {
                 <li>
                     <FontAwesomeIcon icon={faMapMarkedAlt} size="lg" className="mr-2" />
                     <button onClick={this.toMainMap}>Map</button>
+                </li>
+                <li>
+                    <button onClick={this.toMainChat}>Chat</button>
                 </li>
             </ul>                                                                    
         )
@@ -178,6 +193,10 @@ class MainRoadMap extends React.Component {
         } else if (this.state.showMainMap){
             content = (
                 <MainMap roadMapId={this.state.roadMapId} />
+            )
+        } else if (this.state.showMainChat){
+            content = (
+                <MainChat />
             )
         }
 
