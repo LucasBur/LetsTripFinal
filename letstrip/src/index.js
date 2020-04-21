@@ -6,16 +6,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
 
 const firebase = require("firebase");
-require("firebase/firestore"); 
+require("firebase/firestore");
 
 firebase.initializeApp({
-  apiKey: "AIzaSyDqE3N-vl3vXIzNVUIZPxHMXTZ78mHQMro",
-  authDomain: "letstrip-34765.firebaseapp.com",
-  databaseURL: "https://letstrip-34765.firebaseio.com",
-  projectId: "letstrip-34765",
-  storageBucket: "letstrip-34765.appspot.com",
-  messagingSenderId: "897879409011",
-  appId: "1:897879409011:web:0959ef44878c4efb0f0506"
+  apiKey: "AIzaSyCSA3upvMZFxZFvFA50dfmShDedgRTjzPk",
+  authDomain: "letstest-ab98e.firebaseapp.com",
+  databaseURL: "https://letstest-ab98e.firebaseio.com",
+  projectId: "letstest-ab98e",
+  storageBucket: "letstest-ab98e.appspot.com",
+  messagingSenderId: "1164063352",
+  appId: "1:1164063352:web:4c5225646de38b890af38d",
+  measurementId: "G-S12XWSWYCP"
 });
 
 

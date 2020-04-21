@@ -13,29 +13,7 @@ export default {
         try {
             const userData = await axios.post(`${url}/NewUser`, values, { headers: headers });
             localStorage.setItem("token", userData.data);
-            firebase
-                .auth()
-                .createUserWithEmailAndPassword(values.email, values.password)
-                .then(authRes => {
-                    console.log('authResult:', authRes)
-                    const userObj = {
-                        email: authRes.user.email,
-                        friends: [],
-                        messages: []
-                    };
-                    firebase
-                        .firestore()
-                        .collection('users')
-                        .doc(values.email)
-                        .set(userObj).then(() => {
-                            window.location = '/dashboard'
-                        }, dbErr => {
-                            console.log('error : ', dbErr)
-                        })
-                    console.log('userObj:', userObj)
-                }, authErr => {
-                    console.log('authErr:', authErr)
-                })
+            window.location = '/dashboard'
             console.log('user created : ', userData)
         } catch (error) {
             console.log(error)
@@ -48,16 +26,8 @@ export default {
             if (userData.data === false) {
                 alert('Mail ou mot de passe incorect');
             } else {
-                await firebase
-                    .auth()
-                    .signInWithEmailAndPassword(values.email, values.password)
-                    .then(() => {
-                        window.location = '/dashboard'
-                        console.log('yes')
-                        localStorage.setItem("token", userData.data);
-                    }, err => {
-                        console.log('Error logging in: ', err);
-                    });
+                window.location = '/dashboard'
+                localStorage.setItem("token", userData.data);
                 console.log('log :', userData)
             }
         } catch (error) {

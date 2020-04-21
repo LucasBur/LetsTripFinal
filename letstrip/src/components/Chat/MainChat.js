@@ -7,32 +7,33 @@ class MainChat extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            email : null,
+            email: null,
             chats: [],
         }
     }
 
-    componentWillMount = () => {
-        firebase.auth().onAuthStateChanged(async _usr => {
-            if (!_usr)
-                console.log('n est pas user')
-            else {
-                await firebase
-                    .firestore()
-                    .collection('groupchats')
-                    .where('users', 'array-contains', _usr.email)
-                    .onSnapshot(async res => {
-                        const chats = res.docs.map(_doc => _doc.data());
-                        await this.setState({
-                            user: _usr.email,
-                            chats: chats
-                        })
-                    })
-            }
-        });
+    componentWillMount = async () => {
+        // await firebase
+        //     .firestore()
+        //     .collection('groupchats')
+        //     .where('users', 'array-contains', this.props.userEmail)
+        //     .onSnapshot(async res => {
+        //         const chats = res.docs.map(_doc => _doc.data());
+        //         await this.setState({
+        //             user: this.props.userEmail,
+        //             chats: chats
+        //         })
+        //     })
+        
+        await firebase.firestore().collection('groupChats').doc('50').collection('messages')
+            .onSnapshot(doc => console.log('doc : ', doc))
+                    
+
     }
 
+
     render() {
+        console.log(this.props.userEmail)
         return (
             <div style={{
                 display: 'flex',
@@ -40,7 +41,7 @@ class MainChat extends React.Component {
                 flexDirection: 'column',
                 height: '70vh'
             }}>
-                <Messages chats={this.state.chats[0]} />
+                {/* <Messages  /> */}
                 <Input />
             </div>
         )
