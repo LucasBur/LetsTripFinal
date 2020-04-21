@@ -3,23 +3,23 @@ import Card from 'react-bootstrap/Card'
 
 const Messages = (props) => {
     return (
-        props.chats === undefined ? <div>Loading ... </div> : props.chats.messages.map((_msg, _index) => {
+        props.chats === undefined ? <div>Loading ... </div> : 
+        
+        props.chats.map((_msg, _index) => {
             console.log(_msg)
             return (
                 <Card key={_index} style={{
                     width: '300px',
                 }}>
                     <Card.Body>
-                        <Card.Title>{_msg.sender}</Card.Title>
+                        <Card.Title>{_msg.pseudo}</Card.Title>
                         <Card.Text>
-                            {_msg.message}
+                            {_msg.msg}
                         </Card.Text>
                     </Card.Body>
                 </Card>
             )
         })
-
-
     )
 }
 

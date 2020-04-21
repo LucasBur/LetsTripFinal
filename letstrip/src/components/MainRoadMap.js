@@ -196,7 +196,7 @@ class MainRoadMap extends React.Component {
             )
         } else if (this.state.showMainChat){
             content = (
-                <MainChat />
+                <MainChat userEmail={this.state.userEmail}/>
             )
         }
 

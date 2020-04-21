@@ -1,6 +1,6 @@
-import React from 'react'
-import Messages from './Messages';
+import React from 'react';
 import Input from './Input';
+import Messages from './Messages';
 const firebase = require('firebase')
 
 class MainChat extends React.Component {
@@ -12,28 +12,35 @@ class MainChat extends React.Component {
         }
     }
 
-    componentWillMount = async () => {
-        // await firebase
-        //     .firestore()
-        //     .collection('groupchats')
-        //     .where('users', 'array-contains', this.props.userEmail)
-        //     .onSnapshot(async res => {
-        //         const chats = res.docs.map(_doc => _doc.data());
-        //         await this.setState({
-        //             user: this.props.userEmail,
-        //             chats: chats
-        //         })
-        //     })
-        
-        await firebase.firestore().collection('groupChats').doc('50').collection('messages')
-            .onSnapshot(doc => console.log('doc : ', doc))
-                    
-
+    componentWillMount = () => {
+        this.getMessages(50);
     }
 
+    getMessages = async (rmId) => {
+        await firebase.firestore().collection('groupChats').doc(rmId.toString()).collection('messages')
+            .onSnapshot(doc => {
+                const data = [];
+                doc.forEach(el => {
+                    data.push(el.data())
+                })
+                this.setState({
+                    chats: [...this.state.chats, data]
+                })
+            }
+            )
+    }
+
+    submitMessage = (data) => {
+        firebase.firestore().collection('groupChats').doc('50').collection('messages')
+            .add(data).then(function () {
+                console.log("Document successfully written!");
+            })
+            .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+    }
 
     render() {
-        console.log(this.props.userEmail)
         return (
             <div style={{
                 display: 'flex',
@@ -41,8 +48,11 @@ class MainChat extends React.Component {
                 flexDirection: 'column',
                 height: '70vh'
             }}>
-                {/* <Messages  /> */}
-                <Input />
+                <Messages 
+                    chats={this.state.chats[0]} />
+                <Input 
+                    submitMessage={this.submitMessage}
+                    userEmail={this.props.userEmail} />
             </div>
         )
     }
