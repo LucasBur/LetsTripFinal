@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import '../styles/MainRoadmap_style.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCogs, faCalendarAlt, faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons'
+import { faCogs, faCalendarAlt, faMapMarkedAlt, faCommentDots } from '@fortawesome/free-solid-svg-icons'
 import MainMap from './MainMap'
 
 toast.configure();
@@ -134,6 +134,7 @@ class MainRoadMap extends React.Component {
                     <button onClick={this.toMainMap}>Map</button>
                 </li>
                 <li>
+                    <FontAwesomeIcon icon={faCommentDots} size="lg" className="mr-2" />
                     <button onClick={this.toMainChat}>Chat</button>
                 </li>
             </ul>                                                                    

@@ -26,9 +26,11 @@ class MainChat extends React.Component {
         //     })
         
         await firebase.firestore().collection('groupChats').doc('50').collection('messages')
-            .onSnapshot(doc => console.log('doc : ', doc))
-                    
-
+            .onSnapshot(doc => 
+                    doc.forEach(elem => {
+                        console.log(elem.data().msg)
+                    })
+                )                
     }
 
 

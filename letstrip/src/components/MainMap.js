@@ -8,8 +8,9 @@ const mapStyles = {
 }
 
 const containerStyle = {  
-  width: '78%',
-  height: '90%'
+  position: 'relative',
+  width: '100%',
+  height: '90vh'
 }
 
 class MainMap extends React.Component {
