@@ -1,5 +1,5 @@
 import React from 'react';
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import {Map, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 const mapStyles = {
   width: '100%',
@@ -47,7 +47,7 @@ class MapContainer extends React.Component {
 
   render() {    
     let markerMap;
-    if(this.state.marker != false){
+    if(this.state.marker !== false){
       markerMap = <Marker title={this.state.marker.title} name={this.state.marker.name} position={this.state.marker.position}  />
     }
 

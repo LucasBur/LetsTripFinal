@@ -5,13 +5,12 @@ import { FormUpdateRoadmap } from './Forms/Update/FormUpdateRoadmap';
 import MainChat from './Chat/MainChat';
 import Sidebar from './Sidebar';
 import Calendar from './Calendar'
-import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import '../styles/MainRoadmap_style.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCogs, faCalendarAlt, faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons'
+import { faCogs, faCalendarAlt, faMapMarkedAlt, faUserFriends } from '@fortawesome/free-solid-svg-icons'
 import MainMap from './MainMap'
 
 toast.configure();
@@ -92,7 +91,7 @@ class MainRoadMap extends React.Component {
     }
 
     toFormUpdateRoadmap = () => {
-        this.setState({            
+        this.setState({
             showCalendar: false,
             showFormUpdateRoadmap: true,
             showMainMap: false,
@@ -118,11 +117,11 @@ class MainRoadMap extends React.Component {
         })
     }
 
-    sidebarSettings = () => {        
-        return (            
+    sidebarSettings = () => {
+        return (
             <ul>
                 <li>
-                    <FontAwesomeIcon icon={faCogs} size="lg" className="mr-2" />                    
+                    <FontAwesomeIcon icon={faCogs} size="lg" className="mr-2" />
                     <button onClick={this.toFormUpdateRoadmap}>Ma Roadmap</button>
                 </li>
                 <li>
@@ -134,9 +133,10 @@ class MainRoadMap extends React.Component {
                     <button onClick={this.toMainMap}>Map</button>
                 </li>
                 <li>
+                    <FontAwesomeIcon icon={faUserFriends} size="lg" className="mr-2" />
                     <button onClick={this.toMainChat}>Chat</button>
                 </li>
-            </ul>                                                                    
+            </ul>
         )
     }
 
@@ -153,6 +153,7 @@ class MainRoadMap extends React.Component {
                 break;
             case 'error':
                 toast.error(message)
+                break;
             default:
                 break;
         }
@@ -161,13 +162,13 @@ class MainRoadMap extends React.Component {
 
     renderContent = () => {
         var content;
-        if(this.state.showCalendar){
+        if (this.state.showCalendar) {
             content = (
                 <Calendar
                     roadMapId={this.state.roadMapId}
                     notify={this.notify} />
             )
-        } else if (this.state.showFormUpdateRoadmap){
+        } else if (this.state.showFormUpdateRoadmap) {
             content = (
                 <Card>
                     <Card.Header>
@@ -190,20 +191,20 @@ class MainRoadMap extends React.Component {
                     </Card.Body>
                 </Card>
             )
-        } else if (this.state.showMainMap){
+        } else if (this.state.showMainMap) {
             content = (
                 <MainMap roadMapId={this.state.roadMapId} />
             )
-        } else if (this.state.showMainChat){
+        } else if (this.state.showMainChat) {
             content = (
-                <MainChat userEmail={this.state.userEmail}/>
+                <MainChat userPseudo={this.state.userPseudo} rmName={this.state.name} rmNbrParticipants={this.state.nbr_participants} />
             )
         }
 
         return (
             <div>
                 {content}
-            </div>         
+            </div>
         )
     }
 
@@ -218,8 +219,8 @@ class MainRoadMap extends React.Component {
                     height: '90vh',
                     overflow: "scroll"
                 }}>
-                
-                {this.renderContent()}
+
+                    {this.renderContent()}
                 </ul>
             </div>
         );

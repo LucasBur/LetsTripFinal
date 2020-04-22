@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal';
-// import Form from 'react-bootstrap/Form';
-// import * as Yup from "yup";
-// import { Formik } from "formik";
 import MapContainer from '../../MapContainer'
 
 export const FormActivityLocalisation = (props) => {
@@ -43,7 +40,7 @@ export const FormActivityLocalisation = (props) => {
 
     return (
         <>
-            <Button variant="outline-success" size="sm" onClick={handleShow}>Localiser 📍</Button>
+            <Button variant="outline-success" size="sm" onClick={handleShow}>Localiser <span role='img'>📍</span> </Button>
 
             <Modal show={show} onHide={handleClose} animation={false} size="lg" dialogClassName={modalStyle}>
                 <Modal.Header closeButton>

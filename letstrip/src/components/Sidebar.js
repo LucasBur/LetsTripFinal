@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import jwt_decode from 'jwt-decode';
 import auth from '../auth';
-import map from '../design/icons/map.svg'
-import setting from '../design/icons/setting.svg'
-import disconnect from '../design/icons/disconnect.svg'
 import '../styles/Sidebar_style.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRoute, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'

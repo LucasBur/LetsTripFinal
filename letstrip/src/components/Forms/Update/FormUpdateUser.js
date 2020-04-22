@@ -28,6 +28,7 @@ export const FormUpdateUser = (props) => {
                 break;
             case 'error':
                 toast.error(message)
+                break;
             default:
                 break;
         }

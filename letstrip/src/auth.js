@@ -1,5 +1,4 @@
 import axios from 'axios';
-const firebase = require("firebase");
 
 const headers = {
     "Content-Type": "application/json"
