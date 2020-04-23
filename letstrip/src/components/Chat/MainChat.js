@@ -19,15 +19,18 @@ class MainChat extends React.Component {
         this.getMessages(50);
     }
 
+    componentDidUpdate = () => {
+        const container = document.getElementById('chatview-container');
+        if (container)
+            container.scrollTo(0, container.scrollHeight);
+    }
+
     getMessages = async (rmId) => {
         await firebase.firestore().collection('groupChats').doc(rmId.toString()).collection('messages')
             .onSnapshot(async doc => {
-                const data = [];
-                doc.forEach(el => {
-                    data.push(el.data())
-                })
+                const chats = doc.docs.map(_doc => _doc.data());
                 await this.setState({
-                    chats: [...this.state.chats, data]
+                    chats: chats
                 })
             }
             )
@@ -46,7 +49,7 @@ class MainChat extends React.Component {
     render() {
         return (
             <div style={{ width: '100%' }}>
-                <Row style={{ position: 'sticky', top: '0', zIndex: '1', backgroundColor:'white', borderBottom:'1px solid gray' }}>
+                <Row style={{ position: 'sticky', top: '0', zIndex: '1', backgroundColor: 'white', borderBottom: '1px solid gray' }}>
                     <Col>
                         <div style={{ display: "flex", justifyContent: 'space-between', width: '530px' }}>
                             <div>
@@ -63,10 +66,10 @@ class MainChat extends React.Component {
                         </div>
                     </Col>
                 </Row>
-                <Row>
-                    <Col id="chatview-container">
+                <Row id="chatview-container">
+                    <Col>
                         <Messages
-                            chats={this.state.chats[0]}
+                            chats={this.state.chats}
                             userPseudo={this.props.userPseudo} />
                     </Col>
                 </Row>
