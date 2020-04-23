@@ -54,6 +54,7 @@ class Dashboard extends React.Component {
     }
 
     render() {
+        console.log(this.state.roadMapsList)
         const items = this.state.roadMapsList.map((element, i) => (
             <li key={i}> <RoadMapCard onDelete={this.onDelete} info={element} /> </li>
         ));
@@ -62,7 +63,10 @@ class Dashboard extends React.Component {
                 <Sidebar />
 
                 <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: 'auto' }}>
-                    <FormRoadmap id={this.state.id} getRoadmapData={this.getRoadmapData}/>
+                    <FormRoadmap
+                        id={this.state.id} 
+                        roadMapsList={this.state.roadMapsList}
+                        getRoadmapData={this.getRoadmapData} />
 
                     {items}
                 </ul>

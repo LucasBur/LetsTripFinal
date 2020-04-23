@@ -140,7 +140,7 @@ router.post('/CreateRoadMap', function (req, res) {
         include: [db.users]
     }).then(roadmap => {
         roadmap.addUser(req.body.id)
-        res.send(true);        
+        res.send(roadmap);        
     }).catch(err => res.status(400).json('Error: ' + err));
 });
 

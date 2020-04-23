@@ -16,7 +16,7 @@ class MainChat extends React.Component {
     }
 
     componentWillMount = () => {
-        this.getMessages(50);
+        this.getMessages(this.props.rmId);
         const container = document.getElementById('chatview-container');
         if (container)
             container.scrollTo(0, container.scrollHeight);

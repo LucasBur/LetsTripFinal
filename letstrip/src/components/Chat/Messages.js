@@ -34,15 +34,12 @@ const Messages = (props) => {
         display: 'flex', marginTop: '10px', marginLeft: '35px'
     }
 
-    const spanStyle = {
-        display: 'flex', width: '200px', justifyContent: 'space-between'
-    }
-
     const msgStyle = {
         wordWrap: 'break-word', width: '80%', fontSize: '0.9rem'
     }
+    
     return (
-        props.chats === undefined ?
+        props.chats.length === 0 ?
 
             <Spinner animation="border" role="status">
                 <span className="sr-only">Loading...</span>

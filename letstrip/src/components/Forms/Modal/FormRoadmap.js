@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col'
 import * as Yup from "yup";
 import { Formik } from "formik";
 import axios from 'axios';
+const firebase = require('firebase')
 
 export const FormRoadmap = (props) => {
     const [show, setShow] = useState(false);
@@ -13,13 +14,26 @@ export const FormRoadmap = (props) => {
     const handleShow = () => setShow(true);
 
     // Fonction qui permet d'ajouter automatiquement le nv composant sans besoin de refresh manuellement
-    const createRoadmap = (values) => {        
-        axios.post(`http://localhost:4000/CreateRoadMap`, values, { headers: { "Content-Type": "application/json" }})
+    const createRoadmap = (values) => {
+        axios.post(`http://localhost:4000/CreateRoadMap`, values, { headers: { "Content-Type": "application/json" } })
             .then(result => {
-            if(result){
-                props.getRoadmapData(props.id);
-            }            
-        });
+                console.log(result)
+                if (result.status === 200) {
+                    props.getRoadmapData(props.id)
+                    newGroupChat(result.data.id)
+                }
+            });
+    }
+
+    const newGroupChat = (id) => {
+        firebase.firestore().collection('groupChats').doc(id.toString()).collection('messages').add({
+            date: Date.now(),
+            msg: null,
+            pseudo: null
+        })
+            .then(() => {
+                console.log('group chat id created')
+            }).catch(err => console.log('err : ', err))
     }
 
     return <Formik
@@ -39,7 +53,7 @@ export const FormRoadmap = (props) => {
             console.log(values);
             handleClose();
             resetForm();
-            setSubmitting(false);                
+            setSubmitting(false);
         }}
         validationSchema={Yup.object().shape({
             name: Yup.string().required("nom requis.")
@@ -173,7 +187,7 @@ export const FormRoadmap = (props) => {
                                 <Button variant="primary" type="submit" disabled={isSubmitting}>
                                     Submit
                                 </Button>
-                                
+
                             </Form>
                         </Modal.Body>
                     </Modal>
