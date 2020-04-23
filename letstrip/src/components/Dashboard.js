@@ -4,6 +4,8 @@ import Sidebar from './Sidebar';
 import { FormRoadmap } from './Forms/Modal/FormRoadmap';
 import axios from 'axios';
 import RoadMapCard from './RoadMapCard';
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import '../styles/Dashboard_style.css'
 
 class Dashboard extends React.Component {
@@ -53,6 +55,26 @@ class Dashboard extends React.Component {
         })
     }
 
+    notify = (type, message) => {
+        switch (type) {
+            case '':
+                toast(message, { autoClose: 3000 })
+                break;
+            case 'info':
+                toast.info(message)
+                break;
+            case 'success':
+                toast.success(message)
+                break;
+            case 'error':
+                toast.error(message)
+                break;
+            default:
+                break;
+        }
+
+    }
+
     render() {
         const items = this.state.roadMapsList.map((element, i) => (
             <li key={i}> <RoadMapCard onDelete={this.onDelete} info={element} /> </li>
@@ -65,7 +87,8 @@ class Dashboard extends React.Component {
                     <FormRoadmap
                         id={this.state.id} 
                         roadMapsList={this.state.roadMapsList}
-                        getRoadmapData={this.getRoadmapData} />
+                        getRoadmapData={this.getRoadmapData}
+                        notify={this.notify} />
 
                     {items}
                 </ul>

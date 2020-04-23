@@ -50,43 +50,49 @@ class MainChat extends React.Component {
     }
 
     render() {
+        const container = {
+            width: '100%', height: '90vh', display: 'flex', justifyContent: 'space-between', flexDirection: 'column'
+        }
         const headerStyle = {
             position: 'sticky', top: '0', zIndex: '1', backgroundColor: 'white', borderBottom: '1px solid gray'
         }
 
-        const headerContainerStyle = {
-            display: "flex", justifyContent: 'space-between', width: '530px'
+        const headerChildStyle = {
+            display: "flex", justifyContent: 'space-between', width: '560px'
         }
 
         const footerStyle = {
-            position: 'sticky', bottom: '0', zIndex: '1', marginTop: '10px'
+            // position: 'fixed', zIndex: '1', bottom:'0', width:'80vw', marginTop:'10px'
+            position: 'sticky', zIndex: '1', bottom: '0'
         }
         return (
-            <div style={{ width: '100%' }}>
-                <Row style={headerStyle}>
-                    <Col>
-                        <div style={headerContainerStyle}>
-                            <div>
-                                <Image
-                                    src='https://user.oc-static.com/files/6001_7000/6410.jpg'
-                                    width='70'
-                                    height='70'
-                                    roundedCircle />
+            <div style={container}>
+                <Col>
+                    <Row style={headerStyle}>
+                        <Col>
+                            <div style={headerChildStyle}>
+                                <div>
+                                    <Image
+                                        src='https://user.oc-static.com/files/6001_7000/6410.jpg'
+                                        width='70'
+                                        height='70'
+                                        roundedCircle />
+                                </div>
+                                <div>
+                                    <h1>{this.props.rmName} - Group Chat</h1>
+                                    <h6 style={{ fontWeight: '300' }}>{this.props.rmNbrParticipants} Membres</h6>
+                                </div>
                             </div>
-                            <div>
-                                <h1>{this.props.rmName} - Group Chat</h1>
-                                <h6 style={{ fontWeight: '300' }}>{this.props.rmNbrParticipants} Membres</h6>
-                            </div>
-                        </div>
-                    </Col>
-                </Row>
-                <Row >
-                    <Col id="chatview-container">
-                        <Messages
-                            chats={this.state.chats}
-                            userPseudo={this.props.userPseudo} />
-                    </Col>
-                </Row>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col id="chatview-container">
+                            <Messages
+                                chats={this.state.chats}
+                                userPseudo={this.props.userPseudo} />
+                        </Col>
+                    </Row>
+                </Col>
 
                 <Row style={footerStyle}>
                     <Col>

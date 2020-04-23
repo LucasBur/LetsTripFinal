@@ -22,14 +22,12 @@ export const FormRoadmap = (props) => {
                     props.getRoadmapData(props.id)
                     newGroupChat(result.data.id)
                 }
-            });
+            }).then(() => props.notify('success', 'Roadmap crée !')).catch(err => console.log(err))
     }
 
     const newGroupChat = (id) => {
         firebase.firestore().collection('groupChats').doc(id.toString()).collection('messages').add({
-            date: Date.now(),
-            msg: null,
-            pseudo: null
+            GroupChatCreated: Date.now(),
         })
             .then(() => {
                 console.log('group chat id created')

@@ -221,7 +221,7 @@ class MainRoadMap extends React.Component {
                     marginLeft: '50px',
                     width: '100%',
                     height: '90vh',
-                    overflow: "scroll"
+                    overflow: "auto"
                 }}>
 
                     {this.renderContent()}
