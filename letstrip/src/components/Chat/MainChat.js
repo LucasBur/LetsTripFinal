@@ -40,7 +40,7 @@ class MainChat extends React.Component {
     }
 
     submitMessage = (data) => {
-        firebase.firestore().collection('groupChats').doc('50').collection('messages')
+        firebase.firestore().collection('groupChats').doc(this.props.rmId).collection('messages')
             .add(data).then(function () {
                 console.log("Document successfully written!");
             })

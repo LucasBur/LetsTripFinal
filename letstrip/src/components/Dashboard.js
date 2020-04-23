@@ -54,7 +54,6 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        console.log(this.state.roadMapsList)
         const items = this.state.roadMapsList.map((element, i) => (
             <li key={i}> <RoadMapCard onDelete={this.onDelete} info={element} /> </li>
         ));
