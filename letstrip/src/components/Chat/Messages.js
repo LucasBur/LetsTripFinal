@@ -2,19 +2,19 @@ import React from 'react';
 import Spinner from 'react-bootstrap/Spinner'
 import Image from 'react-bootstrap/Image'
 import moment from 'moment';
+moment.locale('fr')
 
 const Messages = (props) => {
-
     const dateMsg = (date, pseudo) => {
         let currentTime = Date.now();
         if (moment(date).format('MMMM Do YYYY') !== moment(currentTime).format('MMMM Do YYYY')) {
             return (
                 <span style={{ display: 'flex', width: '400px', justifyContent: 'space-between' }}>
                     <h6>{pseudo}</h6>
-                    <time style={{ color: 'gray', fontSize: '0.8rem' }}>{moment(date).format('MMMM Do YYYY, h:mm:ss a')}</time>
+                    <time style={{ color: 'gray', fontSize: '0.8rem' }}>{moment(date).format('MMMM Do YYYY, HH:mm:ss')}</time>
                 </span>
             )
-        } else if (moment(date).format('MMMM Do YYYY, h:mm:ss a') === 'Invalid date') {
+        } else if (moment(date).format('MMMM Do YYYY, HH:mm:ss') === 'Invalid date') {
             return (
                 <span style={{ width: '150px' }}>
                     <h6>{pseudo}</h6>
@@ -24,7 +24,7 @@ const Messages = (props) => {
             return (
                 <span style={{ display: 'flex', width: '200px', justifyContent: 'space-between' }}>
                     <h6>{pseudo}</h6>
-                    <time style={{ color: 'gray', fontSize: '0.8rem' }}>{moment(date).format('h:mm:ss a')}</time>
+                    <time style={{ color: 'gray', fontSize: '0.8rem' }}>{moment(date).format('HH:mm:ss')}</time>
                 </span>
             )
         }

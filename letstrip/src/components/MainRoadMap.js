@@ -1,20 +1,18 @@
 import React from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode'
-import { FormUpdateRoadmap } from './Forms/Update/FormUpdateRoadmap';
 import MainChat from './Chat/MainChat';
 import Sidebar from './Sidebar';
 import Calendar from './Calendar'
+import MainMap from './MainMap'
 import Card from 'react-bootstrap/Card'
+import { FormUpdateRoadmap } from './Forms/Update/FormUpdateRoadmap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCogs, faCalendarAlt, faMapMarkedAlt, faUserFriends } from '@fortawesome/free-solid-svg-icons'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import '../styles/MainRoadmap_style.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCogs, faCalendarAlt, faMapMarkedAlt, faUserFriends } from '@fortawesome/free-solid-svg-icons'
-import MainMap from './MainMap'
-
 toast.configure();
-
 
 class MainRoadMap extends React.Component {
     constructor(props) {

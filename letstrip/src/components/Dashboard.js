@@ -72,7 +72,6 @@ class Dashboard extends React.Component {
             default:
                 break;
         }
-
     }
 
     render() {

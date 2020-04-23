@@ -62,7 +62,6 @@ class MainChat extends React.Component {
         }
 
         const footerStyle = {
-            // position: 'fixed', zIndex: '1', bottom:'0', width:'80vw', marginTop:'10px'
             position: 'sticky', zIndex: '1', bottom: '0'
         }
         return (
