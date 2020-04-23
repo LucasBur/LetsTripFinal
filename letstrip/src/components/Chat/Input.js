@@ -27,7 +27,7 @@ const Input = (props) => {
         <Form onSubmit={onSubmit}>
             <InputGroup >
                 <Form.Control
-                    style={{ border: 'none', height: '50px' }}
+                    style={{ height: '50px' }}
                     value={chat}
                     onChange={handleChange}
                     type='text'

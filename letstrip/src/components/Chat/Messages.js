@@ -28,13 +28,13 @@ const Messages = (props) => {
                     <div key={_index} style={{display:'flex', marginTop:'10px', marginLeft:'35px' }}>
                         <Image
                             src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTsnNC4gbMmE2V5uSBoN0UXhTbLKLpei7bn1j8AUso5JgebGpZv&usqp=CAU'
-                            width='50px'
-                            height='50px'
+                            width='40px'
+                            height='40px'
                             roundedCircle />
                         <div style={{marginLeft:'10px'}}>
-                            <span style={{ display: 'flex', width: '300px', justifyContent: 'space-between' }}>
+                            <span style={{ display: 'flex', width: '200px', justifyContent: 'space-between' }}>
                                 <h6>{_msg.pseudo}</h6>
-                                <time>{moment(_msg.date).fromNow()}</time>
+                                <time style={{color:'gray', fontSize:'0.8rem'}}>{moment(_msg.date).format('h:mm:ss a')}</time>
                             </span>
 
                             <p style={{wordWrap: 'break-word', width:'80%', fontSize:'0.9rem'}}>{_msg.msg}</p>

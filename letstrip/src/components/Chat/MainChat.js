@@ -46,7 +46,7 @@ class MainChat extends React.Component {
     render() {
         return (
             <div style={{ width: '100%' }}>
-                <Row style={{ position: 'sticky', top: '0', zIndex: '1', backgroundColor:'white' }}>
+                <Row style={{ position: 'sticky', top: '0', zIndex: '1', backgroundColor:'white', borderBottom:'1px solid gray' }}>
                     <Col>
                         <div style={{ display: "flex", justifyContent: 'space-between', width: '530px' }}>
                             <div>
@@ -63,7 +63,6 @@ class MainChat extends React.Component {
                         </div>
                     </Col>
                 </Row>
-                <hr></hr>
                 <Row>
                     <Col id="chatview-container">
                         <Messages
@@ -71,9 +70,6 @@ class MainChat extends React.Component {
                             userPseudo={this.props.userPseudo} />
                     </Col>
                 </Row>
-
-                <hr>
-                </hr>
 
                 <Row style={{ position: 'sticky', bottom: '0', zIndex: '1', marginTop: '10px' }}>
                     <Col>
