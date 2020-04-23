@@ -23,6 +23,9 @@ const Input = (props) => {
         }
     }
 
+    const buttonStyle = {
+        width: '100px', backgroundColor: '#6666ff', borderColor: '#6666ff'
+    }
     return (
         <Form onSubmit={onSubmit}>
             <InputGroup >
@@ -34,7 +37,7 @@ const Input = (props) => {
                     placeholder='Enter your message ...'
                 />
                 <InputGroup.Append>
-                    <Button type='submit' style={{ width: '100px' }}>
+                    <Button type='submit' style={buttonStyle}>
                         <FontAwesomeIcon icon={faPaperPlane} />
                     </Button>
                 </InputGroup.Append>

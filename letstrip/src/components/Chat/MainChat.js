@@ -17,6 +17,9 @@ class MainChat extends React.Component {
 
     componentWillMount = () => {
         this.getMessages(50);
+        const container = document.getElementById('chatview-container');
+        if (container)
+            container.scrollTo(0, container.scrollHeight);
     }
 
     componentDidUpdate = () => {
@@ -26,7 +29,7 @@ class MainChat extends React.Component {
     }
 
     getMessages = async (rmId) => {
-        await firebase.firestore().collection('groupChats').doc(rmId.toString()).collection('messages')
+        await firebase.firestore().collection('groupChats').doc(rmId.toString()).collection('messages').orderBy('date')
             .onSnapshot(async doc => {
                 const chats = doc.docs.map(_doc => _doc.data());
                 await this.setState({
@@ -47,11 +50,22 @@ class MainChat extends React.Component {
     }
 
     render() {
+        const headerStyle = {
+            position: 'sticky', top: '0', zIndex: '1', backgroundColor: 'white', borderBottom: '1px solid gray'
+        }
+
+        const headerContainerStyle = {
+            display: "flex", justifyContent: 'space-between', width: '530px'
+        }
+
+        const footerStyle = {
+            position: 'sticky', bottom: '0', zIndex: '1', marginTop: '10px'
+        }
         return (
             <div style={{ width: '100%' }}>
-                <Row style={{ position: 'sticky', top: '0', zIndex: '1', backgroundColor: 'white', borderBottom: '1px solid gray' }}>
+                <Row style={headerStyle}>
                     <Col>
-                        <div style={{ display: "flex", justifyContent: 'space-between', width: '530px' }}>
+                        <div style={headerContainerStyle}>
                             <div>
                                 <Image
                                     src='https://user.oc-static.com/files/6001_7000/6410.jpg'
@@ -66,15 +80,15 @@ class MainChat extends React.Component {
                         </div>
                     </Col>
                 </Row>
-                <Row id="chatview-container">
-                    <Col>
+                <Row >
+                    <Col id="chatview-container">
                         <Messages
                             chats={this.state.chats}
                             userPseudo={this.props.userPseudo} />
                     </Col>
                 </Row>
 
-                <Row style={{ position: 'sticky', bottom: '0', zIndex: '1', marginTop: '10px' }}>
+                <Row style={footerStyle}>
                     <Col>
                         <Input
                             submitMessage={this.submitMessage}
