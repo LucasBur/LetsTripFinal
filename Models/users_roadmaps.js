@@ -7,6 +7,11 @@ module.exports = function(sequelize, DataTypes) {
         userId: {
             type: DataTypes.INTEGER(11),
             allowNull: false
+        },
+        isLeader: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
         }
     },
     {

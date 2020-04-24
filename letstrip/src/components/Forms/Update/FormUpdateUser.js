@@ -163,7 +163,7 @@ export const FormUpdateUser = (props) => {
                     </Form.Group>
 
                     <Button id="button-formupdateuser-submit" type="submit" disabled={isSubmitting}>
-                        Submit
+                        Enregistrer
                     </Button>
 
                 </Form>

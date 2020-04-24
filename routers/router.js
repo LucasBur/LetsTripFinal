@@ -134,12 +134,12 @@ router.post('/CreateRoadMap', function (req, res) {
         startDate: moment(req.body.startDate).format("YYYY-MM-DD HH:mm:ss"),
         endDate: moment(req.body.endDate).format("YYYY-MM-DD HH:mm:ss"),
         budget: req.body.budget,
-        leader: req.body.leader
+        //leader: req.body.leader
     },
     {
         include: [db.users]
     }).then(roadmap => {
-        roadmap.addUser(req.body.id)
+        roadmap.addUser(req.body.id, { through: { isLeader: true }})
         res.send(roadmap);        
     }).catch(err => res.status(400).json('Error: ' + err));
 });
@@ -156,7 +156,7 @@ router.put('/updateRoadmap/:id', (req, res) => {
             roadmap.startDate = req.body.startDate;
             roadmap.endDate = req.body.endDate;
             roadmap.budget = req.body.budget;
-            roadmap.leader = req.body.leader;
+            //roadmap.leader = req.body.leader;
             roadmap.save();
             res.send(true)
         }
@@ -174,6 +174,20 @@ router.delete('/DeleteRoadMap/:id', (req, res) => {
         }
     });
 });
+
+router.post('/InviteToRoadMap', (req, res) => {    
+    db.users.findOne({ where: { email: req.body.email }}).then(user => {
+        if(user === null) {
+            res.send(false)
+        } else {
+            db.roadmaps.findOne({ where: { id: req.body.roadMapId }}).then(roadmap => {
+                roadmap.addUser(user.id)
+                res.send(true)
+            })
+        }        
+    })
+})
+//#endregion
 
 //#region Activity
 router.post('/CreateActivity', function (req, res){

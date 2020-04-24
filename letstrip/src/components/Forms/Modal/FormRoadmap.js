@@ -44,7 +44,7 @@ export const FormRoadmap = (props) => {
             startDate: "",
             endDate: "",
             budget: "",
-            leader: ``,
+            // leader: ``,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
             createRoadmap(values);
@@ -66,7 +66,7 @@ export const FormRoadmap = (props) => {
             startDate: Yup.string().required("Date de départ requise"),
             endDate: Yup.string().required("Date de retour requise"),
             budget: Yup.string().required("Budget requis").min(0, "Entrer 0 si vous ne savez pas"),
-            leader: Yup.bool()
+            // leader: Yup.bool()
         })}>
 
         {props => {
@@ -173,14 +173,14 @@ export const FormRoadmap = (props) => {
                                     </Form.Group>
                                 </Form.Row>
 
-                                <Form.Group>
+                                {/* <Form.Group>
                                     <Form.Check
                                         value={values.leader}
                                         onChange={handleChange}
                                         label="Prendre le rôle de Leader"
                                         name='leader'
                                     />
-                                </Form.Group>
+                                </Form.Group> */}
 
                                 <Button variant="primary" type="submit" disabled={isSubmitting}>
                                     Submit

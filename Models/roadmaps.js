@@ -36,10 +36,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11),
       allowNull: true
     },
-    leader: {
-      type: DataTypes.INTEGER(1),
-      allowNull: false
-    }
+    // leader: {
+    //   type: DataTypes.INTEGER(1),
+    //   allowNull: false
+    // }
   }, {
     tableName: 'roadmaps',
     timestamp: false
