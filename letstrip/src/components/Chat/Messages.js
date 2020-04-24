@@ -57,7 +57,7 @@ const Messages = (props) => {
                 return (
                     <div key={_index} style={containerStyle} ref={divRef} >
                         <Image
-                            src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTsnNC4gbMmE2V5uSBoN0UXhTbLKLpei7bn1j8AUso5JgebGpZv&usqp=CAU'
+                            src={props.urlProfil}
                             width='40px'
                             height='40px'
                             roundedCircle />

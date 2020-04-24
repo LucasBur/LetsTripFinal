@@ -208,6 +208,7 @@ class MainRoadMap extends React.Component {
         } else if (this.state.showMainChat) {
             content = (
                 <MainChat 
+                    userId={this.state.userId}
                     userPseudo={this.state.userPseudo} 
                     rmId={this.state.roadMapId} 
                     rmName={this.state.name} 

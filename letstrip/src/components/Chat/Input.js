@@ -26,7 +26,8 @@ const Input = (props) => {
         event.preventDefault();
         if (chat === '') {
             console.log('empty msg')
-        } else {
+        } 
+        else {
             let data = {
                 date: Date.now(),
                 msg: chat,
@@ -34,6 +35,7 @@ const Input = (props) => {
             }
             setChat('')
             props.submitMessage(data);
+            setShowEmoji(false)
         }
     }
 

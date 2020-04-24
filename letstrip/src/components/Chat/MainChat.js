@@ -12,11 +12,15 @@ class MainChat extends React.Component {
         this.state = {
             email: null,
             chats: [],
+            url: ''
         }
     }
 
     componentWillMount = () => {
         this.getMessages(this.props.rmId);
+        firebase.storage().ref(`images/${this.props.userId}`).child(this.props.userId.toString()).getDownloadURL().then(url => {
+            this.setState({ url: url })
+        })
     }
 
     getMessages = async (rmId) => {
@@ -63,7 +67,7 @@ class MainChat extends React.Component {
                             <div style={headerChildStyle}>
                                 <div>
                                     <Image
-                                        src='https://user.oc-static.com/files/6001_7000/6410.jpg'
+                                        src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTL08lwqPFI-S8kfnAm2tKVq-9RZmXWoVZaL2aKHgp1F7MwwTwp&usqp=CAU'
                                         width='70'
                                         height='70'
                                         roundedCircle />
@@ -79,7 +83,8 @@ class MainChat extends React.Component {
                         <Col>
                             <Messages
                                 chats={this.state.chats}
-                                userPseudo={this.props.userPseudo} />
+                                userPseudo={this.props.userPseudo}
+                                urlProfil={this.state.url} />
                         </Col>
                     </Row>
                 </Col>
