@@ -17,16 +17,9 @@ class MainChat extends React.Component {
 
     componentWillMount = () => {
         this.getMessages(this.props.rmId);
-        const container = document.getElementById('chatview-container');
-        if (container)
-            container.scrollTo(0, container.scrollHeight);
     }
 
-    componentDidUpdate = () => {
-        const container = document.getElementById('chatview-container');
-        if (container)
-            container.scrollTo(0, container.scrollHeight);
-    }
+   
 
     getMessages = async (rmId) => {
         await firebase.firestore().collection('groupChats').doc(rmId.toString()).collection('messages').orderBy('date')
@@ -85,7 +78,7 @@ class MainChat extends React.Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col id="chatview-container">
+                        <Col>
                             <Messages
                                 chats={this.state.chats}
                                 userPseudo={this.props.userPseudo} />

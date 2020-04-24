@@ -1,10 +1,19 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import Spinner from 'react-bootstrap/Spinner'
 import Image from 'react-bootstrap/Image'
 import moment from 'moment';
 moment.locale('fr')
 
 const Messages = (props) => {
+
+    useEffect(() => {
+        if (divRef.current !== null) {
+            divRef.current.scrollIntoView({ behavior: 'smooth' })
+        }
+    })
+    
+    const divRef = useRef(null);
+
     const dateMsg = (date, pseudo) => {
         let currentTime = Date.now();
         if (moment(date).format('MMMM Do YYYY') !== moment(currentTime).format('MMMM Do YYYY')) {
@@ -47,7 +56,7 @@ const Messages = (props) => {
             :
             props.chats.map((_msg, _index) => {
                 return (
-                    <div key={_index} style={containerStyle}>
+                    <div id="chatview-container" key={_index} style={containerStyle} ref={divRef} >
                         <Image
                             src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTsnNC4gbMmE2V5uSBoN0UXhTbLKLpei7bn1j8AUso5JgebGpZv&usqp=CAU'
                             width='40px'
