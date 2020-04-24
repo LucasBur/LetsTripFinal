@@ -19,8 +19,6 @@ class MainChat extends React.Component {
         this.getMessages(this.props.rmId);
     }
 
-   
-
     getMessages = async (rmId) => {
         await firebase.firestore().collection('groupChats').doc(rmId.toString()).collection('messages').orderBy('date')
             .onSnapshot(async doc => {

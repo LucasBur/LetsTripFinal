@@ -6,22 +6,68 @@ import Sidebar from './Sidebar';
 import { FormUpdateUser } from './Forms/Update/FormUpdateUser';
 import onizukadauphin from '../design/wallpaper/onizukadauphin.jpg'
 import '../styles/Profile_style.css'
+const firebase = require('firebase')
 
 class Profile extends React.Component {
     constructor(props) {
         super(props);
+        this.handleUpload = this.handleUpload.bind(this)
+        this.onUpload = this.onUpload.bind(this)
         this.state = {
             userId: '',
             userFirst_name: '',
             userLast_name: '',
             userPseudo: '',
-            userEmail: ''
+            userEmail: '',
+            showAvatar: true,
+            image: null,
+            url: '',
         };
     }
 
-    componentWillMount() {
-        this.getUser()
+    handleUpload = e => {
+        if (e.target.files[0]) {
+            this.setState({
+                image: e.target.files[0]
+            })
+        }
     }
+
+    onUpload = () => {
+        const image = this.state.image;
+        const uploadTask = firebase.storage().ref(`images/${this.state.userId}/${this.state.userId}`).put(image);
+        uploadTask.on('state_changed',
+            snapshot => {
+
+            },
+            error => {
+                console.log(error);
+            },
+            () => {
+                firebase.storage().ref(`images/${this.state.userId}`).child(this.state.userId.toString()).getDownloadURL().then(url => {
+                    this.setState({ url: url })
+                })
+            })
+    }
+
+    async componentWillMount() {
+        await this.getUser()
+        firebase.storage().ref(`images/${this.state.userId}`).child(this.state.userId.toString()).getDownloadURL().then(url => {
+            this.setState({ url: url })
+        })
+        // const data = await firebase.storage().ref(`images/1`).listAll()
+        // const path = data.items[0].location.path
+        // console.log(path)
+        // .getDownloadURL().then(url => {
+        //     this.setState({ url: url })
+        // })
+    }
+
+    // getNameFile = (data) => {
+    //     for (let i =0; i < data.length; i++) {
+    //         console.log(data)
+    //     }
+    // }
 
     getUser = () => {
         const token = localStorage.token;
@@ -36,13 +82,21 @@ class Profile extends React.Component {
     }
 
     render() {
+        console.log(this.state.url)
         return (
             <div className="profile">
                 <Sidebar />
                 <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: 'auto' }}>
                     <Col as={Row} style={{ alignItems: 'center' }}>
                         <Col sm={5}>
-                            <img src={onizukadauphin} width='50%' alt='onizukadauphin' />
+                            {/* {
+                                this.state.url === '' ? null :  */}
+
+                            <div>
+                                <img src={this.state.url} width='50%' alt='onizukadauphin' />
+                                <input type='file' onChange={this.handleUpload} />
+                            </div>
+                            {/* } */}
                         </Col>
                         <Col sm={7}>
                             <h1> {this.state.userFirst_name} {this.state.userLast_name} </h1>
@@ -61,8 +115,9 @@ class Profile extends React.Component {
                             userPseudo={this.state.userPseudo}
                             userEmail={this.state.userEmail}
                             userFirstName={this.state.userFirst_name}
-                            userLastName={this.state.userLast_name} 
-                            getUser={this.getUser} />
+                            userLastName={this.state.userLast_name}
+                            getUser={this.getUser}
+                            onUpload={this.onUpload} />
                     </li>
                 </ul>
             </div>

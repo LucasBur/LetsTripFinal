@@ -46,8 +46,6 @@ export const FormUpdateUser = (props) => {
         }
     };
 
-    console.log(props)
-
     return <Formik
         initialValues={{
             id: `${props.userId}`,
@@ -58,6 +56,7 @@ export const FormUpdateUser = (props) => {
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
             updateUserSetting(values);
+            props.onUpload()
             resetForm();
             setSubmitting(false);
         }}

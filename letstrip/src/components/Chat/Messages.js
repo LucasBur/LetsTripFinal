@@ -5,7 +5,6 @@ import moment from 'moment';
 moment.locale('fr')
 
 const Messages = (props) => {
-
     useEffect(() => {
         if (divRef.current !== null) {
             divRef.current.scrollIntoView({ behavior: 'smooth' })
@@ -33,7 +32,7 @@ const Messages = (props) => {
             return (
                 <span style={{ display: 'flex', width: '200px', justifyContent: 'space-between' }}>
                     <h6>{pseudo}</h6>
-                    <time style={{ color: 'gray', fontSize: '0.8rem' }}>{moment(date).format('HH:mm:ss')}</time>
+                    <time style={{ color: 'gray', fontSize: '0.8rem' }}>{moment(date).format('HH:mm')}</time>
                 </span>
             )
         }
@@ -56,7 +55,7 @@ const Messages = (props) => {
             :
             props.chats.map((_msg, _index) => {
                 return (
-                    <div id="chatview-container" key={_index} style={containerStyle} ref={divRef} >
+                    <div key={_index} style={containerStyle} ref={divRef} >
                         <Image
                             src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTsnNC4gbMmE2V5uSBoN0UXhTbLKLpei7bn1j8AUso5JgebGpZv&usqp=CAU'
                             width='40px'

@@ -1,9 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import SidebarHomepage from './SidebarHomepage';
 import introLetsTrip from '../design/video/introLetsTrip.mp4'
 import '../styles/Homepage_style.css'
 
-const Homepage = () => {
+const Homepage = (props) => {
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            props.history.push('/dashboard')
+        }
+    })
     return (
         <div className='homepage'>
             <video autoPlay loop muted style={{
