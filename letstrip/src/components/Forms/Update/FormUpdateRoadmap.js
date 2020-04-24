@@ -163,7 +163,7 @@ export const FormUpdateRoadmap = (props) => {
                         </Form.Group>
 
                         <Button variant="primary" type="submit" disabled={isSubmitting}>
-                            Valider
+                            Enregistrer
                         </Button>
                     </Form>
                 </>
