@@ -57,7 +57,7 @@ const Messages = (props) => {
                 return (
                     <div key={_index} style={containerStyle} ref={divRef} >
                         <Image
-                            src={props.urlProfil}
+                            src={_msg.pseudo === props.userPseudo ? props.urlProfil : null}
                             width='40px'
                             height='40px'
                             roundedCircle />

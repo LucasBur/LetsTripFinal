@@ -1,10 +1,10 @@
 {
   "development": {
     "username": "root",
-    "password": "root",
+    "password": "",
     "database": "lets_trip",
     "host": "localhost",
-    "port": "8889",
+    "port": "3308",
     "dialect": "mysql",
     "operatorsAliases": false,
     "define": {
@@ -13,10 +13,10 @@
   },
   "test": {
     "username": "root",
-    "password": "root",
+    "password": "",
     "database": "lets_trip",
     "host": "localhost",
-    "port": "8889",
+    "port": "3308",
     "dialect": "mysql",
     "operatorsAliases": false,
     "define": {
@@ -25,10 +25,10 @@
   },
   "production": {
     "username": "root",
-    "password": "root",
+    "password": "",
     "database": "lets_trip",
     "host": "localhost",
-    "port": "8889",
+    "port": "3308",
     "dialect": "mysql",
     "operatorsAliases": false,
     "define": {

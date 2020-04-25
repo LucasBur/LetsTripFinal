@@ -44,6 +44,17 @@ class MainChat extends React.Component {
             });
     }
 
+    click = (e) => {
+        e.preventDefault()
+        firebase.firestore().collection('groupChats').doc('1').collection('messages/1')
+        .add({msg :'dogo'}).then(function () {
+            console.log("Document successfully written!");
+        })
+        .catch(function (error) {
+            console.error("Error writing document: ", error);
+        });
+    }
+
     render() {
         const container = {
             width: '100%', height: '90vh', display: 'flex', justifyContent: 'space-between', flexDirection: 'column'
@@ -61,6 +72,7 @@ class MainChat extends React.Component {
         }
         return (
             <div style={container}>
+                <button onClick={this.click.bind(this)}>click</button>
                 <Col>
                     <Row style={headerStyle}>
                         <Col>

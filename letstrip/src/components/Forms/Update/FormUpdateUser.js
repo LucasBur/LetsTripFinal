@@ -3,43 +3,26 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUpload } from '@fortawesome/free-solid-svg-icons'
 import auth from '../../../auth';
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
 export const FormUpdateUser = (props) => {
     const email = props.userEmail;
     const pseudo = props.userPseudo;
     const firstName = props.userFirstName;
     const lastName = props.userLastName;
-
-    const notify = (type, message) => {
-        switch (type) {
-            case '':
-                toast(message, { autoClose: 3000 })
-                break;
-            case 'info':
-                toast.info(message)
-                break;
-            case 'success':
-                toast.success(message)
-                break;
-            case 'error':
-                toast.error(message)
-                break;
-            default:
-                break;
-        }
-
-    }
+    const urlPic = props.urlPic;
+    const handleUpload = props.handleUpload;
+    console.log(urlPic)
 
     const updateUserSetting = async (values) => {
         try {
             const result = await auth.updateUserProfile(values);
             props.getUser();
-            notify('success', 'Profil mis à jour ✔');
+            props.notify('success', 'Profil mis à jour ✔');
             return result
         } catch (error) {
             console.log(error)
@@ -161,10 +144,39 @@ export const FormUpdateUser = (props) => {
                         </Col>
                     </Form.Group>
 
+                    {
+                        urlPic === '' || urlPic === null || urlPic === undefined ?
+                            <Form.Group as={Row}>
+                                <Form.Label column sm="5">
+                                    <label style={{ marginTop: '50px' }}>-</label>
+                                </Form.Label>
+                                <Col sm='7' style={{ display: 'flex' }}>
+                                    <Col sm='5' style={{ display: 'flex', alignItems: 'center' }}>
+                                        <input type="file" id="file" onChange={handleUpload} />
+                                        <label for='file' id='labelfile'> <FontAwesomeIcon icon={faUpload} />Ajouter votre photo !</label>
+                                    </Col>
+                                </Col>
+                            </Form.Group>
+                            :
+                            <Form.Group as={Row}>
+                                <Form.Label column sm="5">
+                                    <label style={{ marginTop: '50px' }}>Photo de profil</label>
+                                </Form.Label>
+                                <Col sm='7' style={{ display: 'flex' }}>
+                                    <img for='file' src={urlPic} width='100' height='100' alt='profil' />
+                                    <Col sm='5' style={{ display: 'flex', alignItems: 'center' }}>
+                                        <input type="file" id="file" onChange={handleUpload} />
+                                        <label for='file' id='labelfile'> <FontAwesomeIcon icon={faUpload} />Changer de photo</label>
+                                    </Col>
+                                </Col>
+                            </Form.Group>
+                    }
+
+
+
                     <Button id="button-formupdateuser-submit" type="submit" disabled={isSubmitting}>
                         Enregistrer
                     </Button>
-
                 </Form>
             )
         }}

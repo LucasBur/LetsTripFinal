@@ -17,3 +17,22 @@
   outline: none;
   float: right;
 }
+
+#file {
+  display:none
+}
+
+#labelfile {
+  color: white;
+  height: 35px;
+  background-color: #6666ff;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 10px
+}
+
+#labelfile:hover {
+  background-color: #2e2e9c;
+  cursor: pointer;
+  transition: .1s linear;
+}
