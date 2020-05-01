@@ -31,7 +31,8 @@ const Input = (props) => {
             let data = {
                 date: Date.now(),
                 msg: chat,
-                pseudo: props.userPseudo
+                pseudo: props.userPseudo,
+                id: props.userId
             }
             setChat('')
             props.submitMessage(data);

@@ -1,16 +1,27 @@
-import React, {useEffect, useRef} from 'react';
-import Spinner from 'react-bootstrap/Spinner'
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'react-bootstrap/Image'
 import moment from 'moment';
 moment.locale('fr')
+const firebase = require('firebase')
 
 const Messages = (props) => {
+    const [url, setUrl] = useState('')
+
     useEffect(() => {
         if (divRef.current !== null) {
             divRef.current.scrollIntoView({ behavior: 'smooth' })
         }
+        getProfilePictures(props.chats.id)
     })
-    
+    const getProfilePictures = async (id) => {
+        await firebase.storage().
+            ref(`images/${id}`)
+            .child(id.toString())
+            .getDownloadURL().then(url => {
+                setUrl(url)
+            })
+    }
+
     const divRef = useRef(null);
 
     const dateMsg = (date, pseudo) => {
@@ -47,27 +58,17 @@ const Messages = (props) => {
     }
     
     return (
-        props.chats.length === 0 ?
-
-            <Spinner animation="border" role="status">
-                <span className="sr-only">Loading...</span>
-            </Spinner>
-            :
-            props.chats.map((_msg, _index) => {
-                return (
-                    <div key={_index} style={containerStyle} ref={divRef} >
-                        <Image
-                            src={_msg.pseudo === props.userPseudo ? props.urlProfil : null}
-                            width='40px'
-                            height='40px'
-                            roundedCircle />
-                        <div style={{ marginLeft: '10px' }}>
-                            {dateMsg(_msg.date, _msg.pseudo)}
-                            <p style={msgStyle}>{_msg.msg}</p>
-                        </div>
-                    </div>
-                )
-            })
+        <div style={containerStyle} ref={divRef}>
+            <Image
+                src={url}
+                width='40px'
+                height='40px'
+                roundedCircle />
+            <div style={{ marginLeft: '10px' }}>
+                {dateMsg(props.chats.date, props.chats.pseudo)}
+                <p style={msgStyle}>{props.chats.msg}</p>
+            </div>
+        </div>
     )
 }
 

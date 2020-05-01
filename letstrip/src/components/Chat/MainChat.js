@@ -4,6 +4,7 @@ import Messages from './Messages';
 import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
 import Row from 'react-bootstrap/Row'
+import Spinner from 'react-bootstrap/Spinner'
 const firebase = require('firebase')
 
 class MainChat extends React.Component {
@@ -22,6 +23,12 @@ class MainChat extends React.Component {
             this.setState({ url: url })
         })
     }
+
+    // getProfilePictures = async () => {
+    //     await firebase.storage().ref(`images/${this.props.userId}`).child(this.props.userId.toString()).getDownloadURL().then(url => {
+    //         this.setState({ url: url })
+    //     })
+    // }
 
     getMessages = async (rmId) => {
         await firebase.firestore().collection('groupChats').doc(rmId.toString()).collection('messages').orderBy('date')
@@ -44,16 +51,6 @@ class MainChat extends React.Component {
             });
     }
 
-    click = (e) => {
-        e.preventDefault()
-        firebase.firestore().collection('groupChats').doc('1').collection('messages/1')
-        .add({msg :'dogo'}).then(function () {
-            console.log("Document successfully written!");
-        })
-        .catch(function (error) {
-            console.error("Error writing document: ", error);
-        });
-    }
 
     render() {
         const container = {
@@ -72,7 +69,6 @@ class MainChat extends React.Component {
         }
         return (
             <div style={container}>
-                <button onClick={this.click.bind(this)}>click</button>
                 <Col>
                     <Row style={headerStyle}>
                         <Col>
@@ -93,10 +89,26 @@ class MainChat extends React.Component {
                     </Row>
                     <Row>
                         <Col>
-                            <Messages
+                            {
+                                this.state.url === '' ?
+                                    <Spinner animation="border" role="status">
+                                        <span className="sr-only">Loading...</span>
+                                    </Spinner>
+                                    :
+                                    this.state.chats.map((element, index) => (
+                                        <div key={index}>
+                                            <Messages
+                                                index={index}
+                                                chats={element}
+                                                userPseudo={this.props.userPseudo}
+                                                urlProfil={this.state.url} />
+                                        </div>
+                                    ))
+                            }
+                            {/* <Messages
                                 chats={this.state.chats}
                                 userPseudo={this.props.userPseudo}
-                                urlProfil={this.state.url} />
+                                urlProfil={this.state.url} /> */}
                         </Col>
                     </Row>
                 </Col>
@@ -105,6 +117,7 @@ class MainChat extends React.Component {
                     <Col>
                         <Input
                             submitMessage={this.submitMessage}
+                            userId={this.props.userId}
                             userPseudo={this.props.userPseudo} />
                     </Col>
                 </Row>
