@@ -5,7 +5,7 @@ import MainChat from './Chat/MainChat';
 import Sidebar from './Sidebar';
 import Calendar from './Calendar'
 import Card from 'react-bootstrap/Card'
-import { FormUpdateRoadmap } from './Forms/Update/FormUpdateRoadmap';
+import { FormUpdateRoadmap } from './Forms/Update/RoadMap/FormUpdateRoadmap';
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import '../styles/MainRoadmap_style.css'
@@ -13,6 +13,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCogs, faCalendarAlt, faMapMarkedAlt, faCommentDots } from '@fortawesome/free-solid-svg-icons'
 import MainMap from './MainMap'
 import { FormInviteToRoadMap } from './Forms/Update/FormInviteToRoadMap'
+import CardParamsRoadMap from './Forms/Update/RoadMap/CardParamsRoadMap'
+
 toast.configure();
 
 class MainRoadMap extends React.Component {
@@ -170,36 +172,21 @@ class MainRoadMap extends React.Component {
             )
         } else if (this.state.showFormUpdateRoadmap) {
             content = (
-                <div>
-                    <Card className="mb-3">
-                        <Card.Header>
-                            Mettez à jour les informations de la Roadmap
-                        </Card.Header>
-                        <Card.Body>
-                            <FormUpdateRoadmap
-                                rmId={this.state.id}
-                                rmName={this.state.name}
-                                rmPassword={this.state.password}
-                                rmNbrParticipants={this.state.nbr_participants}
-                                rmStartDate={this.state.startDate}
-                                rmEndDate={this.state.endDate}
-                                rmLocation={this.state.location}
-                                rmBudget={this.state.budget}
-                                rmLeader={this.state.leader}
-                                notify={this.notify}
-                                getRoadmap={this.getRoadmap}
-                                switchContent={this.toCalendar} />
-                        </Card.Body>
-                    </Card>
-
-                    <Card>
-                        <Card.Header>
-                            Inviter des membres à la RoadMap
-                        </Card.Header>
-                        <Card.Body>
-                            <FormInviteToRoadMap roadMapId={this.state.roadMapId}/>
-                        </Card.Body>
-                    </Card>                    
+                <div>                
+                    <CardParamsRoadMap 
+                        rmId={this.state.id}
+                        rmName={this.state.name}
+                        rmPassword={this.state.password}
+                        rmNbrParticipants={this.state.nbr_participants}
+                        rmStartDate={this.state.startDate}
+                        rmEndDate={this.state.endDate}
+                        rmLocation={this.state.location}
+                        rmBudget={this.state.budget}
+                        rmLeader={this.state.leader}
+                        notify={this.notify}
+                        getRoadmap={this.getRoadmap}
+                        switchContent={this.toCalendar}
+                    />
                 </div>
             )
         } else if (this.state.showMainMap) {
