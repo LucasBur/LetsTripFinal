@@ -28,6 +28,7 @@ class Dashboard extends React.Component {
     componentWillMount() {
         const token = localStorage.token;
         const decoded = jwt_decode(token);
+        console.log('decoded:', decoded)
         this.setState({
             id: decoded.id,
             first_name: decoded.firstname,
@@ -41,6 +42,7 @@ class Dashboard extends React.Component {
     getRoadmapData(id) {
         axios.get(`http://localhost:4000/GetAllRoadMaps/${id}`)
             .then(response => {
+                console.log('response :', response)
                 this.setState({
                     roadMapsList: response.data
                 });
@@ -75,6 +77,7 @@ class Dashboard extends React.Component {
     }
 
     render() {
+        console.log(this.state.roadMapsList)
         const items = this.state.roadMapsList.map((element, i) => (
             <li key={i}> <RoadMapCard onDelete={this.onDelete} info={element} /> </li>
         ));

@@ -4,7 +4,6 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row';
 import Sidebar from './Sidebar';
 import { FormUpdateUser } from './Forms/Update/FormUpdateUser';
-import onizukadauphin from '../design/wallpaper/onizukadauphin.jpg'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import '../styles/Profile_style.css'
@@ -30,7 +29,7 @@ class Profile extends React.Component {
     notify = (type, message) => {
         switch (type) {
             case '':
-                toast(message, { autoClose: 4000, position: toast.POSITION.BOTTOM_RIGHT })
+                toast(message, { autoClose: 4000, position: toast.POSITION.TOP_RIGHT })
                 break;
             case 'info':
                 toast.info(message)
@@ -100,18 +99,12 @@ class Profile extends React.Component {
                 <ul style={{ marginTop: '50px', marginLeft: '50px', width: '100%', height: '90vh', overflow: 'auto' }}>
                     <Col as={Row} style={{ alignItems: 'center' }}>
                         <Col sm={5}>
-                            {this.state.url === '' ?
-                                <div>
-                                    <img src={onizukadauphin} width='250' height='250' alt='onizuka' />
-                                </div>
-                                :
-                                <div>
-                                    <img src={this.state.url} width='250' height='250' alt='profil' />
-                                </div>
-                            }
+                            <div>
+                                <img src={this.state.url} width='250' height='250' alt='profil' />
+                            </div>
                         </Col>
                         <Col sm={7}>
-                            <h1> {this.state.userFirst_name} {this.state.userLast_name} </h1>
+                            <h1 style={{fontSize:'20px', marginTop:'20px'}}> {this.state.userFirst_name} {this.state.userLast_name} </h1>
                             <span>
                                 <a href={urlProfile} alt='email'> {this.state.userEmail} </a>
                             </span>
@@ -119,7 +112,7 @@ class Profile extends React.Component {
                         </Col>
                     </Col>
 
-                    <h1>Mon Compte</h1>
+                    <h1 style={{marginTop:'30px'}}>Mon Compte</h1>
                     <hr></hr>
                     <li>
                         <FormUpdateUser

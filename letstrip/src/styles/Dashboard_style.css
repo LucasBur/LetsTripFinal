@@ -17,3 +17,26 @@
     outline: none;
     position: sticky;
 }
+
+@media screen and (max-width: 375px) {
+    .dashboard ul li .rm-text-center {
+        width: 300px;
+        text-align: center;
+    }
+
+    .dashboard ul li .rm-text-btn {
+        display: flex;
+        margin-top: 10px;
+    }
+
+    .dashboard ul li .rm-text-center .rm-text-date {
+        margin-top: 10px;
+        font-size: 15px;
+    }
+
+    /* .dashboard ul li .rm-text-container {
+        background-color: red;
+        display: flex;
+
+    } */
+}

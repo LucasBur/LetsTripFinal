@@ -20,8 +20,8 @@ class Activity extends React.Component {
 
     render() {
         return (
-            <div style={{ marginTop: '20px' }}>
-                <Card className="text-center mt-1">
+            <div className='mr-text-div' style={{ marginTop: '20px' }}>
+                <Card className="mr-text-center">
                     <Card.Header>{this.props.info.title}</Card.Header>
                     <Card.Body>
                         <Container fluid>
@@ -49,7 +49,7 @@ class Activity extends React.Component {
                                     getActivities={this.props.getActivities} />
                                 <button 
                                     style={{border:'none', background:'none'}}
-                                    onClick={this.handleDelete}> ❌</button>
+                                    onClick={this.handleDelete}> <span role='img' aria-label='img'> ❌ </span> </button>
                             </Row>
                         </Container>
                     </Card.Footer>

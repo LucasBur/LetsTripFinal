@@ -59,15 +59,9 @@ router.post('/Login', async (req, res) => {
         if (!user) {
             res.send(false);
             console.log('Mauvais email')
-            // return res.status(401).json({
-            //     text: "L'utilisateur n'existe pas"
-            // });
         } else if (!user.validPassword(req.body.password)) {
             res.send(false);
             console.log('Mauvais mdp')
-            // return res.status(401).json({
-            //     text: "Mot de passe incorrect"
-            // });
         } else {
             let token = jwt.sign(user.dataValues, config.secret, { expiresIn: 1440 });
             res.send(token)
@@ -112,7 +106,7 @@ router.get('/GetAllRoadMaps/:id', function (req, res) {
             res.send(false);
         } else {
             user.getRoadmaps().then(roadMaps => {
-                console.log(roadMaps)
+                console.log('roadMaps:', roadMaps)
                 var rmToSend = [];
                 roadMaps.forEach(element => {
                     rmToSend.push(element.dataValues);

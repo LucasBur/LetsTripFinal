@@ -26,15 +26,15 @@ class RoadMapCard extends React.Component {
 
     render() {
         return (
-            <Card className="text-center">
+            <Card className="rm-text-center">
                 <Card.Header>{this.props.info.name}</Card.Header>
-                <Card.Body>
-                    <Container fluid>
-                        <Row>
+                <Card.Body className="rm-text-body">
+                    <Container fluid className="rm-text-container">
+                        <Row className='rm-text-row'>
                             <Col>Voyage en {this.props.info.location}</Col>
                             <Col>{this.props.info.nbr_participants} participant(s)</Col>
-                            <Col>Du {this.props.info.startDate} au {this.props.info.endDate}</Col>
-                            <Col>
+                            <Col className='rm-text-date'>Du {this.props.info.startDate} au {this.props.info.endDate}</Col>
+                            <Col className='rm-text-btn'>
                                 <Button variant="dark" onClick={this.openRoadMap}>Consulter</Button>
                                 <Button 
                                     variant="danger" 

@@ -20,6 +20,7 @@ class MainRoadMap extends React.Component {
         super(props);
         this.sidebarSettings = this.sidebarSettings.bind(this)
         this.getRoadmap = this.getRoadmap.bind(this)
+        this.wrapperRef = React.createRef()
         this.state = {
             userId: '',
             userFirst_name: '',

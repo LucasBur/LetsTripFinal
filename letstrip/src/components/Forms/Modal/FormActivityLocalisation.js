@@ -25,12 +25,12 @@ export const FormActivityLocalisation = (props) => {
         }
 
         axios.put(`http://localhost:4000/SetLocationActivity/${props.id}`,
-                    values,
-                    { headers: { "Content-Type": "application/json" } })
-        .then(() => {
-            props.getActivities(props.rmId, props.day)
-            handleClose()
-        })
+            values,
+            { headers: { "Content-Type": "application/json" } })
+            .then(() => {
+                props.getActivities(props.rmId, props.day)
+                handleClose()
+            })
     }
 
     const onChangeLocation = (markerLat, markerLng) => {
@@ -40,14 +40,16 @@ export const FormActivityLocalisation = (props) => {
 
     return (
         <>
-            <Button variant="outline-success" size="sm" onClick={handleShow}>Localiser <span role='img'>📍</span> </Button>
+            <Button variant="outline-success" size="sm" onClick={handleShow}>Localiser 
+                <span role="img" aria-label='img'>📍</span>
+            </Button>
 
             <Modal show={show} onHide={handleClose} animation={false} size="lg" dialogClassName={modalStyle}>
                 <Modal.Header closeButton>
                     <Modal.Title>Localiser l'activité</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>                    
-                    <MapContainer onChangeLocation={onChangeLocation} lat={lat} lng={lng}/>
+                <Modal.Body>
+                    <MapContainer onChangeLocation={onChangeLocation} lat={lat} lng={lng} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" size="sm" onClick={saveLocalisation}>Enregistré</Button>

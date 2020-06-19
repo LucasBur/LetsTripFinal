@@ -26,7 +26,7 @@ const Input = (props) => {
         event.preventDefault();
         if (chat === '') {
             console.log('empty msg')
-        } 
+        }
         else {
             let data = {
                 date: Date.now(),
@@ -42,25 +42,31 @@ const Input = (props) => {
 
     const buttonStyle = {
         width: '100px', backgroundColor: '#6666ff', borderColor: '#6666ff'
+    };
+    const buttonStylePhone = {
+        width: '40px', backgroundColor: '#6666ff', borderColor: '#6666ff'
     }
 
+    const buttonStyle2phone = {
+        width: '40px', backgroundColor: '#ffc107', borderColor: '#ffc107'
+    };
     const buttonStyle2 = {
         width: '100px', backgroundColor: '#ffc107', borderColor: '#ffc107'
     }
-
     const emojiStyle = {
-        marginLeft:'78.5%'
-    }
+        width: '315px'
+    };
+
     return (
         <div>
             {showEmoji ? <InputGroup.Append style={emojiStyle}>
-                        <span>
-                            <Picker onSelect={addEmoji} />
-                        </span>
-                    </InputGroup.Append> : null} 
-                    
+                <span>
+                    <Picker onSelect={addEmoji} style={window.innerWidth < 376 ? emojiStyle : null} />
+                </span>
+            </InputGroup.Append> : null}
+
             <Form onSubmit={onSubmit}>
-                <InputGroup >
+                <InputGroup>
                     <Form.Control
                         style={{ height: '50px' }}
                         value={chat}
@@ -68,20 +74,23 @@ const Input = (props) => {
                         type='text'
                         placeholder='Enter your message ...'
                     />
-
                     <InputGroup.Append>
-                        <Button style={buttonStyle2} onClick={handleEmoji}>
+                        <Button
+                            style={
+                                window.innerWidth < 376 ?
+                                    buttonStyle2phone : buttonStyle2
+                            }
+                            onClick={handleEmoji}>
                             <FontAwesomeIcon icon={faSmile} />
                         </Button>
                     </InputGroup.Append>
 
                     <InputGroup.Append>
-                        <Button type='submit' style={buttonStyle}>
+                        <Button type='submit'
+                            style={window.innerWidth < 378 ? buttonStylePhone : buttonStyle}>
                             <FontAwesomeIcon icon={faPaperPlane} />
                         </Button>
                     </InputGroup.Append>
-
-
                 </InputGroup>
             </Form>
         </div>

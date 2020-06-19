@@ -4,6 +4,7 @@ import Messages from './Messages';
 import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
 import Row from 'react-bootstrap/Row'
+
 import Spinner from 'react-bootstrap/Spinner'
 const firebase = require('firebase')
 
@@ -61,7 +62,8 @@ class MainChat extends React.Component {
         }
 
         const headerChildStyle = {
-            display: "flex", justifyContent: 'space-between', width: '560px'
+            display: "flex",
+            justifyContent: 'space-between'
         }
 
         const footerStyle = {
@@ -78,10 +80,12 @@ class MainChat extends React.Component {
                                         src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTL08lwqPFI-S8kfnAm2tKVq-9RZmXWoVZaL2aKHgp1F7MwwTwp&usqp=CAU'
                                         width='70'
                                         height='70'
-                                        roundedCircle />
+                                        roundedCircle
+                                        style={{marginBottom:'5px'}} />
                                 </div>
                                 <div>
-                                    <h1>{this.props.rmName} - Group Chat</h1>
+                                    <h1 style={window.innerWidth < 376 ? {fontSize:'15px'}: null}>
+                                            {this.props.rmName} - Group Chat</h1>
                                     <h6 style={{ fontWeight: '300' }}>{this.props.rmNbrParticipants} Membres</h6>
                                 </div>
                             </div>
@@ -105,10 +109,6 @@ class MainChat extends React.Component {
                                         </div>
                                     ))
                             }
-                            {/* <Messages
-                                chats={this.state.chats}
-                                userPseudo={this.props.userPseudo}
-                                urlProfil={this.state.url} /> */}
                         </Col>
                     </Row>
                 </Col>

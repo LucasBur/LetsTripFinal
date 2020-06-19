@@ -26,6 +26,7 @@ class Calendar extends React.Component {
             leader: '',
             dayNbr: '',
             refreshActivity: true,
+            alignement: null
         };
         this.getRoadmap = this.getRoadmap.bind(this)
     };
@@ -68,6 +69,40 @@ class Calendar extends React.Component {
         return dayDiff
     }
 
+    toAlign = () => {
+        if (window.innerWidth < 376) {
+            return (
+                <ListGroup vertical>
+                    {Array.from({ length: this.state.dayNbr }, (_, k) => (
+                        <li key={k}>
+                            <DayCalendar
+                                rmId={this.props.roadMapId}
+                                dayNbr={this.state.dayNbr}
+                                day={k + 1}
+                                refresh={this.refreshActivity}
+                                notify={this.props.notify} />
+                        </li>
+                    ))}
+                </ListGroup>
+            )
+        } else {
+            return (
+                <ListGroup horizontal>
+                    {Array.from({ length: this.state.dayNbr }, (_, k) => (
+                        <li key={k}>
+                            <DayCalendar
+                                rmId={this.props.roadMapId}
+                                dayNbr={this.state.dayNbr}
+                                day={k + 1}
+                                refresh={this.refreshActivity}
+                                notify={this.props.notify} />
+                        </li>
+                    ))}
+                </ListGroup>
+            )
+        }
+    }
+
     refreshActivity = () => {
         this.setState({
             refreshActivity: !this.state.refreshActivity
@@ -84,18 +119,7 @@ class Calendar extends React.Component {
                     refreshActivity={this.refreshActivity}
                     notify={this.props.notify} />
 
-                <ListGroup horizontal>
-                    {Array.from({ length: this.state.dayNbr }, (_, k) => (
-                        <li key={k}>
-                            <DayCalendar
-                                rmId={this.props.roadMapId}
-                                dayNbr={this.state.dayNbr}
-                                day={k + 1}
-                                refresh={this.refreshActivity}
-                                notify={this.props.notify} />
-                        </li>
-                    ))}
-                </ListGroup>
+                {this.toAlign()}
             </div>
         );
     };

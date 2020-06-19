@@ -1,13 +1,13 @@
 import React from 'react';
 import axios from 'axios';
-import { Card, Form, Button } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 import * as Yup from "yup"
 import { Formik } from "formik"
 import { toast } from 'react-toastify'
 //import 'react-toastify/dist/ReactToastify.css'
 
 export const FormInviteToRoadMap = (props) => {
-    
+
     const notify = (type, message) => {
         switch (type) {
             case '':
@@ -21,6 +21,7 @@ export const FormInviteToRoadMap = (props) => {
                 break;
             case 'error':
                 toast.error(message)
+                break;
             default:
                 break;
         }
@@ -34,15 +35,15 @@ export const FormInviteToRoadMap = (props) => {
             }}
             onSubmit={(values, { setSubmitting, resetForm }) => {
                 //updateUserSetting(values);                
-                
+
                 axios.post('http://localhost:4000/InviteToRoadMap', values, { headers: { "Content-Type": "application/json" } })
-                .then(response => {                    
-                    if(response.data === false){
-                        notify('error', "L'utilisateur est introuvable")
-                    } else if (response.data === true) {
-                        notify('success', "L'utilisateur a été ajouté")
-                    }
-                })
+                    .then(response => {
+                        if (response.data === false) {
+                            notify('error', "L'utilisateur est introuvable")
+                        } else if (response.data === true) {
+                            notify('success', "L'utilisateur a été ajouté")
+                        }
+                    })
 
                 resetForm();
                 setSubmitting(false);
@@ -57,12 +58,12 @@ export const FormInviteToRoadMap = (props) => {
                     <Form onSubmit={handleSubmit}>
                         <Form.Group>
                             <Form.Label>Email</Form.Label>
-                            <Form.Control 
-                                name="email" 
+                            <Form.Control
+                                name="email"
                                 value={values.email}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                className={errors.email && touched.email && "error"}    
+                                className={errors.email && touched.email && "error"}
                             />
                             {errors.email && touched.email && (
                                 <div className="input-feedback">{errors.email}</div>
@@ -71,9 +72,9 @@ export const FormInviteToRoadMap = (props) => {
                         <Button type="submit" disabled={isSubmitting}>
                             Ajouter
                         </Button>
-                    </Form>                    
+                    </Form>
                 )
-            }}            
+            }}
         </Formik>
     )
 }
