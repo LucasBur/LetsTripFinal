@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row';
 import Sidebar from './Sidebar';
 import { FormUpdateUser } from './Forms/Update/FormUpdateUser';
+import { FormUpdatePassword } from './Forms/Modal/FormUpdatePassword';
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import '../styles/Profile_style.css'
@@ -20,6 +21,7 @@ class Profile extends React.Component {
             userLast_name: '',
             userPseudo: '',
             userEmail: '',
+            userPassword: '',
             showAvatar: true,
             image: null,
             url: '',
@@ -82,12 +84,14 @@ class Profile extends React.Component {
     getUser = () => {
         const token = localStorage.token;
         const decoded = jwt_decode(token);
+        console.log('decoded:', decoded)
         this.setState({
             userId: decoded.id,
             userFirst_name: decoded.firstname,
             userLast_name: decoded.lastname,
             userPseudo: decoded.pseudo,
             userEmail: decoded.email,
+            userPassword: decoded.password
         });
     }
 
@@ -104,7 +108,7 @@ class Profile extends React.Component {
                             </div>
                         </Col>
                         <Col sm={7}>
-                            <h1 style={{fontSize:'20px', marginTop:'20px'}}> {this.state.userFirst_name} {this.state.userLast_name} </h1>
+                            <h1 style={{ fontSize: '20px', marginTop: '20px' }}> {this.state.userFirst_name} {this.state.userLast_name} </h1>
                             <span>
                                 <a href={urlProfile} alt='email'> {this.state.userEmail} </a>
                             </span>
@@ -112,8 +116,21 @@ class Profile extends React.Component {
                         </Col>
                     </Col>
 
-                    <h1 style={{marginTop:'30px'}}>Mon Compte</h1>
+                    <h1 style={{ marginTop: '30px' }}>Mon Compte</h1>
                     <hr></hr>
+                    <li style={{
+                        display: 'flex', justifyContent: 'space-between', width: '40%'
+                    }}>
+                        {/* <button
+                            style={{
+                                border: 'none', outline: 'none', color: '#007bff', background: 'none'
+                            }}>Changer votre e-mail</button>
+                        <button
+                            style={{
+                                border: 'none', outline: 'none', color: '#007bff', background: 'none'
+                            }}>Changer votre mot de passe</button> */}
+                        <FormUpdatePassword userPassword={this.state.userPassword} />
+                    </li>
                     <li>
                         <FormUpdateUser
                             userId={this.props.match.params.id}

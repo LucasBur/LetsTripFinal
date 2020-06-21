@@ -12,7 +12,7 @@ import '../styles/MainRoadmap_style.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCogs, faCalendarAlt, faMapMarkedAlt, faCommentDots } from '@fortawesome/free-solid-svg-icons'
 import MainMap from './MainMap'
-import { FormInviteToRoadMap } from './Forms/Update/FormInviteToRoadMap'
+// import { FormInviteToRoadMap } from './Forms/Update/FormInviteToRoadMap'
 import CardParamsRoadMap from './Forms/Update/RoadMap/CardParamsRoadMap'
 
 toast.configure();

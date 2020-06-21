@@ -100,15 +100,6 @@ export const FormUpdateUser = (props) => {
 
                     <Form.Group as={Row}>
                         <Form.Label column sm="5">
-                            Password
-                        </Form.Label>
-                        <Col sm="7">
-                            <Form.Control readOnly type="password" placeholder="Password" />
-                        </Col>
-                    </Form.Group>
-
-                    <Form.Group as={Row}>
-                        <Form.Label column sm="5">
                             Prénom
                         </Form.Label>
                         <Col sm="7">
