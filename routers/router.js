@@ -69,22 +69,39 @@ router.post('/Login', async (req, res) => {
     });
 });
 
-router.put('/UpdateUser/:id', function(req, res) {     
-    db.users.findOne({ where: { id: req.params.id }}).then(user => {
-        if(user == null){
+router.put('/UpdateUser/:id', function (req, res) {
+    db.users.findOne({ where: { id: req.params.id } }).then(user => {
+        if (user == null) {
             res.send(false);
         } else {
             user.email = req.body.email;
             user.pseudo = req.body.pseudo;
             user.firstname = req.body.firstName;
             user.lastname = req.body.lastName;
-            //user.password = req.body.password;
             user.save();
             let token = jwt.sign(user.dataValues, config.secret, { expiresIn: 1440 });
             res.send(token);
         }
     });
 });
+
+router.put('/update-password/:id', function (req, res) {
+    db.users.findOne({ where: { id: req.params.id } }).then(user => {
+        if (user == null) {
+            res.send(false)
+        }
+        else if (!user.validPassword(req.body.currentPassword)) {
+            res.send(false)
+            console.log('Mauvais MDP')
+        }
+        else {
+            user.password = req.body.newPassword
+            user.save()
+            let token = jwt.sign(user.dataValues, config.secret, { expiresIn: 1440 });
+            res.send(token);
+        }
+    })
+})
 //#endregion
 
 //#region RoadMaps
@@ -130,17 +147,17 @@ router.post('/CreateRoadMap', function (req, res) {
         budget: req.body.budget,
         //leader: req.body.leader
     },
-    {
-        include: [db.users]
-    }).then(roadmap => {
-        roadmap.addUser(req.body.id, { through: { isLeader: true }})
-        res.send(roadmap);        
-    }).catch(err => res.status(400).json('Error: ' + err));
+        {
+            include: [db.users]
+        }).then(roadmap => {
+            roadmap.addUser(req.body.id, { through: { isLeader: true } })
+            res.send(roadmap);
+        }).catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.put('/updateRoadmap/:id', (req, res) => {     
-    db.roadmaps.findOne({ where: { id: req.params.id }}).then(roadmap => {
-        if(roadmap == null){
+router.put('/updateRoadmap/:id', (req, res) => {
+    db.roadmaps.findOne({ where: { id: req.params.id } }).then(roadmap => {
+        if (roadmap == null) {
             res.send(false);
         } else {
             roadmap.name = req.body.name;
@@ -169,22 +186,22 @@ router.delete('/DeleteRoadMap/:id', (req, res) => {
     });
 });
 
-router.post('/InviteToRoadMap', (req, res) => {    
-    db.users.findOne({ where: { email: req.body.email }}).then(user => {
-        if(user === null) {
+router.post('/InviteToRoadMap', (req, res) => {
+    db.users.findOne({ where: { email: req.body.email } }).then(user => {
+        if (user === null) {
             res.send(false)
         } else {
-            db.roadmaps.findOne({ where: { id: req.body.roadMapId }}).then(roadmap => {
+            db.roadmaps.findOne({ where: { id: req.body.roadMapId } }).then(roadmap => {
                 roadmap.addUser(user.id)
                 res.send(true)
             })
-        }        
+        }
     })
 })
 //#endregion
 
 //#region Activity
-router.post('/CreateActivity', function (req, res){
+router.post('/CreateActivity', function (req, res) {
     console.log(req.body);
     db.activities.create({
         roadmapId: req.body.id,
@@ -202,31 +219,31 @@ router.post('/CreateActivity', function (req, res){
     });
 });
 
-router.get('/GetActivities/:id/:day', function(req, res){
-    db.activities.findAll({ 
-        where : {
+router.get('/GetActivities/:id/:day', function (req, res) {
+    db.activities.findAll({
+        where: {
             roadmapId: req.params.id,
             day: req.params.day
         },
-        order:[
+        order: [
             ['startHour', 'ASC']
         ]
     }).then(activities => {
-        if(activities.length == 0){            
+        if (activities.length == 0) {
             res.send(false);
-        } else {                        
+        } else {
             var activitiesToSend = [];
             activities.forEach(element => {
                 activitiesToSend.push(element.dataValues);
             });
             res.send(JSON.stringify(activitiesToSend));
-        }        
+        }
     });
 });
 
-router.get('/GetAllActivitiesForMap/:id', function(req, res){
-    db.activities.findAll({ 
-        where : {
+router.get('/GetAllActivitiesForMap/:id', function (req, res) {
+    db.activities.findAll({
+        where: {
             roadmapId: req.params.id,
             latitude: {
                 [Op.ne]: null
@@ -235,19 +252,19 @@ router.get('/GetAllActivitiesForMap/:id', function(req, res){
                 [Op.ne]: null
             }
         },
-        order:[
+        order: [
             ['startHour', 'ASC']
         ]
     }).then(activities => {
-        if(activities.length == 0){            
+        if (activities.length == 0) {
             res.send(false);
-        } else {                        
+        } else {
             var activitiesToSend = [];
             activities.forEach(element => {
                 activitiesToSend.push(element.dataValues);
             });
             res.send(JSON.stringify(activitiesToSend));
-        }        
+        }
     });
 });
 
@@ -263,8 +280,8 @@ router.delete('/DeleteActivity/:id', (req, res) => {
 });
 
 router.put('/UpdateActivity/:id', (req, res) => {
-    db.activities.findOne({ where: { id: req.params.id }}).then(activity => {        
-        if(activity == null){
+    db.activities.findOne({ where: { id: req.params.id } }).then(activity => {
+        if (activity == null) {
             res.send(false);
         } else {
             activity.title = req.body.title;
@@ -280,8 +297,8 @@ router.put('/UpdateActivity/:id', (req, res) => {
 });
 
 router.put('/SetLocationActivity/:id', (req, res) => {
-    db.activities.findOne({ where: { id: req.params.id }}).then(activity => {        
-        if(activity == null){
+    db.activities.findOne({ where: { id: req.params.id } }).then(activity => {
+        if (activity == null) {
             res.send(false);
         } else {
             activity.latitude = req.body.lat;

@@ -44,12 +44,25 @@ export default {
     },
 
     updateUserProfile: async (values) => {
+        console.log('values:', values)
         try {
             const updateUser = await axios.put(`http://localhost:4000/UpdateUser/${values.id}`, values, { headers: headers });
             localStorage.setItem("token", updateUser.data);
             console.log('user info : ', updateUser);
         } catch (error) {
             console.log(`😱 Axios request failed: ${error}`)
+        }
+    },
+
+    updatePassword: async (values) => {
+        console.log('values:', values)
+        try {
+            const updatePw = await axios.put(`http://localhost:4000/update-password/${values.id}`, 
+                values, {headers: headers });
+            console.log('updatePw : ', updatePw)
+            localStorage.setItem('token', updatePw.data);
+        } catch (error) {
+            console.error(error)
         }
     },
 

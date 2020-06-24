@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import auth from '../../../auth';
+import axios from 'axios';
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -11,30 +11,46 @@ export const FormUpdatePassword = (props) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const handleSubmit = () => {
-        let password = 'zqdnjkqzd23'
-        
+    const handleSubmit = async (values) => {
+        try {
+            const updatePw = await axios.put(`http://localhost:4000/update-password/${values.id}`,
+                values, { headers: { "Content-Type": "application/json" } });
+            console.log('updatePw : ', updatePw)
+            if (updatePw.data === false) {
+                props.notify('error', 'Mot de passe incorrect ✘')
+            }
+            else {
+                localStorage.setItem('token', updatePw.data);
+                props.notify('success', 'Mot de passe mis à jour ✔')
+            }
+
+        } catch (error) {
+            console.error(error)
+        }
     }
-    
+
     return <Formik
         initialValues={{
-            currentPassword: '', newPassword: '', passwordConfirmation:''
+            id: `${props.userId}`,
+            currentPassword: '',
+            newPassword: '', passwordConfirmation: ''
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
             console.log(values)
+            handleSubmit(values)
             handleClose()
             resetForm();
             setSubmitting(false);
         }}
         validationSchema={Yup.object().shape({
             currentPassword: Yup.string()
-            .required("Mot de passe requis."),
+                .required("Mot de passe requis."),
             newPassword: Yup.string()
-            .required("Nouveau Mot de passe requis.")
-            .min(8, "8 caractères minimum.")
-            .matches(/(?=.*[0-9])/, "Doit contenir minimum 1 chiffre"),
+                .required("Nouveau Mot de passe requis.")
+                .min(8, "8 caractères minimum.")
+                .matches(/(?=.*[0-9])/, "Doit contenir minimum 1 chiffre"),
             passwordConfirmation: Yup.string()
-            .oneOf([Yup.ref('newPassword'), null], 'Passwords must match')
+                .oneOf([Yup.ref('newPassword'), null], 'Passwords must match')
         })}>
 
         {props => {
@@ -85,7 +101,7 @@ export const FormUpdatePassword = (props) => {
                                     )}
                                 </Form.Group>
 
-                               <Form.Group>
+                                <Form.Group>
                                     <Form.Label>Confirmer nouveau Mot de Passe</Form.Label>
                                     <Form.Control
                                         name="passwordConfirmation"

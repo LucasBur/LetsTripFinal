@@ -129,7 +129,10 @@ class Profile extends React.Component {
                             style={{
                                 border: 'none', outline: 'none', color: '#007bff', background: 'none'
                             }}>Changer votre mot de passe</button> */}
-                        <FormUpdatePassword userPassword={this.state.userPassword} />
+                        <FormUpdatePassword 
+                            userId={this.props.match.params.id} 
+                            userPassword={this.state.userPassword}
+                            notify={this.notify} />
                     </li>
                     <li>
                         <FormUpdateUser
