@@ -11,7 +11,7 @@ export const FormUpdatePassword = (props) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const handleSubmit = async (values) => {
+    const changePassword = async (values) => {
         try {
             const updatePw = await axios.put(`http://localhost:4000/update-password/${values.id}`,
                 values, { headers: { "Content-Type": "application/json" } });
@@ -37,7 +37,7 @@ export const FormUpdatePassword = (props) => {
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
             console.log(values)
-            handleSubmit(values)
+            changePassword(values)
             handleClose()
             resetForm();
             setSubmitting(false);

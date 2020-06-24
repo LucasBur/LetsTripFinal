@@ -121,16 +121,8 @@ class Profile extends React.Component {
                     <li style={{
                         display: 'flex', justifyContent: 'space-between', width: '40%'
                     }}>
-                        {/* <button
-                            style={{
-                                border: 'none', outline: 'none', color: '#007bff', background: 'none'
-                            }}>Changer votre e-mail</button>
-                        <button
-                            style={{
-                                border: 'none', outline: 'none', color: '#007bff', background: 'none'
-                            }}>Changer votre mot de passe</button> */}
-                        <FormUpdatePassword 
-                            userId={this.props.match.params.id} 
+                        <FormUpdatePassword
+                            userId={this.props.match.params.id}
                             userPassword={this.state.userPassword}
                             notify={this.notify} />
                     </li>

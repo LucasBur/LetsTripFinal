@@ -18,6 +18,13 @@
     position: sticky;
 }
 
+.dashboard ul li .rm-text-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 100%;
+}
+
 @media screen and (max-width: 375px) {
     .dashboard ul li .rm-text-center {
         width: 300px;

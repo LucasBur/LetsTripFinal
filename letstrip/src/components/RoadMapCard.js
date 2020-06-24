@@ -39,7 +39,9 @@ class RoadMapCard extends React.Component {
                                 <Button 
                                     variant="danger" 
                                     className="mr-2" 
-                                    style={{marginLeft:'15px'}} 
+                                    style={{
+                                        marginLeft:'15px'
+                                    }} 
                                     onClick={() => {
                                     window.confirm('Êtes-vous sûr de supprimer votre Roadmap ?') && 
                                     this.props.onDelete(this.props.info.id)
