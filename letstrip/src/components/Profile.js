@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row';
 import Sidebar from './Sidebar';
 import { FormUpdateUser } from './Forms/Update/FormUpdateUser';
+import { FormUpdateEmail } from './Forms/Update/FormUpdateEmail';
 import { FormUpdatePassword } from './Forms/Modal/FormUpdatePassword';
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -125,7 +126,13 @@ class Profile extends React.Component {
                             userId={this.props.match.params.id}
                             userPassword={this.state.userPassword}
                             notify={this.notify} />
+
+                        <FormUpdateEmail
+                            userId={this.props.match.params.id}
+                            notify={this.notify}
+                        />
                     </li>
+
                     <li>
                         <FormUpdateUser
                             userId={this.props.match.params.id}

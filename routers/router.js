@@ -59,10 +59,12 @@ router.post('/Login', async (req, res) => {
         if (!user) {
             res.send(false);
             console.log('Mauvais email')
-        } else if (!user.validPassword(req.body.password)) {
+        } 
+        else if (!user.validPassword(req.body.password)) {
             res.send(false);
             console.log('Mauvais mdp')
-        } else {
+        } 
+        else {
             let token = jwt.sign(user.dataValues, config.secret, { expiresIn: 1440 });
             res.send(token)
         }
@@ -99,6 +101,30 @@ router.put('/update-password/:id', function (req, res) {
             user.save()
             let token = jwt.sign(user.dataValues, config.secret, { expiresIn: 1440 });
             res.send(token);
+        }
+    })
+})
+
+router.put('/update-email/:id', function (req, res) {
+    db.users.findOne({where:{id: req.params.id}}).then(user => {
+        if (!user) {
+            res.send(false)
+        }
+        else {
+            user.email = req.body.newEmail
+            user.save();
+            let token = jwt.sign(user.dataValues, config.secret, {expiresIn: 1440});
+            res.send(token)
+        }
+    })
+})
+
+router.post('/reset-password', function(req, res) {
+    const email = req.body.email;
+    db.users.findOne({where: {email: email}}).then(user => {
+        if (!user) {
+            res.send(false)
+            console.log('Utilisateur introuvable')
         }
     })
 })
