@@ -97,7 +97,7 @@ export const FormUpdateUser = (props) => {
                         </Col>
                     </Form.Group>
 
-                    {/* <Form.Group as={Row}>
+                    <Form.Group as={Row}>
                         <Form.Label column sm="5">
                             Prénom
                         </Form.Label>

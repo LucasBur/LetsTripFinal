@@ -132,10 +132,7 @@ class Profile extends React.Component {
                             notify={this.notify}
                         />
                     </li>
-
-                    <li>
-                        <FormUpdatePwUser userPassword={this.state.userPassword} />
-                    </li>
+                    
                     <li>
                         <FormUpdateUser
                             userId={this.props.match.params.id}
