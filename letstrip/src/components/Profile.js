@@ -134,6 +134,9 @@ class Profile extends React.Component {
                     </li>
 
                     <li>
+                        <FormUpdatePwUser userPassword={this.state.userPassword} />
+                    </li>
+                    <li>
                         <FormUpdateUser
                             userId={this.props.match.params.id}
                             userPseudo={this.state.userPseudo}

@@ -16,7 +16,6 @@ export const FormUpdateUser = (props) => {
     const lastName = props.userLastName;
     const urlPic = props.urlPic;
     const handleUpload = props.handleUpload;
-    console.log(urlPic)
 
     const updateUserSetting = async (values) => {
         try {
@@ -98,7 +97,7 @@ export const FormUpdateUser = (props) => {
                         </Col>
                     </Form.Group>
 
-                    <Form.Group as={Row}>
+                    {/* <Form.Group as={Row}>
                         <Form.Label column sm="5">
                             Prénom
                         </Form.Label>
@@ -162,9 +161,6 @@ export const FormUpdateUser = (props) => {
                                 </Col>
                             </Form.Group>
                     }
-
-
-
                     <Button id="button-formupdateuser-submit" type="submit" disabled={isSubmitting}>
                         Enregistrer
                     </Button>

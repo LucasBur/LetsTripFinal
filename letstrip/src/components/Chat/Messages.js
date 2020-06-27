@@ -28,7 +28,7 @@ const Messages = (props) => {
             return (
                 <span className='date-msg-1'>
                     <h6>{pseudo}</h6>
-                    <time style={{ color: 'gray', fontSize: '0.8rem' }}>{moment(date).format('MMMM Do YYYY, HH:mm:ss')}</time>
+                    <time style={{ color: 'gray', fontSize: '0.8rem' }}>{moment(date).format('MMMM Do, HH:mm:ss')}</time>
                 </span>
             )
         } else if (moment(date).format('MMMM Do YYYY, HH:mm:ss') === 'Invalid date') {
